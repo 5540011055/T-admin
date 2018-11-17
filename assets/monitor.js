@@ -5,7 +5,7 @@ function shopJobmonitor() {
       }, 'slide-ios');
       setTimeout(function () {
       shopManage()
-    },1000);
+    },2000);
       // var url = "shop/list_trans?filter_type=" + filter_type;
       // console.log(url);
       // $.post(url, function (ele) {

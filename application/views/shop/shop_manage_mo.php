@@ -54,7 +54,7 @@ foreach ($_POST[data] as $key => $val) {
     <a href="line://ti/p/<?=$res_dv->line_id;?>" target="_blank" style="display: none;" id="line_driver_<?=$val[id];?>"><?=$res_dv->zello_id;?></a>
     <div class="box-shop">
       <?php if ($_GET[wait_trans] == "") {?>
-        <span class="time-post-shop" id="txt_date_diff_<?=$val[id];?>" style="font-size:14px;">-</span>
+        <!-- <span class="time-post-shop" id="txt_date_diff_<?=$val[id];?>" style="font-size:14px;">-</span> -->
         <?php
         $width = "50";
       }
@@ -62,6 +62,7 @@ foreach ($_POST[data] as $key => $val) {
       <table width="100%">
         <tr>
           <td><span class="font-18"><?=date("d/m/Y",$val[post_date]);?></span></td>
+        <td>  <span class="font-18" id="txt_date_diff_<?=$val[id];?>" style="font-size:14px;">-</span></td>
         </tr>
       </table>
       <table width="100%"  >
@@ -87,7 +88,7 @@ foreach ($_POST[data] as $key => $val) {
             ?>
           
         <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-bottom : 0px solid #DADADA;" id="row_place_1">
-                <tr>
+                <!-- <tr>
                     <td width="130">
                       <img src="../data/pic/place/1_logo.jpg" alt="" style="box-shadow: 1px 1px 3px #333333;border-radius:  8px; border: 1px solid #ddd;height: 65px;width: 110px; ">
                     </td>
@@ -96,7 +97,7 @@ foreach ($_POST[data] as $key => $val) {
                       <strong class="font-17"><?=$MAIN->topic_th;?></strong><br>
                       <strong class="font-17" style="color:#3b5998"><?=$SUB->topic_th;?></strong>
                     </td>
-                  </tr>
+                  </tr> -->
                   <tr>
                     <td colspan="2">
                       <div class="element_to_find" align="center" style="margin-top: 10px; margin-bottom: 5px;">
@@ -357,15 +358,7 @@ foreach ($_POST[data] as $key => $val) {
                     $btn_cancel_taxi = "display:none;";
                   }
                   ?>
-                  <td width="35%" valign="top" style="<?=$btn_cancel_taxi;?>" id="td_cancel_book_<?=$val[id];?>">
-                <ons-button onclick="cancelShopSelect('<?=$val[id];?>', '<?=$val[invoice];?>', '<?=$val[drivername];?>');" id="cancel_book_<?=$val[id];?>"  id="btn_edit_time_<?=$val[id];?>" style="padding: 15px;
-                            border-radius: 5px;
-                            line-height: 0;
-                            border: 1px solid #fe3824;
-                            color: #fe3824;" modifier="outline" class="button-margin button button--outline button--large">&nbsp; 
-                  <span class="font-17 text-cap"><?=$txt_cancel;?></span>
-                </ons-button>
-            </td>
+                  
             <td width="65%">
               <?php
               if ($val[check_guest_register] == 1) {
@@ -411,7 +404,7 @@ foreach ($_POST[data] as $key => $val) {
                       " modifier="outline" class="button-margin button button--outline button--large" id="btn_manage_<?=$val[id];?>"><span class="font-17 text-cap">
     <?=$text_mn;?></span> 
           </ons-button>
-          <div style="padding-left: 30px;<?=$txt_wait_approve;?>" align="center" id="txt_wait_<?=$val[id];?>"><i class="fa  fa-circle-o-notch fa-spin 6x" style="color:#ff9800;"></i>&nbsp;<font color="#ff9800">รอการตอบรับ</font></div>
+          <div style="<?=$txt_wait_approve;?>" align="center" id="txt_wait_<?=$val[id];?>"><i class="fa  fa-circle-o-notch fa-spin 6x" style="color:#ff9800;"></i>&nbsp;<font color="#ff9800">รอการตอบรับ</font></div>
 
           </td>
           </tr>

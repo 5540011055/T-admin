@@ -493,15 +493,15 @@
       <!-- <div style=" padding: 1px; text-align: center; margin: 5px;">
         <span class="font-18">รอแจ้งโอน</span>
       </div> -->
-      <!-- <ons-row>
-        <ons-col class="active-btn_shoptype ex" id="no-trans" onclick="$('#filter_type_trans_shop').val(1);filterShopTrans('no-trans');">
-          <div align="center">ยังไม่แจ้งโอน</div>
+      <ons-row>
+        <ons-col class="active-btn_shoptype ex" >
+          <div align="center">จัดการ</div>
         </ons-col>
-        <ons-col  class="ex" id="pass-trans" onclick="$('#filter_type_trans_shop').val(2);filterShopTrans('pass-trans');">
-          <div align="center">แจ้งโอนแล้ว</div>
+        <ons-col  class="ex" >
+          <div align="center">ประวัติ</div>
         </ons-col>
         
-      </ons-row> -->
+      </ons-row>
       <div id="body_shop_monitor">
       </div>
       
