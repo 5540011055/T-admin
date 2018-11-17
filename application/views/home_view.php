@@ -20,8 +20,23 @@
   <link rel="stylesheet" href="<?=base_url();?>assets/onsenui/css/onsenui.css?v=<?=time()?>">
   <link rel="stylesheet" href="<?=base_url();?>assets/onsenui/css/dark-onsen-css-components.css?v=<?=time()?>">
   <script src="<?=base_url();?>assets/onsenui/js/onsenui.min.js?v=<?=time()?>"></script>
-  <script src="<?=base_url();?>assets/custom.js?v=<?=time()?>"></script>
+  
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://www.welovetaxi.com:3443/socket.io/socket.io.js?v=<?=time()?>"></script>
+<script type="text/javascript">
+  var today = "<?=date('Y-m-d');?>";
+    var detect_mb = "<?=$detectname;?>";
+    var detect_user = $.cookie("detect_user");
+    var class_user = $.cookie("detect_userclass");
+    var username = $.cookie("detect_username");
+    console.log(detect_mb+" : "+class_user+" : "+username);
+     var array_data = [];
+     var all_data;
+</script>
+<script src="<?=base_url();?>assets/custom.js?v=<?=time()?>"></script>
+<script src="<?=base_url();?>assets/socket.js?v=<?=time()?>"></script>
+<script src="<?=base_url();?>assets/monitor.js?v=<?=time()?>"></script>
+
   <style>
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: #eacb96 !important;
@@ -346,9 +361,50 @@
       <div style=" margin-top: -305px; padding: 5px; position: relative;" >
         <ons-row style="margin: 10px 0px;">
           <ons-col style="margin: 10px;">
-            <div class='title'>Accouting</div>
+            
+            <?php if ($_COOKIE[detect_userclass] == 'monitor' ) {
+              $headder_title = 'monitor';
+
+            }
+            else{
+              $headder_title = 'Accouting';
+            }
+          ?>
+            <div class='title'><?=$headder_title;?></div>
           </ons-col>
         </ons-row>
+        <?php if ($_COOKIE[detect_userclass] == 'monitor' ) {
+          ?>
+
+           <ons-row style="margin: 10px 0px;">
+          <ons-col style="margin: 10px;">
+            <center>
+              <div onclick="shopJobmonitor();" class="circle-menu-home" style="background-color: #34A0E7;" >
+                <span id="number_shop" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
+                <div class="content">
+                  <i class="icon-new-uniF14D" style="font-size: 24px;position: relative; top: 7px; left: 2px;"></i>
+                </div>
+              </div>
+              <span class="txt-orange">ส่งแขก</span>
+            </center>
+          </ons-col>
+
+                    <ons-col style="margin: 10px;">
+                      <center>
+                        <div onclick="sendTransfermonitor();" class="circle-menu-home" style="    background-color: #F7941D;">
+                          <span id="number_tbooking" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
+                          <div class="content">
+                            <i class="icon-new-uniF10A-9" style="font-size: 28px;position: relative; top: 7px; left: 0px;"></i>
+                          </div>
+                        </div>
+                        <span class="txt-orange">ให้บริการรถ</span>
+                      </center>
+                    </ons-col>
+        </ons-row>
+          <?php
+          
+        }else{
+          ?>
         <ons-row style="margin: 10px 0px;">
           <ons-col style="margin: 10px;">
             <center>
@@ -374,6 +430,7 @@
                       </center>
                     </ons-col>-->
         </ons-row>
+      <?php } ?>
       </div>
     </ons-page>
   </template>
@@ -417,6 +474,41 @@
           </div>
         </ons-alert-dialog>
       </template>
+      <script>
+        ons.getScriptPage().onInit = function () {
+          this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+        }
+      </script>
+    </ons-page>
+  </template>
+  <template id="shop_monitor.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left" onclick="">
+          <ons-back-button>กลับ</ons-back-button>
+        </div>
+        <div class="center"></div>
+        <div class="right">
+          <ons-toolbar-button onclick="reloadApp();">
+            <ons-icon icon="ion-home, material:md-home"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+      <!-- <div style=" padding: 1px; text-align: center; margin: 5px;">
+        <span class="font-18">รอแจ้งโอน</span>
+      </div> -->
+      <!-- <ons-row>
+        <ons-col class="active-btn_shoptype ex" id="no-trans" onclick="$('#filter_type_trans_shop').val(1);filterShopTrans('no-trans');">
+          <div align="center">ยังไม่แจ้งโอน</div>
+        </ons-col>
+        <ons-col  class="ex" id="pass-trans" onclick="$('#filter_type_trans_shop').val(2);filterShopTrans('pass-trans');">
+          <div align="center">แจ้งโอนแล้ว</div>
+        </ons-col>
+        
+      </ons-row> -->
+      <div id="body_shop_monitor">
+      </div>
+      
       <script>
         ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
