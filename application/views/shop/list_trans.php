@@ -10,7 +10,7 @@
   $i_com = $query->row()->i_company;
   $i_com = 1;
   $sql = "select * from order_booking where program = ".$i_com." and check_tran_job = 1"
-          ." and check_guest_register = 1 ".$trans_money;
+          ." and check_guest_register = 1 ".$trans_money." order by post_date desc";
   $query = $this->db->query($sql);
 //  echo $sql;
   $befordate = '';

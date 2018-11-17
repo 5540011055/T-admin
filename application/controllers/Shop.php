@@ -14,10 +14,16 @@ class Shop extends CI_Controller {
 //    echo 1;
     $this->load->view('shop/list_trans');
   }
-  
+
   public function detail_trans() {
 //    echo 1;
     $this->load->view('shop/detail');
+  }
+
+  public function complete_trans_shop() {
+    $data['res'] = $this->Shop_model->complete_trans_shop();
+    echo json_encode($data['res']);
+//    echo json_encode($_FILES);
   }
 
   //////////////////////////// End

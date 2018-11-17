@@ -15,42 +15,16 @@ public function new_shop()
 	}
 
 public function cancel_shop(){
-//        if($_GET[class_user]=="taxi"){
-//          $data['lab'] = $this->Send_onesignal_model->cancel_shop_tolab();
-//        }else{
-          $data['taxi'] = $this->Send_onesignal_model->cancel_shop_totaxi();
-//        }
-		
-//  		header('Content-Type: application/json');
-  		echo json_encode($data);
-	}
-	
-public function send_checkin(){
-		
-		$data['res'] = $this->Send_onesignal_model->$_GET[type]();
+		$data['res'] = $this->Send_onesignal_model->cancel_shop();
 //  		header('Content-Type: application/json');
   		echo json_encode($data['res']);
 	}	
-
-
-public function acknowledge(){
-
-		$data['res'] = $this->Send_onesignal_model->acknowledge();
+    
+public function transfer_shop_completed(){
+		$data['res'] = $this->Send_onesignal_model->transfer_shop_completed();
 //  		header('Content-Type: application/json');
   		echo json_encode($data['res']);
-	}	
-
-public function send_msg_pay_shop(){
-		
-		$data['res'] = $this->Send_onesignal_model->$_GET[type]();
-//  		header('Content-Type: application/json');
-  		echo json_encode($data['res']);
-	}	
-public function noti_chat(){
-		
-		$data['res'] = $this->Send_onesignal_model->noti_chat();
-//  		header('Content-Type: application/json');
-  		echo json_encode($data['res']);
+//  echo 777;
 	}	
 }
 ?>
