@@ -1,0 +1,139 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 22/06/2016 15:14
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-airliner:before { content: "\f100"; }
+.flaticon-airliner-1:before { content: "\f101"; }
+.flaticon-airport-truck:before { content: "\f102"; }
+.flaticon-automated-teller-machine:before { content: "\f103"; }
+.flaticon-bus-service:before { content: "\f104"; }
+.flaticon-cab:before { content: "\f105"; }
+.flaticon-cup-of-hot-coffee:before { content: "\f106"; }
+.flaticon-customs-control:before { content: "\f107"; }
+.flaticon-departures-sign:before { content: "\f108"; }
+.flaticon-digital-camera:before { content: "\f109"; }
+.flaticon-direction-signs:before { content: "\f10a"; }
+.flaticon-escalators-down:before { content: "\f10b"; }
+.flaticon-escalators-up:before { content: "\f10c"; }
+.flaticon-flight-ticket:before { content: "\f10d"; }
+.flaticon-gate-sign:before { content: "\f10e"; }
+.flaticon-glass-of-wine:before { content: "\f10f"; }
+.flaticon-globe:before { content: "\f110"; }
+.flaticon-helicopter:before { content: "\f111"; }
+.flaticon-id-card:before { content: "\f112"; }
+.flaticon-information-sign:before { content: "\f113"; }
+.flaticon-international-departures:before { content: "\f114"; }
+.flaticon-international-location:before { content: "\f115"; }
+.flaticon-international-passport:before { content: "\f116"; }
+.flaticon-lift-up:before { content: "\f117"; }
+.flaticon-location-pointer:before { content: "\f118"; }
+.flaticon-luggage-cart:before { content: "\f119"; }
+.flaticon-luggage-checking:before { content: "\f11a"; }
+.flaticon-luggage-trolley:before { content: "\f11b"; }
+.flaticon-mailbox:before { content: "\f11c"; }
+.flaticon-male-and-female-toilet:before { content: "\f11d"; }
+.flaticon-medical-signal:before { content: "\f11e"; }
+.flaticon-money-exchange:before { content: "\f11f"; }
+.flaticon-mother-and-son:before { content: "\f120"; }
+.flaticon-no-mobile-phones-allowed:before { content: "\f121"; }
+.flaticon-no-photography:before { content: "\f122"; }
+.flaticon-no-smoking:before { content: "\f123"; }
+.flaticon-parking-sign:before { content: "\f124"; }
+.flaticon-phone-booth:before { content: "\f125"; }
+.flaticon-plane-landing:before { content: "\f126"; }
+.flaticon-planes-circling:before { content: "\f127"; }
+.flaticon-restaurant:before { content: "\f128"; }
+.flaticon-satellite-dish:before { content: "\f129"; }
+.flaticon-security-camera:before { content: "\f12a"; }
+.flaticon-security-check:before { content: "\f12b"; }
+.flaticon-smoking-area:before { content: "\f12c"; }
+.flaticon-suitcase:before { content: "\f12d"; }
+.flaticon-suitcase-1:before { content: "\f12e"; }
+.flaticon-takeoff-the-plane:before { content: "\f12f"; }
+.flaticon-wall-clock:before { content: "\f130"; }
+.flaticon-wifi-signal:before { content: "\f131"; }
+    
+    $font-Flaticon-airliner: "\f100";
+    $font-Flaticon-airliner-1: "\f101";
+    $font-Flaticon-airport-truck: "\f102";
+    $font-Flaticon-automated-teller-machine: "\f103";
+    $font-Flaticon-bus-service: "\f104";
+    $font-Flaticon-cab: "\f105";
+    $font-Flaticon-cup-of-hot-coffee: "\f106";
+    $font-Flaticon-customs-control: "\f107";
+    $font-Flaticon-departures-sign: "\f108";
+    $font-Flaticon-digital-camera: "\f109";
+    $font-Flaticon-direction-signs: "\f10a";
+    $font-Flaticon-escalators-down: "\f10b";
+    $font-Flaticon-escalators-up: "\f10c";
+    $font-Flaticon-flight-ticket: "\f10d";
+    $font-Flaticon-gate-sign: "\f10e";
+    $font-Flaticon-glass-of-wine: "\f10f";
+    $font-Flaticon-globe: "\f110";
+    $font-Flaticon-helicopter: "\f111";
+    $font-Flaticon-id-card: "\f112";
+    $font-Flaticon-information-sign: "\f113";
+    $font-Flaticon-international-departures: "\f114";
+    $font-Flaticon-international-location: "\f115";
+    $font-Flaticon-international-passport: "\f116";
+    $font-Flaticon-lift-up: "\f117";
+    $font-Flaticon-location-pointer: "\f118";
+    $font-Flaticon-luggage-cart: "\f119";
+    $font-Flaticon-luggage-checking: "\f11a";
+    $font-Flaticon-luggage-trolley: "\f11b";
+    $font-Flaticon-mailbox: "\f11c";
+    $font-Flaticon-male-and-female-toilet: "\f11d";
+    $font-Flaticon-medical-signal: "\f11e";
+    $font-Flaticon-money-exchange: "\f11f";
+    $font-Flaticon-mother-and-son: "\f120";
+    $font-Flaticon-no-mobile-phones-allowed: "\f121";
+    $font-Flaticon-no-photography: "\f122";
+    $font-Flaticon-no-smoking: "\f123";
+    $font-Flaticon-parking-sign: "\f124";
+    $font-Flaticon-phone-booth: "\f125";
+    $font-Flaticon-plane-landing: "\f126";
+    $font-Flaticon-planes-circling: "\f127";
+    $font-Flaticon-restaurant: "\f128";
+    $font-Flaticon-satellite-dish: "\f129";
+    $font-Flaticon-security-camera: "\f12a";
+    $font-Flaticon-security-check: "\f12b";
+    $font-Flaticon-smoking-area: "\f12c";
+    $font-Flaticon-suitcase: "\f12d";
+    $font-Flaticon-suitcase-1: "\f12e";
+    $font-Flaticon-takeoff-the-plane: "\f12f";
+    $font-Flaticon-wall-clock: "\f130";
+    $font-Flaticon-wifi-signal: "\f131";
