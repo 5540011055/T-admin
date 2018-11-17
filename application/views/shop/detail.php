@@ -41,7 +41,7 @@ foreach ($query_price->result() as $row_price) {
     $check_type_com = 1;
     $display_com = "";
     $com_persent = $data->commission_persent;
-    $com_progress = '<span style="padding-left: 0px;"><i class="fa  fa-circle-o-notch fa-spin 6x" style="color:#FF0000"></i>&nbsp;<font color="#FF0000">รอแจ้งโอน</font></span>';
+    $com_progress = '<span style="padding-left: 0px;"><i class="fa  fa-circle-o-notch fa-spin 6x" style="color:#ffa101;"></i>&nbsp;<font color="#ffa101">รอแจ้งโอน</font></span>';
   }
 }
 $all_total = $park_total + $person_total + $com_total;
@@ -55,16 +55,12 @@ $res_country = $query_country->row();
   $query_country = $this->db->query($sql_country);
   $res_country = $query_country->row(); */
 
-$query = $this->db->query("SELECT cause_change FROM change_plan_logs where order_id = '".$data->id."' ");
-$res_log_change = $query->row();
-
-$query = $this->db->query("SELECT s_topic FROM shop_type_change_plan where i_status = 1 and id = '".$res_log_change->cause_change."' ");
-$res_type_change = $query->row();
-if ($res_type_change->s_topic == "") {
-  $res_type_change->s_topic = "คนขับเปลี่ยนใจ";
-}
-
-
+$sql = "SELECT t4.s_topic_th, t4.i_price from shop_country_company as t1 left join shop_country_icon_company as t2 on t1.id = i_shop_country "
+        ." left join shop_country_com_list_company as t3 on t2.id = t3.i_shop_country_icon"
+        ." left join shop_country_com_list_price_company as t4 on t3.id = t4.i_shop_country_com_list"
+        ." where t1.i_shop = ".$data->program;
+$query = $this->db->query($sql);
+$res_com = $query->row();
 //$query = $this->db->query("select * from change_plan_logs where order_id = ".$data->id);
 //$check_change_plan = $query->num_rows();
 //if ($check_change_plan == 0) {
@@ -91,16 +87,17 @@ if ($data->transfer_money > 0) {
   $status_intro = '<span class="font-22" style="color: #2cce33;">เสร็จสมบูรณ์</span>';
 }
 else {
-  $status_intro = '<span class="font-22" style="color: #ff0000;">รอการแจ้งโอน</span>';
+  $status_intro = '<span class="font-22" style="color: #ffa101;">รอการแจ้งโอน</span>';
 }
 ?>
 <div style="padding: 10px 0px;">
   <p class="intro">
     <?=$status_intro;?><br/>
-<!--    <span class="font-16 txt-center">คุณได้รับค่าตอบแทนจากการส่งแขกแล้ว</span>-->
+    <span class="font-16 txt-center">ยืนยันการโอนเงิน ระบบจะแจ้งเตือนให้กับแท็กซี่อัตโนมัติ</span>
   </p>
 </div>
 
+<form name="form_acc_trans_shop" id="form_acc_trans_shop"  enctype="multipart/form-data" class="form-horizontal form-bordered" role="form">
 <div style="padding: 0px 0px;  ">
   <ons-list-item>
     <div class="center list-pd-r">
@@ -174,7 +171,7 @@ else {
       <span class="font-16 txt-center">รวม</span>
     </div>
     <div class="right">
-      <span style="padding-left: 0px;"><i class="fa  fa-circle-o-notch fa-spin 6x" style="color:#FF0000"></i>&nbsp;<font color="#FF0000">รอดำเนินการ</font></span>
+      <span class="font-16"><?=number_format($all_total,0);?> บ.</span>
     </div>
   </ons-list-item>
 </div>
@@ -196,34 +193,61 @@ else {
     </div>
   </ons-list-item>
 </div>
+
 <ons-card style="margin-top: 10px;">
   <ons-list-header>ข้อมูลรายได้</ons-list-header>
   <div style="padding: 10px;">
     <ons-row>
       <ons-col width="30px">1</ons-col>
-      <ons-col><span class="font-16">รายรับ (บริษัท)</span></ons-col>
-      <ons-col><span id="persen_com" class="font-16">10</span> %</ons-col>
+      <ons-col width="150px"><span class="font-16">รายรับ (บริษัท)</span></ons-col>
+      <ons-col><span id="persen_com"><?=$res_com->i_price;?></span> %</ons-col>
+      <ons-col align="right"><span id="price_company">0</span></ons-col>
     </ons-row>
     <ons-row>
       <ons-col width="30px">2</ons-col>
-      <ons-col><span class="font-16">รายรับ (แท็กซี่)</span></ons-col>
-      <ons-col><span id="persen_com" class="font-16">5</span> %</ons-col>
+      <ons-col width="150px"><span class="font-16">รายรับ (แท็กซี่)</span></ons-col>
+      <ons-col><span id="persen_taxi"><?=$data->commission_persent;?></span> %</ons-col>
+      <ons-col align="right"><span id="price_taxi">0</span></ons-col>
     </ons-row>
   </div>
 </ons-card>
 
-<ons-card style="margin-top: 10px; margin-bottom: 10px;">
+<ons-card style="margin-top: 10px; margin-bottom: 0px;">
   <ons-list-header>ข้อมูลการซื้อ</ons-list-header>
   <ons-list-item class="input-items">
-    <div class="left">
+    <div class="left" style="width: 100px;">
       <span>ยอดซื้อ</span>
     </div>
     <label class="center">
-      <ons-input id="name-input" float="" maxlength="20"  style="width: 100%;">
+      <ons-input id="name-input" float="" maxlength="20"  style="width: 100%;" onkeyup="calcost(this.value);" placeholder="กรอกจำนวนยอด" name="shop_cost" id="shop_cost">
         <input type="text" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
+                   font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
                height: 35px;">
         <span class="text-input__label">Name</span>
       </ons-input>
     </label>
   </ons-list-item>
 </ons-card>
+  
+  <ons-card style="margin-top: 10px; margin-bottom: 10px;">
+    <ons-list-header>สลิปโอนเงิน</ons-list-header>
+    <div align="center">
+        <div>
+          <input type="file" id="img_upload" accept="image/*" style="opacity: 0;position: absolute;"onchange="readURLslip(this);">
+        </div>
+        <div class="box-preview-img" id="box_img_profile" style="width: 170px;height: 170px;" onclick="performClick('img_upload');">
+          <img src="assets/images/noimage_2.gif" style="max-width: 100%; height: 170px;display: nones;" id="pv_slip"><br>
+          <span class="txt-upload-slip" ><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; เลือกรูปภาพ</span>
+        </div> 
+      </div>
+  </ons-card>
+    
+<input type="hidden" name="order_id" id="order_id" value="<?=$data->id;?>" />
+<input type="hidden" name="invoice" id="invoice" value="<?=$data->invoice;?>" />
+<input type="hidden" name="plan_id" id="plan_id" value="<?=$data->plan_id;?>" />
+<input type="hidden" name="company_cost" value="0" id="company_cost" />
+<input type="hidden" name="taxi_cost" value="0" id="taxi_cost" />
+</form>
+<div style="margin-bottom: 15px;padding: 10px;">
+  <ons-button modifier="large" onclick="confirmTransferMoneyShop();"><span class="font-16">ยืนยันแจ้งโอน</span></ons-button>
+</div>

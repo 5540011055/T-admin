@@ -38,41 +38,24 @@
 <script src="<?=base_url();?>assets/monitor.js?v=<?=time()?>"></script>
 
   <style>
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: #eacb96 !important;
+      font-weight: 400 !important;
+      opacity: 1; /* Firefox */
+    }
+
     .active-btn_shoptype{
       background-color: #ffa101;
       color : #fff !important;
     }
     .ex{
-       padding: 10px;
-       color : #ffa101;
+      padding: 10px;
+      color : #ffa101;
     }
     .txt-orange{
       color: #ffa101;
     }
-    .modal-load{
-      background: linear-gradient(270deg, #000000, #f076006b);
-      background-size: 400% 400%;
 
-      -webkit-animation: AnimationName 30s ease infinite;
-      -moz-animation: AnimationName 30s ease infinite;
-      animation: AnimationName 30s ease infinite;
-
-      @-webkit-keyframes AnimationName {
-        0%{background-position:0% 50%}
-        50%{background-position:100% 50%}
-        100%{background-position:0% 50%}
-      }
-      @-moz-keyframes AnimationName {
-        0%{background-position:0% 50%}
-        50%{background-position:100% 50%}
-        100%{background-position:0% 50%}
-      }
-      @keyframes AnimationName { 
-        0%{background-position:0% 50%}
-        50%{background-position:100% 50%}
-        100%{background-position:0% 50%}
-      } 
-    }
     .box {
       /*width: 300px;*/
       height: 300px;
@@ -169,6 +152,15 @@
       background-color: #2783a1 !important;
       background-image: none;
     }
+    .txt-upload-slip{
+      margin-top: -23px;
+      margin-left: -40px;
+      color: #ffffff;
+      background-color: #ffa101;
+      padding: 0px 10px;
+      position: absolute;
+      border-top-left-radius: 5px;
+    }
   </style>
   <ons-modal direction="up" id="modal_load" class="modal-load">
     <div style="text-align: center;">
@@ -185,6 +177,7 @@
             + '</svg></div>';
     var modal = document.querySelector('#modal_load');
     modal.show();
+    var base_url = "";
   </script>
   <body>
   <ons-navigator id="appNavigator" swipeable swipe-target-width="80px" page="home.html">
@@ -465,11 +458,22 @@
         <ons-col  class="ex" id="pass-trans" onclick="$('#filter_type_trans_shop').val(2);filterShopTrans('pass-trans');">
           <div align="center">แจ้งโอนแล้ว</div>
         </ons-col>
-        
+
       </ons-row>
       <div id="body_shop">
       </div>
-      
+      <template id="confirm-trans_shop.html">
+        <ons-alert-dialog id="confirm-trans_shop-dialog" modifier="rowfooter">
+          <div class="alert-dialog-title">ยืนยันแจ้งโอน</div>
+          <div class="alert-dialog-content">
+            คุณต้องการยืนยันการแจ้งโอนนี้ใช่หรือไม่?
+          </div>
+          <div class="alert-dialog-footer">
+            <ons-alert-dialog-button onclick="hideAlertDialog('confirm-trans_shop-dialog');">ยกเลิก</ons-alert-dialog-button>
+            <ons-alert-dialog-button onclick="hideAlertDialog('confirm-trans_shop-dialog');submitTransShop();"><b>ยืนยัน</b></ons-alert-dialog-button>
+          </div>
+        </ons-alert-dialog>
+      </template>
       <script>
         ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
