@@ -45,10 +45,11 @@
     }
 
     .active-btn_shoptype{
-      background-color: #ffa101;
+      background-color: #ffa101 !important;
       color : #fff !important;
     }
     .ex{
+          background: #424242;
       padding: 10px;
       color : #ffa101;
     }
