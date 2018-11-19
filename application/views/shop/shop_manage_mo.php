@@ -49,9 +49,9 @@ foreach ($_POST[data] as $key => $val) {
   ?>
   <div style="padding: 5px 0px;margin: 12px 10px;" id="list_shop_manage_<?=$val[id];?>" >
     <input type="hidden" id="check_status_<?=$val[id];?>" value="<?=$val[status];?>" />
-    <a href="tel://<?=$val[phone];?>" target="_blank" style="display: none;" id="phone_driver_<?=$val[id];?>"><?=$val[phone];?></a>
-    <a href="zello://<?=$res_dv->zello_id;?>?add_user" target="_blank" style="display: none;" id="zello_driver_<?=$val[id];?>"><?=$res_dv->zello_id;?></a>
-    <a href="line://ti/p/<?=$res_dv->line_id;?>" target="_blank" style="display: none;" id="line_driver_<?=$val[id];?>"><?=$res_dv->zello_id;?></a>
+    <!-- <a href="tel://<?=$val[phone];?>" target="_blank" style="display: none;" id="phone_driver_<?=$val[id];?>"><?=$val[phone];?></a> -->
+    <!-- <a href="zello://<?=$res_dv->zello_id;?>?add_user" target="_blank" style="display: none;" id="zello_driver_<?=$val[id];?>"><?=$res_dv->zello_id;?></a> -->
+    <!-- <a href="line://ti/p/<?=$res_dv->line_id;?>" target="_blank" style="display: none;" id="line_driver_<?=$val[id];?>"><?=$res_dv->zello_id;?></a> -->
     <div class="box-shop">
       <?php if ($_GET[wait_trans] == "") {?>
         <!-- <span class="time-post-shop" id="txt_date_diff_<?=$val[id];?>" style="font-size:14px;">-</span> -->
@@ -109,7 +109,7 @@ foreach ($_POST[data] as $key => $val) {
             </table>
             </td>
         </tr>
-        <tr>
+       <!--  <tr>
           <td colspan="2">
             <table width="100%" border="0" cellspacing="1" cellpadding="1" style=" margin-top: 0px; margin-bottom: 10px;">
               <tbody>
@@ -156,7 +156,7 @@ foreach ($_POST[data] as $key => $val) {
               </tbody>
             </table>
           </td>
-        </tr>
+        </tr> -->
 <!--        <tr>
           <td width="70%" ><span class="font-17"><?=$res_ps->topic_th;?></span></td>
         </tr>-->
@@ -339,7 +339,7 @@ foreach ($_POST[data] as $key => $val) {
         <tr id="date_approved_job_<?=$val[id];?>" style="<?=$hidden_date_app;?>">
           <td colspan="2">
             <span class="font-17" >รับทราบงาน :</span>
-            <font color="#000;" style="position: absolute;right: 25px;" id="txt_date_approved_job_<?=$val[id];?>" ><?=date('H:i',$val[lab_approve_job_date])." น.";?></font>
+            <font  style="position: absolute;right: 25px;" id="txt_date_approved_job_<?=$val[id];?>" ><?=date('H:i',$val[lab_approve_job_date])." น.";?></font>
           </td>
         </tr>
         <?php
@@ -385,11 +385,11 @@ foreach ($_POST[data] as $key => $val) {
                 $txt_wait_approve = "";
               }
               ?>
-          <ons-button onclick="checkinAndOpenDetail('<?=$val[id];?>', '<?=$key;?>');" style="padding: 15px;border: 1px solid #0076ff;
+        <!--   <ons-button onclick="checkinAndOpenDetail('<?=$val[id];?>', '<?=$key;?>');" style="padding: 15px;border: 1px solid #0076ff;
                       border-radius: 5px;
                       line-height: 0;<?=$btn_manage;?><?=$btn_manage_topoint_display;?>
                       " modifier="outline" class="button-margin button button--outline button--large" id="btn_manage_topoint_<?=$val[id];?>">
-            <span class="font-17 text-cap">แจ้งถึงสถานที่</span> </ons-button>   
+            <span class="font-17 text-cap">แจ้งถึงสถานที่</span> </ons-button>    -->
           <?php
           if ($_GET[wait_trans] != "") {
             $onclick = "openDetailShopWaitTrans('".$val[invoice]."');";
