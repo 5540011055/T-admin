@@ -179,3 +179,12 @@ function hideAlertDialog(id) {
           .getElementById(id)
           .hide();
 }
+
+function sendSocket(id) {
+  console.log('Click ' + id);
+  //   var message = "";
+  var dataorder = {
+    order: parseInt(id),
+  };
+  socket.emit('sendchat', dataorder);
+}
