@@ -495,6 +495,49 @@
           </ons-toolbar-button>
         </div>
       </ons-toolbar>
+      <ons-tabbar swipeable position="top">
+                <ons-tab page="body_shop_monitor.html" label="ดำเนินการ">
+                </ons-tab>
+               <!--  <ons-tab page="tab2.html" label="จองทัวร์" active>
+                </ons-tab> -->
+                <ons-tab page="body_shop_monitor_his.html" label="สำเร็จ">
+                </ons-tab>
+            </ons-tabbar>
+            <ons-card id="box-shop_filter" class="card" style="display:none;padding: 0px 8px;position: absolute;width: 100%;z-index: 9;margin-top: 48px;margin-left: 0px;border-radius: 0px;display: none;    padding-left: 0; padding-right: 0px;">
+                <ons-row style="width: 100%;/*margin-top: 48px; margin-bottom: 20px;*/">
+                    <ons-col>
+                        <ons-button class="shop-his-btn font-16 his-shop-active " id="btn_shop_his_com" onclick="filterHistoryStatus('COMPLETED','btn_shop_his_com');" style="border-radius: 0; width: 100%;text-align: center; background-color: #e6e6e6;padding: 2px 10px;color: #000;">สำเร็จ <span id="num_his_com"></span></ons-button>
+                    </ons-col>
+                    <ons-col>
+                        <ons-button class="shop-his-btn font-16" id="btn_shop_his_cancel" onclick="filterHistoryStatus('CANCEL','btn_shop_his_cancel');" style="border-radius: 0; width: 100%;text-align: center; background-color: #e6e6e6;padding: 2px 10px;color:#000;">ยกเลิก <span id="num_his_cancel"></span></ons-button>
+                    </ons-col>
+                    <ons-col>
+                        <ons-button onclick="filterHistoryStatus('','btn_shop_his_all');" id="btn_shop_his_all" style="border-radius: 0; width: 100%;text-align: center; background-color: #e6e6e6;padding: 2px 10px;color:#000;" class="shop-his-btn font-16" >ทั้งหมด <span id="num_his_all"></span>
+
+                        </ons-button>
+                    </ons-col>
+                </ons-row>     
+                <ons-row>
+                    <ons-col>
+                        <ons-button id="btn_toshow_date" onclick="showFilterdate();" class="button button--outline" style="width:100%;text-align: center;"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> ดูตามวันที่</ons-button>
+                    </ons-col>
+                </ons-row>
+                <ons-list-item class="input-items list-item p-l-0" id="box-shop_date" style="display:none;">
+                    <div class="left list-item__left" style="margin-left: 4px; padding-right: 12px;">
+                        <img src="assets/images/ex_card/crd.png?v=1537169817" width="25px;">
+                    </div>
+                    <div class="center list-item__center" style="background-image: none;padding: 0px 6px 0px 0;">
+                        <input class="ap-date" type="date" id="date_shop_his" name="date_shop_his" value="<?=date('Y-m-d',time());?>" style="font-size: 17px;width: 100%;padding: 4px 15px; border: 1px solid #ccc;border-radius: 20px;" onchange="historyShop();$('#first_run_his').val(0);" max="<?=date('Y-m-d',time());?>" />
+
+                        <input class="ap-date" type="date" id="date_shop_wait" name="date_shop_his" value="<?=date('Y-m-d',time());?>" style="font-size: 17px;width: 100%;padding: 4px 15px; border: 1px solid #ccc;border-radius: 20px;display: none;" onchange="waitTransShop();" max="<?=date('Y-m-d',time());?>" />
+                    </div>
+                    <div class="right list-item__right" style="padding: 5px;" >
+                      <ons-button onclick="hideFilterdate();" style="padding: 0px 5px;">ทั้งหมด</ons-button>
+                  </div>
+              </ons-list-item>
+              <input type="hidden" value="0" id="cehck_filter_date" />
+          </ons-card>
+
       <!-- <div style=" padding: 1px; text-align: center; margin: 5px;">
         <span class="font-18">รอแจ้งโอน</span>
       </div> -->
@@ -507,8 +550,7 @@
         </ons-col>
         
       </ons-row>
-      <div id="body_shop_monitor">
-      </div>
+      <div id="body_shop">
       
       <script>
         ons.getScriptPage().onInit = function () {
@@ -516,7 +558,26 @@
         }
       </script>
     </ons-page>
+      <template id="body_shop_monitor_his.html">
+                <ons-page >
+                  <div id="body_shop_monitor_his" style="margin-top: 80px;">
+                    
+                  </div>
+                   
+                  <!-- <div id="shop_filter" style="display:none;"> </div> -->
+                </ons-page>
+                
+            </template>
+
+            <template id="body_shop_monitor.html">
+                <ons-page id="body_shop_monitor">
+
+                </ons-page>
+            </template>
+            </div>
+      
   </template>
+
 
   <template id="forms.html">
     <ons-page id="forms-page">
@@ -821,15 +882,95 @@
     };
 
     window.fn.pushPage = function (page, anim) {
+      console.log(page);
       if (anim) {
-        document.getElementById('appNavigator').pushPage(page.id, {data: {title: page.title}, animation: anim});
-      } else {
-        document.getElementById('appNavigator').pushPage(page.id, {data: {title: page.title}});
-      }
+    document.getElementById('appNavigator').pushPage(page.id, {
+        data: {
+            title: page.title
+        },
+        animation: anim
+    });
+} 
+else {
+    document.getElementById('appNavigator').pushPage(page.id, {
+        data: {
+            title: page.title
+        }
+    });
+}
     };
     $(window).on('load', function () {
       modal.hide();
     });
+    // window.fn.pushPage = function(page, anim) {
+    // console.log(page);
+    // console.log(page.id);
+    // if(page.id=="option.html"){
+    //     console.log("option");
+    //     if(page.open=="car_brand"){
+    //         $.ajax({
+    //             url: "main/data_car_brand", // point to server-side PHP script 
+    //             dataType: 'json', // what to expect back from the PHP script, if anything
+    //             type: 'post',
+    //             success: function(res) {
+    //                 var d1 = [],d2 = [];
+    //                 $.each(res, function( index, value ) {
+    //                     if(value.popular>0){
+    //                         d1.push(value);
+    //                     }else{
+    //                         d2.push(value);
+    //                     }
+    //                 });
+    //                 var param = { data2 : d2, data1 : d1};
+    //                 console.log(param);
+    //                 $.post("component/cpn_car_brand",param,function(el){
+    //                     $('#body_option').html(el);
+    //                 });
+    //             }
+    //         });
+    //     }
+    //   }
+    // }
+    // 
+    // 
+    document.addEventListener('prechange', function (event) {
+  console.log(event);
+  var page = event.tabItem.getAttribute('page');
+    console.log(page)
+  // if (page == "shop_manage.html") {
+  //   shopManage();
+  //   $('#open_shop_manage').val(1);
+  //   $('#open_shop_wait_trans').val(0);
+  //   $('#box-shop_filter').fadeOut(300);
+  // } 
+if (page == "body_shop_monitor_his.html") {
+  // box-shop_filter
+    // $('#open_shop_manage').val(0);
+    // $('#open_shop_wait_trans').val(0);
+    $('#box-shop_filter').fadeIn(300);
+    // $('#date_shop_his').show();
+    // $('#date_shop_wait').hide();
+    // $('#date_shop_his').val(today);
+    historyShop();
+  }
+  if (page == "body_shop_monitor.html") {
+  // box-shop_filter
+    // $('#open_shop_manage').val(0);
+    // $('#open_shop_wait_trans').val(0);
+    $('#box-shop_filter').hide();
+    // $('#date_shop_his').show();
+    // $('#date_shop_wait').hide();
+    // $('#date_shop_his').val(today);
+    // shopManage();
+  }
+  // else {
+  //   $('#open_shop_manage').val(0);
+  //   $('#open_shop_wait_trans').val(0);
+  //   $('#box-shop_filter').fadeOut(300);
+  // }
+  /*document.querySelector('ons-toolbar .center')
+   .innerHTML = event.tabItem.getAttribute('label');*/
+});
   </script>
 </body>
 </html>

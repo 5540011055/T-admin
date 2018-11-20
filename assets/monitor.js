@@ -1,4 +1,6 @@
+var type_status;
 function shopJobmonitor() {
+
       fn.pushPage({
         'id': 'shop_monitor.html',
         'title': 'งานส่งแขก'
@@ -34,6 +36,92 @@ function shopManage() {
       $('#body_shop_monitor').html(ele);
     }
   });
+}
+
+function historyShop() {
+  modal.show();
+   countHistoryTypeAll();
+  if ($('#cehck_filter_date').val() == 1) {
+    var date = $('#date_shop_his').val();
+    var date_rp = date.replace("-", "/");
+    date_rp = date_rp.replace("-", "/");
+  } else {
+    var date_rp = "";
+  }
+  
+
+  // var url_his = "api/shop_history_fix";
+  var pass = {
+    'date': date_rp,
+    'status': type_status,
+  };
+  console.log(pass)
+
+    var url = "shop/shop_manage_his";
+
+  // console.log(pass);
+  $.ajax({
+    url: url,
+    data: pass,
+    type: 'post',
+    success: function (ele) {
+         console.log(ele);
+         modal.hide();
+      $('#body_shop_monitor_his').html(ele);
+    }
+  });
+    // $.post(url,pass, function (html) {
+    //   console.log(html)
+    //   $('#body_shop_monitor_his').html(html);
+    // });
+
+}
+function countHistoryTypeAll() {
+  var date_rp = "";
+  if ($('#cehck_filter_date').val() == 1) {
+    var date = $('#date_shop_his').val();
+    var date_rp = date.replace("-", "/");
+    date_rp = date_rp.replace("-", "/");
+  }
+  var param = {
+    class_name: class_user,
+    driver: detect_user,
+    date: date_rp
+  };
+  // $.ajax({
+  //   url: "shop/count_his_all_status",
+  //   data: param,
+  //   dataType: 'json',
+  //   type: 'post',
+  //   success: function (value) {
+  //     console.log(value);
+  //     $('#num_his_com').text("(" + value.success + ")");
+  //     $('#num_his_cancel').text("(" + value.fail + ")");
+  //     $('#num_his_all').text("(" + value.all + ")");
+  //   }
+  // });
+}
+
+function showFilterdate() {
+  $('#btn_toshow_date').hide();
+  $('#box-shop_date').fadeIn(500);
+  $('#cehck_filter_date').val(1);
+  historyShop();
+}
+
+function hideFilterdate() {
+  $('#box-shop_date').hide();
+  $('#btn_toshow_date').show();
+  $('#cehck_filter_date').val(0);
+  historyShop();
+}
+function filterHistoryStatus(type, id) {
+  console.log(type);
+  type_status = type;
+  $('#check_filter_his').val(type);
+  $('.shop-his-btn').removeClass('his-shop-active');
+  $('#' + id).addClass('his-shop-active');
+  historyShop($('#date_shop_his').val());
 }
 function js_yyyy_mm_dd_hh_mm_ss() {
   now = new Date();

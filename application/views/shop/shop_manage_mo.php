@@ -45,6 +45,8 @@ foreach ($_POST[data] as $key => $val) {
   else {
     $nickname = "";
   }
+  $query_car = $this->db->query("SELECT t1.i_car_gen,t2.name_en as name_brand, t3.name_en as name_gen, t4.name_th as color FROM web_carall as t1 left join web_car_brand as t2 on t1.i_car_brand = t2.id left join web_car_gen as t3 on t1.i_car_gen = t3.id left join web_car_color as t4 on t1.i_car_color = t4.id where t1.id = ".$val[check_use_car_id]);
+  $row_car = $query_car->row();
 
   ?>
   <div style="padding: 5px 0px;margin: 12px 10px;" id="list_shop_manage_<?=$val[id];?>" >
@@ -160,6 +162,25 @@ foreach ($_POST[data] as $key => $val) {
 <!--        <tr>
           <td width="70%" ><span class="font-17"><?=$res_ps->topic_th;?></span></td>
         </tr>-->
+         <tr>
+          <td>
+            <div class="font-17">
+              คนขับ :
+                <span><?=$res_dv->name;?></span> 
+             
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">ยี่ห้อ : <?=$row_car->name_brand;?> รุ่น : <?=$row_car->name_gen;?> สี : <?=$row_car->color;?></td>
+         </tr>
+        
+         <tr>
+            <td colspan="2" style="padding: 0px 0px;">
+               <div class="font-17">ป้ายทะเบียน&nbsp;:&nbsp;<a><?=$val[car_plate]." ";?></a>
+               </div>
+            </td>
+         </tr>
         <tr>
           <td>
             <div class="font-17">
@@ -254,23 +275,8 @@ foreach ($_POST[data] as $key => $val) {
             <div style="padding: 0px 0px;">
               <table width="100%" class="none-pd">
                 <tr>
-                  <td colspan="2"><span class="font-17">ประเภท : </span><span class="font-17" id="txt_type_plan"><?=$plan;?></span></td>        
-                  <td width="30%" align="right" rowspan="1">
-            <?php
-            if ($val[lab_approve_job] == 1) {
-              $hide_btn_photo = "";
-              $sql_l = "SELECT username,name,nickname FROM web_driver WHERE id='".$val[lab_approve_job_post]."'    ";
-              $query_l = $this->db->query($sql_l);
-              $res_l = $query_l->row();
-            }
-            else {
-              $hide_btn_photo = "display:none;";
-            }
-            $path_img = "../data/pic/driver/small/".$res_l->username.".jpg?v=".time();
-            ?>
-            <i id="view_lab_approve_<?=$val[id];?>" class="material-icons font-28" style="color: rgb(59, 89, 152);  border-radius: 50%; padding: 2px; border: 2px solid rgb(59, 89, 152);<?=$hide_btn_photo;?>" onclick="modalShowImg('<?=$path_img;?>', '<?=$res_l->nickname;?>');" >account_circle</i>
-
-          </td>
+                  <td colspan="3"><span class="font-17">ประเภท : </span><span class="font-17" id="txt_type_plan"><?=$plan;?></span></td>        
+                 
                 </tr>
                 
                 <tr style="<?=$display_park;?>">
@@ -338,8 +344,21 @@ foreach ($_POST[data] as $key => $val) {
         ?>
         <tr id="date_approved_job_<?=$val[id];?>" style="<?=$hidden_date_app;?>">
           <td colspan="2">
-            <span class="font-17" >รับทราบงาน :</span>
-            <font  style="position: absolute;right: 25px;" id="txt_date_approved_job_<?=$val[id];?>" ><?=date('H:i',$val[lab_approve_job_date])." น.";?></font>
+            <span class="font-17" >รับทราบงาน : </span>
+            <font  cladd="pull-right" id="txt_date_approved_job_<?=$val[id];?>" ><?=date('H:i',$val[lab_approve_job_date])." น.";?></font>
+            <?php
+            if ($val[lab_approve_job] == 1) {
+              $hide_btn_photo = "";
+              $sql_l = "SELECT username,name,nickname FROM web_driver WHERE id='".$val[lab_approve_job_post]."'    ";
+              $query_l = $this->db->query($sql_l);
+              $res_l = $query_l->row();
+            }
+            else {
+              $hide_btn_photo = "display:none;";
+            }
+            $path_img = "../data/pic/driver/small/".$res_l->username.".jpg?v=".time();
+            ?>
+            <i id="view_lab_approve_<?=$val[id];?>" class="material-icons font-18 pull-right" style="color: rgb(59, 89, 152);  border-radius: 50%; padding: 2px; border: 2px solid rgb(59, 89, 152);<?=$hide_btn_photo;?>" onclick="modalShowImg('<?=$path_img;?>', '<?=$res_l->nickname;?>');" >account_circle</i>
           </td>
         </tr>
         <?php
@@ -358,7 +377,6 @@ foreach ($_POST[data] as $key => $val) {
                     $btn_cancel_taxi = "display:none;";
                   }
                   ?>
-                  
             <td width="65%">
               <?php
               if ($val[check_guest_register] == 1) {

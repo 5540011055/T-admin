@@ -27,6 +27,14 @@ class Shop extends CI_Controller {
 //    echo 123;
     
   }
+   public function shop_manage_his(){
+   
+      $this->load->view('shop/shop_manage_his');
+    
+//    $this->load->view('shop/shop_manage_lab');
+//    echo 123;
+    
+  }
 
   public function complete_trans_shop() {
     $data['res'] = $this->Shop_model->complete_trans_shop();
