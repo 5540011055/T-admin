@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="<?=base_url();?>assets/onsenui/css/onsenui.css?v=<?=time()?>">
   <link rel="stylesheet" href="<?=base_url();?>assets/onsenui/css/dark-onsen-css-components.css?v=<?=time()?>">
   <script src="<?=base_url();?>assets/onsenui/js/onsenui.min.js?v=<?=time()?>"></script>
+<script src="<?=base_url();?>assets/imageViewer/imageviewer.js?v=<?=time()?>"></script>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <script src="https://www.welovetaxi.com:3443/socket.io/socket.io.js?v=<?=time()?>"></script>
@@ -32,6 +33,7 @@
     console.log(detect_mb + " : " + class_user + " : " + username);
     var array_data = [];
     var all_data;
+    var viewer = ImageViewer();
   </script>
   <script src="<?=base_url();?>assets/custom.js?v=<?=time()?>"></script>
   <script src="<?=base_url();?>assets/socket.js?v=<?=time()?>"></script>

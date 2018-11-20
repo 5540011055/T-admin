@@ -358,7 +358,7 @@ foreach ($_POST[data] as $key => $val) {
             }
             $path_img = "../data/pic/driver/small/".$res_l->username.".jpg?v=".time();
             ?>
-            <i id="view_lab_approve_<?=$val[id];?>" class="material-icons font-18 pull-right" style="color: rgb(59, 89, 152);  border-radius: 50%; padding: 2px; border: 2px solid rgb(59, 89, 152);<?=$hide_btn_photo;?>" onclick="modalShowImg('<?=$path_img;?>', '<?=$res_l->nickname;?>');" >account_circle</i>
+             <img id="view_lab_approve_<?=$val->id;?>" class="chat_gallery_items" style="float: right; width:35px; height: 35px; border-radius: 50px;<?=$hide_btn_photo;?>" src="<?=$path_img;?>" data-high-res-src="<?=$path_img;?>"  onclick="modalShowImg(this);" >
           </td>
         </tr>
         <?php

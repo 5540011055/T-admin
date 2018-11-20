@@ -65,7 +65,7 @@ function historyShop() {
     data: pass,
     type: 'post',
     success: function (ele) {
-         console.log(ele);
+         // console.log(ele);
          modal.hide();
       $('#body_shop_monitor_his').html(ele);
     }
@@ -259,6 +259,24 @@ function formatTime(date) {
   }
   return [hour, minutes].join(':');
 }
+function modalShowImg(i) {
+
+  var imgSrc = i.src,
+
+  highResolutionImage = $(this).data('high-res-img');
+   console.log(imgSrc)
+    ImageViewer().show(imgSrc, highResolutionImage);
+     // viewer.show(img, highResolutionImage);
+}
+
+     
+    $('.chat_gallery_items').click(function () {
+        console.log('aaaaa')
+        var imgSrc = this.src,
+        highResolutionImage = $(this).data('high-res-img');
+
+        ImageViewer().show(imgSrc, highResolutionImage);
+    });
     // function load_list_trans_shop() {
     //   $('#body_shop').html(progress_circle);
     //   var filter_type = $('#filter_type_trans_shop').val();

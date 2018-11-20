@@ -1,8 +1,4 @@
-<input type="hidden" id="open_shop_manage" value="1" />
-<input type="hidden" id="open_shop_wait_trans" value="0" />
 <?php
-
-
 $date = $_POST[date];
 $status = $_POST[status];
 $_where = array();
@@ -10,24 +6,23 @@ $_select = array('*');
 if ($date != "") {
   $_where[transfer_date] = $date;
 }
+// else{
+//   $_where[transfer_date] = date('Y/m/d');
+  
+// }
 if ($status != "") {
   $_where[status] = $status;
+}
+else{
+  $_where[status] = 'COMPLETED';
 }
 $_where[driver_complete] = 1;
 $_order = array();
 $_order['id'] = 'DESC';
-
-
-
-
-
 $BOOKING = $this->Main_model->fetch_data('','',TBL_ORDER_BOOKING,$_where,$_select,$_order);
-// print_r(json_encode($BOOKING));
-
 $data_user_class = $_COOKIE[detect_userclass];
 if (count($BOOKING) <= 0) {
   echo '<div class="font-22" style="color: #ff0000;text-align: center;padding: 0px; margin-top: 80px;" id="no_work_div"><strong>ไม่มีงาน</strong></div>';
-  //exit();
 }
 
 foreach ($BOOKING as $key => $val) {
@@ -106,13 +101,28 @@ $row_car = $query_car->row();
 
           $query = $this->db->query("SELECT name_th,id FROM web_area WHERE id = ".$res_ps->amphur);
           $row = $query->row();
+
+
+          if ($val->status == 'COMPLETED') {
+                    $text_status = 'งานสำเร็จ';
+                    $text_status_color = '#6fab1e;';
+                # code...
+          }
+          if ($val->status == 'CANCEL') {
+                    $text_status = 'งานถูกยกเลิก';
+                    $text_status_color = '#ffa101;';
+
+                # code...
+          }
+
           ?>
           
           <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-bottom : 0px solid #DADADA;" id="row_place_1">
                 
                   <tr>
                     <td colspan="2">
-                      <div class="element_to_find" align="center" style="margin-top: 10px; margin-bottom: 5px;">
+                      <div class="element_to_find" align="center" style="margin-bottom: 5px;">
+                        <span class="font-17" ><span class="font-17 " style="color: <?=$text_status_color;?>">(<?=$text_status;?>)</span></span></br>
                         <span class="font-17" ><span class="font-17 " data-role="1"><?=$res_ps->topic_th;?></span></span>
                         <input type="hidden" value=" " id="1">
                       </div>
@@ -315,13 +325,13 @@ $row_car = $query_car->row();
           else {
             $hide_btn_photo = "display:none;";
           }
-          $path_img = "../data/pic/driver/small/".$res_l->username.".jpg?v=".time();
+          $path_img = "../data/pic/driver/small/".$res_l->username.".jpg";
           ?>
-          <i id="view_lab_approve_<?=$val->id;?>" class="material-icons font-18 pull-right" style="color: rgb(59, 89, 152);  border-radius: 50%; padding: 2px; border: 2px solid rgb(59, 89, 152);<?=$hide_btn_photo;?>" onclick="modalShowImg('<?=$path_img;?>', '<?=$res_l->nickname;?>');" >account_circle</i>
+          <img id="view_lab_approve_<?=$val->id;?>" class="chat_gallery_items" style="float: right; width:35px; height: 35px; border-radius: 50px;<?=$hide_btn_photo;?>" src="<?=$path_img;?>" data-high-res-src="<?=$path_img;?>"  onclick="modalShowImg(this);" >
         </td>
       </tr>
       <?php
-      if ($val->status != "CANCEL") {
+      if ($val->status == "CANCEL_") {
         ?>
         <tr>
           <td colspan="2">
@@ -374,7 +384,7 @@ $row_car = $query_car->row();
                       else {
                         $onclick = "openDetailShop('".$key."','".$_GET[type]."','".$val->invoice."');";
                       }
-                      ?>  		
+                      ?>
                       <ons-button onclick="<?=$onclick;?>" style="padding: 15px;border: 1px solid #0076ff;
                       border-radius: 5px;
                       line-height: 0;<?=$btn_manage;?><?=$btn_manage_display;?>
@@ -397,7 +407,7 @@ $row_car = $query_car->row();
 
             if ($res_del->class_user_cancel == "taxi") {
               ?>
-              <tr>
+             <!--  <tr>
                 <td colspan="2">
                   <table width="100%" >
                     <tr>
@@ -410,24 +420,23 @@ $row_car = $query_car->row();
                     </tr>
                   </table>
                 </td>
-              </tr>
+              </tr> -->
             <? }else{ ?>
-              <tr>
+              <!-- <tr>
                 <td colspan="2">
                   <table width="100%" >
                     <tr>
                       <td>
-                        <div style=" margin-top: 5px;"><b class="font-18"><font color="#ff0000">ปฏิเสธ<br/><?=$res_cancel->s_topic;?></font></b></div>
+                          <div style=" margin-top: 5px;"><b class="font-18"><font color="#ff0000">ปฏิเสธ<br/><?=$res_cancel->s_topic;?></font></b></div>
                       </td>
                       <td>
                         <ons-button id="taxi_apporve_cancel_<?=$val->id;?>"  onclick="userApproveCancel('<?=$val->id;?>', '<?=$val->invoice;?>');" 
-                          style="padding: 15px; border-radius: 5px; line-height: 0;border:1px solid #4CAF50;color: #4CAF50;argin-top: 5px;<?=$btn_approve;?>" modifier="outline" class="button-margin button button--outline button--large" ><span class="font-17 text-cap">รับทราบ</span> </ons-button>
-
+                          style="padding: 15px; border-radius: 5px; line-height: 0;border:1px solid #4CAF50;color: #4CAF50;margin-top: 5px;<?=$btn_approve;?>" modifier="outline" class="button-margin button button--outline button--large" ><span class="font-17 text-cap">รับทราบ</span> </ons-button>
                         </td>
                       </tr>
                     </table>
                   </td>
-                </tr>
+                </tr> -->
                 <?php
               }
             }
