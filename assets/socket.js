@@ -14,9 +14,9 @@ socket.on('connect', function(){
 
   socket.on('monitor', function(rooms, data) {
     all_data = [];
-    console.log('in case monitor')
+    // console.log('in case monitor')
      all_data = data;
-     console.log(all_data)
+     // console.log(all_data)
 
 
 
