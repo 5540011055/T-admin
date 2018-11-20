@@ -1,25 +1,7 @@
 function logOut() {
   modal.show();
   $('#signout-alert-dialog').hide();
-  /*$.removeCookie('detect_user', {
-   path: '/'
-   });
-   $.removeCookie('detect_userclass', {
-   path: '/'
-   });
-   $.removeCookie('detect_username', {
-   path: '/'
-   });*/
-  //                    clearCookieAll();
-  /*ons.notification.alert({
-   message: 'ออกจากระบบสำเร็จ',
-   title: "สำเร็จ",
-   buttonLabel: "ปิด"
-   })
-   .then(function() {
-   
-   
-   });*/
+
   clearCookieAll();
   deleteTagOs("Test Text");
   deleteTagIOS(class_user, username);
@@ -187,4 +169,63 @@ function sendSocket(id) {
     order: parseInt(id),
   };
   socket.emit('sendchat', dataorder);
+}
+
+function createSignOut() {
+  var dialog = document.getElementById('signout-alert-dialog');
+
+  if (dialog) {
+    dialog.show();
+  } else {
+    ons.createElement('signout-dialog.html', {
+      append: true
+    })
+            .then(function (dialog) {
+              dialog.show();
+            });
+  }
+}
+
+function sendTagIOS(classname, username) {
+  var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  if (iOS == true) {
+    var url_xcode = "send://ios?class=" + classname + "&username=" + username + "&test=0";
+    console.log(url_xcode);
+    window.location = url_xcode;
+  }
+}
+
+function deleteTagIOS(classname, username) {
+  var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  if (iOS == true) {
+    var url_xcode = "delete://ios?class=" + classname + "&username=" + username + "&test=0";
+    console.log(url_xcode);
+    window.location = url_xcode;
+  }
+}
+
+function clearCookieAll() {
+  var cookies = $.cookie();
+  for (var cookie in cookies) {
+    console.log(cookie);
+    if (cookie != "app_remember_user" && cookie != "app_remember_pass") {
+      $.removeCookie(cookie, {
+        path: '/'
+      });
+    }
+    //	   $.removeCookie(cookie);
+
+  }
+}
+
+function sendTagOs(txt, username) {
+  if (typeof Android !== 'undefined') {
+    Android.sendTag(txt, username);
+  }
+}
+
+function deleteTagOs(txt) {
+  if (typeof Android !== 'undefined') {
+    Android.deleteTag(txt);
+  }
 }

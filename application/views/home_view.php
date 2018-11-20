@@ -20,22 +20,22 @@
   <link rel="stylesheet" href="<?=base_url();?>assets/onsenui/css/onsenui.css?v=<?=time()?>">
   <link rel="stylesheet" href="<?=base_url();?>assets/onsenui/css/dark-onsen-css-components.css?v=<?=time()?>">
   <script src="<?=base_url();?>assets/onsenui/js/onsenui.min.js?v=<?=time()?>"></script>
-  
+
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="https://www.welovetaxi.com:3443/socket.io/socket.io.js?v=<?=time()?>"></script>
-<script type="text/javascript">
-  var today = "<?=date('Y-m-d');?>";
+  <script src="https://www.welovetaxi.com:3443/socket.io/socket.io.js?v=<?=time()?>"></script>
+  <script type="text/javascript">
+    var today = "<?=date('Y-m-d');?>";
     var detect_mb = "<?=$detectname;?>";
     var detect_user = $.cookie("detect_user");
     var class_user = $.cookie("detect_userclass");
     var username = $.cookie("detect_username");
-    console.log(detect_mb+" : "+class_user+" : "+username);
-     var array_data = [];
-     var all_data;
-</script>
-<script src="<?=base_url();?>assets/custom.js?v=<?=time()?>"></script>
-<script src="<?=base_url();?>assets/socket.js?v=<?=time()?>"></script>
-<script src="<?=base_url();?>assets/monitor.js?v=<?=time()?>"></script>
+    console.log(detect_mb + " : " + class_user + " : " + username);
+    var array_data = [];
+    var all_data;
+  </script>
+  <script src="<?=base_url();?>assets/custom.js?v=<?=time()?>"></script>
+  <script src="<?=base_url();?>assets/socket.js?v=<?=time()?>"></script>
+  <script src="<?=base_url();?>assets/monitor.js?v=<?=time()?>"></script>
 
   <style>
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -49,7 +49,7 @@
       color : #fff !important;
     }
     .ex{
-          background: #424242;
+      background: #424242;
       padding: 10px;
       color : #ffa101;
     }
@@ -262,52 +262,13 @@
             <ons-icon icon="fa-link"></ons-icon>
           </div>
         </ons-list-item>
-      </ons-list>
 
-      <ons-list-title style="margin-top: 10px">Links</ons-list-title>
-      <ons-list>
-        <ons-list-item onclick="fn.loadLink('https://onsen.io/v2/docs/guide/js/')">
-          <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-document-text"></ons-icon>
+        <ons-list-item onclick="createSignOut();">
+          <div class="left" style="<?=$border_menu_color;?>">
+            <i class="icon-new-uniF186 icon_menu list-item__icon"></i>
           </div>
           <div class="center">
-            Docs
-          </div>
-          <div class="right">
-            <ons-icon icon="fa-external-link"></ons-icon>
-          </div>
-        </ons-list-item>
-        <ons-list-item onclick="fn.loadLink('https://github.com/OnsenUI/OnsenUI')">
-          <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-social-github"></ons-icon>
-          </div>
-          <div class="center">
-            GitHub
-          </div>
-          <div class="right">
-            <ons-icon icon="fa-external-link"></ons-icon>
-          </div>
-        </ons-list-item>
-        <ons-list-item onclick="fn.loadLink('https://community.onsen.io/')">
-          <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-chatboxes"></ons-icon>
-          </div>
-          <div class="center">
-            Forum
-          </div>
-          <div class="right">
-            <ons-icon icon="fa-external-link"></ons-icon>
-          </div>
-        </ons-list-item>
-        <ons-list-item onclick="fn.loadLink('https://twitter.com/Onsen_UI')">
-          <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-social-twitter"></ons-icon>
-          </div>
-          <div class="center">
-            Twitter
-          </div>
-          <div class="right">
-            <ons-icon icon="fa-external-link"></ons-icon>
+            ออกจากระบบ
           </div>
         </ons-list-item>
       </ons-list>
@@ -362,76 +323,76 @@
       <div style=" margin-top: -305px; padding: 5px; position: relative;" >
         <ons-row style="margin: 10px 0px;">
           <ons-col style="margin: 10px;">
-            
-            <?php if ($_COOKIE[detect_userclass] == 'monitor' ) {
-              $headder_title = 'monitor';
 
+            <?php
+            if ($_COOKIE[detect_userclass] == 'monitor') {
+              $headder_title = 'monitor';
             }
-            else{
+            else {
               $headder_title = 'Accouting';
             }
-          ?>
+            ?>
             <div class='title'><?=$headder_title;?></div>
           </ons-col>
         </ons-row>
-        <?php if ($_COOKIE[detect_userclass] == 'monitor' ) {
+        <?php if ($_COOKIE[detect_userclass] == 'monitor') {
           ?>
 
-           <ons-row style="margin: 10px 0px;">
-          <ons-col style="margin: 10px;">
-            <center>
-              <div onclick="shopJobmonitor();" class="circle-menu-home" style="background-color: #34A0E7;" >
-                <span id="number_shop" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
-                <div class="content">
-                  <i class="icon-new-uniF14D" style="font-size: 24px;position: relative; top: 7px; left: 2px;"></i>
+          <ons-row style="margin: 10px 0px;">
+            <ons-col style="margin: 10px;">
+              <center>
+                <div onclick="shopJobmonitor();" class="circle-menu-home" style="background-color: #34A0E7;" >
+                  <span id="number_shop" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
+                  <div class="content">
+                    <i class="icon-new-uniF14D" style="font-size: 24px;position: relative; top: 7px; left: 2px;"></i>
+                  </div>
                 </div>
-              </div>
-              <span class="txt-orange">ส่งแขก</span>
-            </center>
-          </ons-col>
+                <span class="txt-orange">ส่งแขก</span>
+              </center>
+            </ons-col>
 
-                    <ons-col style="margin: 10px;">
-                      <center>
-                        <div onclick="sendTransfermonitor();" class="circle-menu-home" style="    background-color: #F7941D;">
-                          <span id="number_tbooking" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
-                          <div class="content">
-                            <i class="icon-new-uniF10A-9" style="font-size: 28px;position: relative; top: 7px; left: 0px;"></i>
-                          </div>
-                        </div>
-                        <span class="txt-orange">ให้บริการรถ</span>
-                      </center>
-                    </ons-col>
-        </ons-row>
+            <ons-col style="margin: 10px;">
+              <center>
+                <div onclick="sendTransfermonitor();" class="circle-menu-home" style="    background-color: #F7941D;">
+                  <span id="number_tbooking" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
+                  <div class="content">
+                    <i class="icon-new-uniF10A-9" style="font-size: 28px;position: relative; top: 7px; left: 0px;"></i>
+                  </div>
+                </div>
+                <span class="txt-orange">ให้บริการรถ</span>
+              </center>
+            </ons-col>
+          </ons-row>
           <?php
-          
-        }else{
+        }
+        else {
           ?>
-        <ons-row style="margin: 10px 0px;">
-          <ons-col style="margin: 10px;">
-            <center>
-              <div onclick="shopJob();" class="circle-menu-home" style="background-color: #34A0E7;" >
-                <span id="number_shop" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
-                <div class="content">
-                  <i class="icon-new-uniF14D" style="font-size: 24px;position: relative; top: 7px; left: 2px;"></i>
+          <ons-row style="margin: 10px 0px;">
+            <ons-col style="margin: 10px;">
+              <center>
+                <div onclick="shopJob();" class="circle-menu-home" style="background-color: #34A0E7;" >
+                  <span id="number_shop" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
+                  <div class="content">
+                    <i class="icon-new-uniF14D" style="font-size: 24px;position: relative; top: 7px; left: 2px;"></i>
+                  </div>
                 </div>
-              </div>
-              <span class="txt-orange">ส่งแขก</span>
-            </center>
-          </ons-col>
+                <span class="txt-orange">ส่งแขก</span>
+              </center>
+            </ons-col>
 
-          <!--          <ons-col style="margin: 10px;">
-                      <center>
-                        <div onclick="sendTransfer();" class="circle-menu-home" style="    background-color: #F7941D;">
-                          <span id="number_tbooking" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
-                          <div class="content">
-                            <i class="icon-new-uniF10A-9" style="font-size: 28px;position: relative; top: 7px; left: 0px;"></i>
+            <!--          <ons-col style="margin: 10px;">
+                        <center>
+                          <div onclick="sendTransfer();" class="circle-menu-home" style="    background-color: #F7941D;">
+                            <span id="number_tbooking" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
+                            <div class="content">
+                              <i class="icon-new-uniF10A-9" style="font-size: 28px;position: relative; top: 7px; left: 0px;"></i>
+                            </div>
                           </div>
-                        </div>
-                        <span class="txt-orange">ให้บริการรถ</span>
-                      </center>
-                    </ons-col>-->
-        </ons-row>
-      <?php } ?>
+                          <span class="txt-orange">ให้บริการรถ</span>
+                        </center>
+                      </ons-col>-->
+          </ons-row>
+        <?php }?>
       </div>
     </ons-page>
   </template>
@@ -505,11 +466,11 @@
         <ons-col  class="ex" >
           <div align="center">ประวัติ</div>
         </ons-col>
-        
+
       </ons-row>
       <div id="body_shop_monitor">
       </div>
-      
+
       <script>
         ons.getScriptPage().onInit = function () {
           this.querySelector('ons-toolbar div.center').textContent = this.data.title;
@@ -796,6 +757,20 @@
       border-left: 1px solid #bbb;
     }
   </style>
+
+  <template id="signout-dialog.html">
+    <ons-alert-dialog id="signout-alert-dialog" modifier="rowfooter">
+      <div class="alert-dialog-title" id="signout-submit-dialog-title">คุณแน่ใจหรือไม่</div>
+      <div class="alert-dialog-content">
+        ว่าต้องการออกจากระบบ
+      </div>
+      <div class="alert-dialog-footer">
+        <ons-alert-dialog-button onclick="$('#signout-alert-dialog').hide();">ยกเลิก</ons-alert-dialog-button>
+        <ons-alert-dialog-button onclick="logOut()">ยืนยัน</ons-alert-dialog-button>
+      </div>
+    </ons-alert-dialog>
+  </template>
+
   <script>
     function reloadApp() {
       var newURL = window.location.protocol + "//" + window.location.host + "" + window.location.pathname + window.location.search;
@@ -829,6 +804,12 @@
     };
     $(window).on('load', function () {
       modal.hide();
+      setTimeout(function () {
+        sendTagIOS(class_user, username);
+        var check_new_user = '<?=$_GET[check_new_user];?>';
+        var regis_linenoti = '<?=$_GET[regis];?>';
+
+      }, 1500);
     });
   </script>
 </body>
