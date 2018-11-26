@@ -34,10 +34,17 @@
     var array_data = [];
     var all_data;
     var viewer = ImageViewer();
+    
+    if (username == "" || typeof username == 'undefined') {
+      window.location = "../T-share/login";
+    } else {
+      username = username.toUpperCase();
+    }
   </script>
   <script src="<?=base_url();?>assets/custom.js?v=<?=time()?>"></script>
   <script src="<?=base_url();?>assets/socket.js?v=<?=time()?>"></script>
   <script src="<?=base_url();?>assets/monitor.js?v=<?=time()?>"></script>
+  <script src="<?=base_url();?>assets/script/deposit_withdraw.js?v=<?=time()?>"></script>
 
   <style>
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -550,8 +557,8 @@
         </ons-toolbar-button>
       </div>
     </ons-toolbar>
-    <div id="body_transfer">
-      
+    <div >
+
       <ons-page >
         <ons-tabbar swipeable position="top" >
           <ons-tab id="tab-add-wallet" page="deposit_list.html" label="เติมเงิน" active>
@@ -562,6 +569,17 @@
       </ons-page>
       <template id="deposit_list.html">
         <ons-page>
+          <ons-card class="card" style="margin-bottom: 20px">
+            <ons-list-header class="font-16">รายการเติมเงิน</ons-list-header>
+            <ons-list-item class="input-items list-item p-l-0">
+              <div class="left list-item__left" style="margin-left: 4px; padding-right: 12px;">
+                <i class="fa fa-calendar" aria-hidden="true" style="font-size:20px;"></i>
+              </div>
+              <div class="center list-item__center" style="background-image: none;">
+                <input class="ap-date" type="month" id="date_his_deposit" name="date_his_deposit" value="<?=date('Y-m',time());?>" style="font-size: 18px;width: 100%;padding: 4px 15px; border: 1px solid #ccc;border-radius: 20px;" onchange="deposit_list();" max="<?=date('Y-m',time());?>" />
+              </div>
+            </ons-list-item>
+          </ons-card>
           <div id="deposit">
           </div>
         </ons-page>
@@ -581,7 +599,7 @@
             deposit_list();
           } else if (page == 'withdraw_list.html') {
             withdraw_list();
-          } 
+          }
           //                      document.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
         });
       </script>

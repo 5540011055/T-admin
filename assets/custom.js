@@ -230,9 +230,3 @@ function deleteTagOs(txt) {
   }
 }
 
-function depositWithdraw(){
-  fn.pushPage({
-    'id': 'deposit_withdraw.html',
-    'title': 'เติม - ถอน'
-  }, 'slide-ios');
-}
