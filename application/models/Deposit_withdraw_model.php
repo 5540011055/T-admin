@@ -12,7 +12,7 @@ class Deposit_withdraw_model extends CI_Model {
     $data[status] = 1;
 //	$data[result] = $db->update_db("deposit_history",$data,"id = '".$id."' ");
     $where = array();
-    $this->db->select('id');
+    $this->db->select('id, driver');
     $where[driver] = $_POST[driver];
     $query = $this->db->get_where(TBL_DEPOSIT,$where);
     $num_row = $query->num_rows();
@@ -23,6 +23,11 @@ class Deposit_withdraw_model extends CI_Model {
       $total_balance = intval($arr[deposit][balance]) + intval($deposit);
       $up_deposit[balance] = $total_balance;
       $up_deposit[last_update] = time();
+      
+      $param[status] = 2; // reject
+      $where[id] = $query->row()->id;
+      $up_deposit[result] = $this->db->update(TBL_DEPOSIT,$param,$where);
+      
 //		$up_deposit[result] = $db->update_db("deposit",$up_deposit,"driver = '".$dv_id."' ");
       $up_deposit[data][balance] = intval($arr[deposit][balance]);
       $up_deposit[data][deposit] = intval($deposit);
@@ -34,6 +39,8 @@ class Deposit_withdraw_model extends CI_Model {
       $up_deposit[last_update] = time();
       $up_deposit[driver] = $dv_id;
       $up_deposit[ip] = 0;
+      
+      $up_deposit[result] = $this->db->insert(TBL_DEPOSIT,$up_deposit);
 //		$up_deposit[result] = $db->add_db("deposit",$up_deposit);
       $id = $this->db->insert_id();
     }
