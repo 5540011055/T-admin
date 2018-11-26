@@ -174,7 +174,7 @@
   </style>
   <ons-modal direction="up" id="modal_load" class="modal-load">
     <div style="text-align: center;">
-      <p sty>
+      <p >
       <ons-icon icon="md-spinner" size="25px" spin></ons-icon> <span size="18px">Loading...</span>
       </p>
     </div>

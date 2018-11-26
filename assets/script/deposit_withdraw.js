@@ -119,8 +119,7 @@ function approvedDeposit(id) {
 function submitApproveDs() {
   modal.show();
   var ps = {
-    id: $('#id_reject_dp').val(),
-    cause: $('#cause_reject_dp').val(),
+    id: $('#id_approve_dp').val(),
     deposit: $('#deposit_dp').val(),
     driver: $('#driver').val(),
     type: "Add"
@@ -135,16 +134,16 @@ function submitApproveDs() {
       console.log(res);
       modal.hide();
       deposit_list();
-//      if (res.dp.result == true) {
-//        ons.notification.alert({
-//          message: 'ปฏิเสธสำเร็จ',
-//          title: "สำเร็จ",
-//          buttonLabel: "ปิด"
-//        })
-//                .then(function () {
-//                  callpop();
-//                });
-//      }
+      if (res.update.dp.result == true) {
+        ons.notification.alert({
+          message: 'อนุมัติสำเร็จ',
+          title: "สำเร็จ",
+          buttonLabel: "ปิด"
+        })
+                .then(function () {
+                  callpop();
+                });
+      }
 
     },
     error: function (err) {

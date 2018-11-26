@@ -25,6 +25,7 @@ class Deposit_withdraw extends CI_Controller {
   public function approve_deposit($param) {
     $data = $this->Deposit_withdraw_model->approve_deposit();
     echo json_encode($data);
+//    echo json_encode($_POST);
   }
   
   public function reject_deposit($param) {
