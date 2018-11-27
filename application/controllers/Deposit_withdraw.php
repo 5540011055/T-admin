@@ -51,10 +51,10 @@ class Deposit_withdraw extends CI_Controller {
   
   public function find_deposit_id() {
     $where = array();
-    $this->db->select('id');
+    $this->db->select('*');
     $where[driver] = $_GET[driver];
     $query = $this->db->get_where(TBL_DEPOSIT,$where);
-    return $query->row()->id;
+    echo $query->row()->id;
   }
 
   //////////////////////////// End

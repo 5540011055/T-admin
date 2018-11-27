@@ -160,7 +160,9 @@ function submitRejectDs() {
       console.log(res);
       modal.hide();
       deposit_list();
-      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+      var url = "deposit_withdraw/find_deposit_id?driver=" + $('#driver').val();
+      $.post(url, function (res) {
+        console.log(res);
         activeSocketDepositWithdraw(res);
       });
       var data = {
@@ -228,7 +230,9 @@ function submitApproveDs() {
       console.log(res);
       modal.hide();
       deposit_list();
-      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+      var url = "deposit_withdraw/find_deposit_id?driver=" + $('#driver').val();
+      $.post(url, function (res) {
+        console.log(res);
         activeSocketDepositWithdraw(res);
       });
       var data = {
@@ -279,6 +283,7 @@ function approvedWithdraw() {
 }
 
 function submitApproveWd() {
+  
   modal.show();
 
   var url = "deposit_withdraw/approve_withdraw";
@@ -291,7 +296,9 @@ function submitApproveWd() {
       console.log(res);
       modal.hide();
       withdraw_list();
-      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+      var url = "deposit_withdraw/find_deposit_id?driver=" + $('#driver').val();
+      $.post(url, function (res) {
+        console.log(res);
         activeSocketDepositWithdraw(res);
       });
       var data = {
@@ -359,7 +366,9 @@ function submitRejectWd() {
       console.log(res);
       modal.hide();
       withdraw_list();
-      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+      var url = "deposit_withdraw/find_deposit_id?driver=" + $('#driver').val();
+      $.post(url, function (res) {
+        console.log(res);
         activeSocketDepositWithdraw(res);
       });
       var data = {
