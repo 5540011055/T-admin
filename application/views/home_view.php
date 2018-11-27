@@ -144,13 +144,13 @@
     }
 
     .title {
-      position: absolute;
+      /*position: absolute;*/
       left: 0;
       top: 0;
-      width: 100%;
+      /*width: 100%;*/
       z-index: 1;
       /*line-height: 300px;*/
-      text-align: center;
+      /*text-align: center;*/
       transform: translate3d(0, 0, 0);
       color: white;
       text-transform: uppercase;
