@@ -33,14 +33,28 @@ class Deposit_withdraw extends CI_Controller {
   }
 
   public function reject_deposit($param) {
-//    $data = $this->Deposit_withdraw_model->reject_deposit();
-    echo json_encode($_POST);
+    $data = $this->Deposit_withdraw_model->reject_deposit();
+    echo json_encode($data);
   }
 
   public function approve_withdraw() {
     $data = $this->Deposit_withdraw_model->approve_withdraw();
     echo json_encode($data);
     
+  }
+  
+  public function reject_withdraw() {
+    $data = $this->Deposit_withdraw_model->reject_withdraw();
+    echo json_encode($data);
+    
+  }
+  
+  public function find_deposit_id() {
+    $where = array();
+    $this->db->select('id');
+    $where[driver] = $_GET[driver];
+    $query = $this->db->get_where(TBL_DEPOSIT,$where);
+    return $query->row()->id;
   }
 
   //////////////////////////// End

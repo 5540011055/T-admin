@@ -48,9 +48,9 @@ $i = 0;
             <span class="font-14"><?=date('Y-m-d h:i',$row->post_date);?></span>
           </td>
           <td>
-            <div class="plate-approve <?=$class_plate;?>"><?=$txt_status;?></div>
+            <div style="width: 100%;" class="plate-approve <?=$class_plate;?>"><?=$txt_status;?></div>
           </td>
-          <td align="right" width="80"><b><?=$icons." ".number_format($row->deposit,2);?></b></td>
+          <td align="right" width="90"><b><?=$icons." ".number_format($row->deposit,2);?></b></td>
         </tr>
       </table>
     </div>
@@ -58,17 +58,16 @@ $i = 0;
   <?php }
   ?>
 </ons-list>
-
 <template id="confirm_reject_wd.html">
-  <ons-alert-dialog id="confirm_reject_ds-dialog" modifier="rowfooter">
-    <div class="alert-dialog-title">ปฏิเสธการเติมเงิน</div>
+  <ons-alert-dialog id="confirm_reject_wd-dialog" modifier="rowfooter">
+    <div class="alert-dialog-title">ปฏิเสธการถอนเงิน</div>
     <div class="alert-dialog-content">
       กรุณากรอกเหตุผล
-      <input id="cause_reject_dp" class="text-input text-input--underbar" type="text" placeholder="" value="" style="width: 100%; margin-top: 10px;color: #000;">
+      <input id="cause_reject_wd" class="text-input text-input--underbar" type="text" placeholder="" value="" style="width: 100%; margin-top: 10px;color: #000;">
     </div>
     <div class="alert-dialog-footer">
       <ons-alert-dialog-button onclick="document.getElementById('confirm_reject_wd-dialog').hide();">ยกเลิก</ons-alert-dialog-button>
-      <ons-alert-dialog-button onclick="submitRejectDs();document.getElementById('confirm_reject_wd-dialog').hide();"><b style="color:#FF0000;">ปฏิเสธ</b></ons-alert-dialog-button>
+      <ons-alert-dialog-button onclick="submitRejectWd();document.getElementById('confirm_reject_wd-dialog').hide();"><b style="color:#FF0000;">ปฏิเสธ</b></ons-alert-dialog-button>
     </div>
   </ons-alert-dialog>
 </template>

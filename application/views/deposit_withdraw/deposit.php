@@ -61,9 +61,9 @@ $i = 0;
             <span class="font-14"><?=date('Y-m-d h:i',$row->post_date);?></span>
           </td>
           <td>
-            <div class="plate-approve <?=$class_plate;?>"><?=$txt_status;?></div>
+            <div style="width: 100%;" class="plate-approve <?=$class_plate;?>"><?=$txt_status;?></div>
           </td>
-          <td align="right" width="80"><b><?=$icons." ".number_format($row->deposit,2);?></b></td>
+          <td align="right" width="90"><b><?=$icons." ".number_format($row->deposit,2);?></b></td>
         </tr>
       </table>
     </div>

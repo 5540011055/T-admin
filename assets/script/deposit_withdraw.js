@@ -116,6 +116,9 @@ function submitRejectDs() {
       console.log(res);
       modal.hide();
       deposit_list();
+      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+        activeSocketDepositWithdraw(res);
+      });
       if (res.dp.result == true) {
         ons.notification.alert({
           message: 'ปฏิเสธสำเร็จ',
@@ -131,6 +134,14 @@ function submitRejectDs() {
     error: function (err) {
       console.log(err);
       modal.hide();
+      ons.notification.alert({
+        message: 'กรุณาลองใหม่อีกครั้ง',
+        title: "ล้มเหลว",
+        buttonLabel: "ปิด"
+      })
+              .then(function () {
+//                callpop();
+              });
       //your code here
     }
   });
@@ -167,6 +178,9 @@ function submitApproveDs() {
       console.log(res);
       modal.hide();
       deposit_list();
+      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+        activeSocketDepositWithdraw(res);
+      });
       if (res.update.dp.result == true) {
         ons.notification.alert({
           message: 'อนุมัติสำเร็จ',
@@ -182,6 +196,14 @@ function submitApproveDs() {
     error: function (err) {
       console.log(err);
       modal.hide();
+      ons.notification.alert({
+        message: 'กรุณาลองใหม่อีกครั้ง',
+        title: "ล้มเหลว",
+        buttonLabel: "ปิด"
+      })
+              .then(function () {
+//                callpop();
+              });
       //your code here
     }
   });
@@ -244,9 +266,9 @@ function approvedWithdraw() {
   }
 }
 
-function submitApproveWd(){
+function submitApproveWd() {
   modal.show();
-  
+
   var url = "deposit_withdraw/approve_withdraw";
   $.ajax({
     url: url, // point to server-side PHP script 
@@ -257,6 +279,9 @@ function submitApproveWd(){
       console.log(res);
       modal.hide();
       withdraw_list();
+      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+        activeSocketDepositWithdraw(res);
+      });
       if (res.his.result == true) {
         ons.notification.alert({
           message: 'ยืนยันการโอนสำเร็จ',
@@ -272,6 +297,76 @@ function submitApproveWd(){
     error: function (err) {
       console.log(err);
       modal.hide();
+      ons.notification.alert({
+        message: 'กรุณาลองใหม่อีกครั้ง',
+        title: "ล้มเหลว",
+        buttonLabel: "ปิด"
+      })
+              .then(function () {
+//                callpop();
+              });
+      //your code here
+    }
+  });
+}
+
+function rejectWithdraw(id) {
+  var dialog = document.getElementById('confirm_reject_wd-dialog');
+  if (dialog) {
+    dialog.show();
+  } else {
+    ons.createElement('confirm_reject_wd.html', {append: true})
+            .then(function (dialog) {
+              dialog.show();
+            });
+  }
+}
+
+function submitRejectWd() {
+  modal.show();
+  var ps = {
+    id: $('#deposit_id').val(),
+    cause: $('#cause_reject_wd').val(),
+    deposit: $('#deposit_wd').val(),
+    type: "Withdraw",
+    driver: $('#driver').val()
+  };
+  var url = "deposit_withdraw/reject_withdraw";
+  $.ajax({
+    url: url, // point to server-side PHP script 
+    dataType: 'json', // what to expect back from the PHP script, if anything
+    data: ps,
+    type: 'post',
+    success: function (res) {
+      console.log(res);
+      modal.hide();
+      withdraw_list();
+      $.post("deposit_withdraw/find_deposit_id?driver=" + $('#driver').val(), function (res) {
+        activeSocketDepositWithdraw(res);
+      });
+      if (res.main.result == true) {
+        ons.notification.alert({
+          message: 'ปฏิเสธสำเร็จ',
+          title: "สำเร็จ",
+          buttonLabel: "ปิด"
+        })
+                .then(function () {
+                  callpop();
+                });
+      }
+
+    },
+    error: function (err) {
+      console.log(err);
+      modal.hide();
+      ons.notification.alert({
+        message: 'กรุณาลองใหม่อีกครั้ง',
+        title: "ล้มเหลว",
+        buttonLabel: "ปิด"
+      })
+              .then(function () {
+//                callpop();
+              });
       //your code here
     }
   });

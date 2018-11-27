@@ -20,6 +20,7 @@ class Deposit_withdraw_model extends CI_Model {
 
       $total_balance = intval($q_dp->balance) + intval($deposit);
       $up_deposit[balance] = $total_balance;
+      $up_deposit[deposit] = intval($q_dp->deposit) + intval($deposit);
       $up_deposit[last_update] = time();
 
       $where = array();
@@ -33,6 +34,7 @@ class Deposit_withdraw_model extends CI_Model {
     else {
       $total_balance = $deposit;
       $up_deposit[balance] = $total_balance;
+      $up_deposit[deposit] = intval($deposit);
       $up_deposit[last_update] = time();
       $up_deposit[driver] = $dv_id;
       $up_deposit[ip] = $_SERVER["SERVER_ADDR"];
@@ -82,12 +84,12 @@ class Deposit_withdraw_model extends CI_Model {
   }
 
   public function approve_withdraw() {
-    
+
     $where = array();
     $where[id] = $_POST[deposit_id];
     $up_dp_his[status] = 1;
     $up_dp_his[result] = $this->db->update(TBL_DEPOSIT_HISTORY,$up_dp_his,$where);
-    
+
     $history[deposit_id] = $_POST[deposit_id];
     $history[deposit] = $_POST[deposit_wd];
     $history[type] = "WITHDRAW";
@@ -97,18 +99,57 @@ class Deposit_withdraw_model extends CI_Model {
     $history[last_update] = time();
     $history[post_date] = time();
     $history[result] = $this->db->insert(TBL_DEPOSIT_HISTORY_LOG,$history);
-    
-    $return[p1] = rename("../data/fileupload/doc_pay_driver/transfer/slip_withdraw/".$_POST[rand_withdraw].".jpg", "../data/fileupload/doc_pay_driver/transfer/slip_withdraw/".$_POST[deposit_id].".jpg");
-    
+
+    $return[p1] = rename("../data/fileupload/doc_pay_driver/transfer/slip_withdraw/".$_POST[rand_withdraw].".jpg","../data/fileupload/doc_pay_driver/transfer/slip_withdraw/".$_POST[deposit_id].".jpg");
+
+//    $where = array();
+//    $this->db->select('*');
+//    $where[driver] = $_POST[driver];
+//    $query = $this->db->get_where(TBL_DEPOSIT,$where);
+
     $return[his] = $up_dp_his;
     $return[log] = $history;
     $return[post] = $_POST;
-    
+
     return $return;
   }
 
   public function reject_withdraw() {
+    $cost = $this->input->post('deposit');
+
+    $where = array();
+    $this->db->select('*');
+    $where[driver] = $this->input->post('driver');
+    $query = $this->db->get_where(TBL_DEPOSIT,$where);
+    $main_dp = $query->row();
     
+    $where = array();
+    $mian[withdraw] = intval($main_dp->withdraw) - intval($cost); // reject
+    $mian[balance] = intval($main_dp->balance) + intval($cost); // reject
+    $where[driver] = $this->input->post('driver');
+    $mian[result] = $this->db->update(TBL_DEPOSIT,$mian,$where);
+
+    $where = array();
+    $dp[status] = 2; // reject
+    $where[id] = $this->input->post('id');
+    $dp[result] = $this->db->update(TBL_DEPOSIT_HISTORY,$dp,$where);
+
+    $his[status] = 2; // reject
+    $his[cause] = $this->input->post('cause');
+    $his[deposit_id] = $this->input->post('id');
+    $his[deposit] = $cost;
+    $his[approved] = $_COOKIE[detect_username];
+    $his[type] = $this->input->post('type');
+    $his[last_update] = time();
+    $his[post_date] = time();
+    $his[ip] = $_SERVER["SERVER_ADDR"];
+    $his[result] = $this->db->insert(TBL_DEPOSIT_HISTORY_LOG,$his);
+
+    $return[main] = $mian;
+    $return[dp] = $dp;
+    $return[his] = $his;
+    
+    return $return;
   }
 
   /**
