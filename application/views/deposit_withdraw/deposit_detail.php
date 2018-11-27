@@ -80,7 +80,7 @@ $logs = $query_log->row();
     </table>
   </ons-list-item>
   <?php 
-  if($query_log->num_rows()>0){
+  if($data->status>1){
   ?>
   <ons-list-item>
     <table width="100%">
