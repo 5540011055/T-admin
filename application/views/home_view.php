@@ -243,7 +243,7 @@
         <img src="https://monaca.io/img/logos/download_image_onsenui_01.png">
       </div>
 
-      <ons-list-title>Access</ons-list-title>
+<!--      <ons-list-title>Access</ons-list-title>-->
       <ons-list>
         <ons-list-item onclick="fn.loadView(0)">
           <div class="left">
@@ -256,7 +256,7 @@
             <ons-icon icon="fa-link"></ons-icon>
           </div>
         </ons-list-item>
-        <ons-list-item onclick="fn.loadView(1)">
+<!--        <ons-list-item onclick="fn.loadView(1)">
           <div class="left">
             <ons-icon fixed-width class="list-item__icon" icon="ion-edit, material:md-edit"></ons-icon>
           </div>
@@ -277,7 +277,7 @@
           <div class="right">
             <ons-icon icon="fa-link"></ons-icon>
           </div>
-        </ons-list-item>
+        </ons-list-item>-->
 
         <ons-list-item onclick="createSignOut();">
           <div class="left" style="<?=$border_menu_color;?>">
