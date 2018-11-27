@@ -34,7 +34,7 @@
     var array_data = [];
     var all_data;
     var viewer = ImageViewer();
-    
+
     if (username == "" || typeof username == 'undefined') {
       window.location = "../T-share/login";
     } else {
@@ -47,6 +47,13 @@
   <script src="<?=base_url();?>assets/script/deposit_withdraw.js?v=<?=time()?>"></script>
 
   <style>
+    .ap-date{
+      font-size: 18px;
+      width: 100%;
+      padding: 4px 15px; 
+      border: 1px solid #ccc;
+      border-radius: 20px;
+    }
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: #eacb96 !important;
       font-weight: 400 !important;
@@ -576,7 +583,7 @@
                 <i class="fa fa-calendar" aria-hidden="true" style="font-size:20px;"></i>
               </div>
               <div class="center list-item__center" style="background-image: none;">
-                <input class="ap-date" type="month" id="date_his_deposit" name="date_his_deposit" value="<?=date('Y-m',time());?>" style="font-size: 18px;width: 100%;padding: 4px 15px; border: 1px solid #ccc;border-radius: 20px;" onchange="deposit_list();" max="<?=date('Y-m',time());?>" />
+                <input class="ap-date" type="month" id="date_his_deposit" name="date_his_deposit" value="<?=date('Y-m',time());?>" style="" onchange="deposit_list();" max="<?=date('Y-m',time());?>" />
               </div>
             </ons-list-item>
           </ons-card>
@@ -586,6 +593,17 @@
       </template>
       <template id="withdraw_list.html">
         <ons-page>
+          <ons-card class="card" style="margin-bottom: 20px">
+            <ons-list-header class="font-16">รายการถอนเงิน</ons-list-header>
+            <ons-list-item class="input-items list-item p-l-0">
+              <div class="left list-item__left" style="margin-left: 4px; padding-right: 12px;">
+                <i class="fa fa-calendar" aria-hidden="true" style="font-size:20px;"></i>
+              </div>
+              <div class="center list-item__center" style="background-image: none;">
+                <input class="ap-date" type="month" id="date_his_withdraw" name="date_his_withdraw" value="<?=date('Y-m',time());?>" style="" onchange="withdraw_list();" max="<?=date('Y-m',time());?>" />
+              </div>
+            </ons-list-item>
+          </ons-card>
           <div id="withdraw">
           </div>
         </ons-page>

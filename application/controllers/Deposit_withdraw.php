@@ -22,6 +22,10 @@ class Deposit_withdraw extends CI_Controller {
     $this->load->view('deposit_withdraw/deposit_detail');
   }
   
+  public function withdraw_detail() {
+    $this->load->view('deposit_withdraw/withdraw_detail');
+  }
+  
   public function approve_deposit($param) {
     $data = $this->Deposit_withdraw_model->approve_deposit();
     echo json_encode($data);

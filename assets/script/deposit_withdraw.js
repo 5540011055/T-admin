@@ -18,7 +18,10 @@ function deposit_list() {
 
 function withdraw_list() {
   $('#withdraw').html(progress_circle);
-  $.post("deposit_withdraw/withdraw", function (ele) {
+  var date = $('#date_his_withdraw').val();
+  var url = "deposit_withdraw/withdraw?date=" + date;
+  console.log(url);
+  $.post(url, function (ele) {
     $('#withdraw').html(ele);
   });
 }
@@ -30,6 +33,22 @@ function openDetailHisWallet(id) {
     'title': 'รายละเอียด'
   }, 'lift-ios');
   var url = "deposit_withdraw/deposit_detail?deposit_id=" + id;
+  setTimeout(function () {
+    $('#body_popup1').html(progress_circle);
+    $.post(url, function (ele) {
+      $('#body_popup1').html(ele);
+    });
+  }, 200);
+}
+
+function openDetailHisWithdraw(id) {
+
+  fn.pushPage({
+    'id': 'popup1.html',
+    'title': 'รายละเอียด'
+  }, 'lift-ios');
+  var url = "deposit_withdraw/withdraw_detail?deposit_id=" + id;
+  console.log(url);
   setTimeout(function () {
     $('#body_popup1').html(progress_circle);
     $.post(url, function (ele) {
@@ -152,4 +171,61 @@ function submitApproveDs() {
       //your code here
     }
   });
+}
+
+function readURLslip(input, id_ele) {
+
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+
+      $('#pv_' + id_ele).attr('src', e.target.result);
+
+      var data = new FormData($('#form_withdraw')[0]);
+      data.append('fileUpload', $('#' + id_ele)[0].files[0]);
+
+      var param_id = $('#rand_withdraw').val();
+
+//            var url_upload = "application/views/upload_img/upload.php?id=" + param_id + "&type=slipt_inform";
+      var url_upload = "upload/index?id=" + param_id + "&type=slipt_inform";
+      console.log(url_upload);
+      $.ajax({
+        url: url_upload, // point to server-side PHP script 
+        dataType: 'json', // what to expect back from the PHP script, if anything
+        cache: false,
+        contentType: false,
+        processData: false,
+        data: data,
+        type: 'post',
+        success: function (php_script_response) {
+          console.log(php_script_response);
+          $('#box_img_' + id_ele).fadeIn(200);
+          $('#txt-img-has-' + id_ele).show();
+          $('#txt-img-nohas-' + id_ele).hide();
+//                    $('.'+param_id+'_pic_car_'+num).attr('src', "../data/pic/car/"+param_id+"_"+num+".jpg?v="+$.now());
+
+        },
+        error: function (e) {
+          console.log(e)
+        }
+      });
+    }
+    reader.readAsDataURL(input.files[0]);
+
+  }
+
+}
+
+function approvedWithdraw() {
+  var dialog = document.getElementById('confirm_approve_wd-dialog');
+  $('#id_approve_wd').val(id);
+  if (dialog) {
+    dialog.show();
+  } else {
+    ons.createElement('confirm_approve_wd.html', {append: true})
+            .then(function (dialog) {
+              dialog.show();
+            });
+  }
 }
