@@ -71,6 +71,20 @@ function checkPicWallet(path, id) {
   });
 }
 
+function checkPicWithdraw(path, id) {
+  $.ajax({
+    url: path,
+    type: 'HEAD',
+    error: function () {
+      console.log('Error file');
+//            $('#'+id).attr('src', path);
+    },
+    success: function () {
+      $('#' + id).attr('src', path + "?v=" + $.now());
+    }
+  });
+}
+
 function rejectDeposit(id) {
   var dialog = document.getElementById('confirm_reject_ds-dialog');
   $('#id_reject_dp').val(id);
@@ -188,7 +202,7 @@ function readURLslip(input, id_ele) {
       var param_id = $('#rand_withdraw').val();
 
 //            var url_upload = "application/views/upload_img/upload.php?id=" + param_id + "&type=slipt_inform";
-      var url_upload = "upload/index?id=" + param_id + "&type=slipt_inform";
+      var url_upload = "upload/index?id=" + param_id + "&type=slipt_withdraw";
       console.log(url_upload);
       $.ajax({
         url: url_upload, // point to server-side PHP script 
@@ -228,4 +242,37 @@ function approvedWithdraw() {
               dialog.show();
             });
   }
+}
+
+function submitApproveWd(){
+  modal.show();
+  
+  var url = "deposit_withdraw/approve_withdraw";
+  $.ajax({
+    url: url, // point to server-side PHP script 
+    dataType: 'json', // what to expect back from the PHP script, if anything
+    data: $('#form_withdraw').serialize(),
+    type: 'post',
+    success: function (res) {
+      console.log(res);
+      modal.hide();
+      withdraw_list();
+      if (res.his.result == true) {
+        ons.notification.alert({
+          message: 'ยืนยันการโอนสำเร็จ',
+          title: "สำเร็จ",
+          buttonLabel: "ปิด"
+        })
+                .then(function () {
+                  callpop();
+                });
+      }
+
+    },
+    error: function (err) {
+      console.log(err);
+      modal.hide();
+      //your code here
+    }
+  });
 }

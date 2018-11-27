@@ -21,7 +21,7 @@ class Deposit_withdraw_model extends CI_Model {
       $total_balance = intval($q_dp->balance) + intval($deposit);
       $up_deposit[balance] = $total_balance;
       $up_deposit[last_update] = time();
-      
+
       $where = array();
       $where[id] = $q_dp->id;
       $up_deposit[result] = $this->db->update(TBL_DEPOSIT,$up_deposit,$where);
@@ -79,6 +79,36 @@ class Deposit_withdraw_model extends CI_Model {
     $return[dp] = $dp;
     $return[his] = $his;
     return $return;
+  }
+
+  public function approve_withdraw() {
+    
+    $where = array();
+    $where[id] = $_POST[deposit_id];
+    $up_dp_his[status] = 1;
+    $up_dp_his[result] = $this->db->update(TBL_DEPOSIT_HISTORY,$up_dp_his,$where);
+    
+    $history[deposit_id] = $_POST[deposit_id];
+    $history[deposit] = $_POST[deposit_wd];
+    $history[type] = "WITHDRAW";
+    $history[approved] = $_COOKIE[detect_username];
+    $history[status] = 1;
+    $history[ip] = $_SERVER["SERVER_ADDR"];
+    $history[last_update] = time();
+    $history[post_date] = time();
+    $history[result] = $this->db->insert(TBL_DEPOSIT_HISTORY_LOG,$history);
+    
+    $return[p1] = rename("../data/fileupload/doc_pay_driver/transfer/slip_withdraw/".$_POST[rand_withdraw].".jpg", "../data/fileupload/doc_pay_driver/transfer/slip_withdraw/".$_POST[deposit_id].".jpg");
+    
+    $return[his] = $up_dp_his;
+    $return[log] = $history;
+    $return[post] = $_POST;
+    
+    return $return;
+  }
+
+  public function reject_withdraw() {
+    
   }
 
   /**

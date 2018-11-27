@@ -104,7 +104,7 @@ $logs = $query_log->row();
         </tr>
       </table>
     </ons-list-item>
-<?php }?>
+  <?php }?>
   <ons-list-item>
     <table width="100%">
       <tr>
@@ -143,41 +143,54 @@ $logs = $query_log->row();
       </tr>
       <tr>
         <td><span class="font-18" ><span ><?=number_format($data->deposit,2);?></span> บาท</span>
-          
+
         </td>
       </tr>
     </table>
-  </ons-list-item>
-  <ons-list-item>
-    <table width="100%">
-      <tr>
-        <td colspan="2"><span class="font-14" style="color: #908e8e;">อัพโหลดสลิป</span></td>
-      </tr>
-      <tr>
-        <td align="center">
-      <ons-card class="card">
-        <ons-list-header class="list-header"><b>เอกสารการโอน</b></ons-list-header>
-        <div align="center" style="margin-top: 10px;">
-          <span id="txt-img-has-img_slip" style="display: none;"><i class="fa fa-check-circle" aria-hidden="true" style="color: #25da25;"></i>&nbsp; มีภาพถ่ายแล้ว</span>
-          <span id="txt-img-nohas-img_slip" style="display: nones;"><i class="fa fa-times-circle" aria-hidden="true" style="color: #ff0000;"></i>&nbsp; ไม่มีภาพ</span>
-          <div class="box-preview-img" id="box_img_car_2" onclick="performClick('img_slip');" style="    height: 190px;">
-            <img src="" class="img-preview-show" id="pv_img_slip" style="    max-height: 190px;"> 
-          </div> 
-          <span style="background-color: #f4f4f4;
-                padding: 0px 10px;
-                position: absolute;
-                margin-left: -28px;
-                margin-top: -25px;
-                border-top-left-radius: 5px; pointer-events: none;color: #000;"><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; อัพโหลดรูปถ่าย</span>
-        </div>
-      </ons-card>
-      </td>
-      </tr>
-    </table>
-  </ons-list-item>
+  </ons-list-item> 
+  <?php if ($data->status == 1) {?>
+    <ons-list-item>
+      <table width="100%">
+        <tr>
+          <td colspan="2"><span class="font-14" style="color: #908e8e;">สลิป</span></td>
+        </tr>
+        <tr><td align="center"><img src="assets/images/nopic.png" style="width: 210px;" id="img_slip_preview" onclick="chat_gallery_items(this)" /></td>
+        </tr>
+      </table>
+    </ons-list-item>
+  <?php }
+  ?>
   <?php
   if ($data->status == 0) {
     ?>
+    <ons-list-item>
+      <table width="100%">
+        <tr>
+          <td colspan="2"><span class="font-14" style="color: #908e8e;">อัพโหลดสลิป</span></td>
+        </tr>
+        <tr>
+          <td align="center">
+        <ons-card class="card">
+          <ons-list-header class="list-header"><b>เอกสารการโอน</b></ons-list-header>
+          <div align="center" style="margin-top: 10px;">
+            <span id="txt-img-has-img_slip" style="display: none;"><i class="fa fa-check-circle" aria-hidden="true" style="color: #25da25;"></i>&nbsp; มีภาพถ่ายแล้ว</span>
+            <span id="txt-img-nohas-img_slip" style="display: nones;"><i class="fa fa-times-circle" aria-hidden="true" style="color: #ff0000;"></i>&nbsp; ไม่มีภาพ</span>
+            <div class="box-preview-img" id="box_img_car_2" onclick="performClick('img_slip');" style="    height: 190px;">
+              <img src="" class="img-preview-show" id="pv_img_slip" style="    max-height: 190px;"> 
+            </div> 
+            <span style="background-color: #f4f4f4;
+                  padding: 0px 10px;
+                  position: absolute;
+                  margin-left: -28px;
+                  margin-top: -25px;
+                  border-top-left-radius: 5px; pointer-events: none;color: #000;"><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; อัพโหลดรูปถ่าย</span>
+          </div>
+        </ons-card>
+        </td>
+        </tr>
+      </table>
+    </ons-list-item>
+
     <ons-row style="margin-bottom: 20px;">
       <ons-col style="margin: 10px;">
         <ons-button style="background-color: #f00;"  class="button-margin button button--large" 
@@ -188,11 +201,12 @@ $logs = $query_log->row();
                     onclick="approvedWithdraw(<?=$data->id;?>);">ยืนยันโอนเงิน</ons-button>
       </ons-col>
     </ons-row>
-<?php }?>
+  <?php }?>
 </div>
 
 <script>
   checkPicWallet('<?=$img;?>', 'img_slip_preview');
+//  checkPicWithdraw();
 </script>
 <form id="form_withdraw" enctype="multipart/form-data">
   <input type="hidden" value="<?=$rand;?>" id="rand_withdraw" name="rand_withdraw" />

@@ -74,14 +74,14 @@ $i = 0;
 </template>
 
 <template id="confirm_approve_wd.html">
-  <ons-alert-dialog id="confirm_approve_ds-dialog" modifier="rowfooter">
+  <ons-alert-dialog id="confirm_approve_wd-dialog" modifier="rowfooter">
     <div class="alert-dialog-title">ยืนยันโอนเงิน</div>
     <div class="alert-dialog-content">
       แน่ใจหรือไม่ว่าต้องการยืนยันการโอนเงิน?
     </div>
     <div class="alert-dialog-footer">
-      <ons-alert-dialog-button onclick="document.getElementById('confirm_approve_ds-dialog').hide();">ยกเลิก</ons-alert-dialog-button>
-      <ons-alert-dialog-button onclick="submitApproveDs();document.getElementById('confirm_approve_wd-dialog').hide();"><b>ยืนยัน</b></ons-alert-dialog-button>
+      <ons-alert-dialog-button onclick="document.getElementById('confirm_approve_wd-dialog').hide();">ยกเลิก</ons-alert-dialog-button>
+      <ons-alert-dialog-button onclick="submitApproveWd();document.getElementById('confirm_approve_wd-dialog').hide();"><b>ยืนยัน</b></ons-alert-dialog-button>
     </div>
   </ons-alert-dialog>
 </template>

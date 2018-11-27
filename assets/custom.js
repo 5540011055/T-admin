@@ -1,3 +1,11 @@
+function chat_gallery_items(item) {
+  console.log(item)
+  var imgSrc = item.src,
+          highResolutionImage = $(this).data('high-res-img');
+
+//            viewer.show(imgSrc, highResolutionImage);
+  ImageViewer().show(imgSrc, highResolutionImage);
+}
 function logOut() {
   modal.show();
   $('#signout-alert-dialog').hide();
@@ -7,7 +15,7 @@ function logOut() {
   deleteTagIOS(class_user, username);
 
   setTimeout(function () {
-    window.location = "../TShare_new/material/login/index.php";
+    window.location = "../T-share";
   }, 2000);
 }
 
