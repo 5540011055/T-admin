@@ -107,6 +107,10 @@ define('TBL_SHOP_DOCCUMENT_FILE_IMG','shop_document_file_img');
 define('TBL_CHAT_IMAGE','chat_image');
 define('TBL_CHAT_MESSAGE','chat_message');
 
+define('TBL_DEPOSIT','deposit');
+define('TBL_DEPOSIT_HISTORY','deposit_history');
+define('TBL_DEPOSIT_HISTORY_LOG','deposit_history_logs');
+
 
 
 

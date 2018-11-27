@@ -1,3 +1,11 @@
+function chat_gallery_items(item) {
+  console.log(item)
+  var imgSrc = item.src,
+          highResolutionImage = $(this).data('high-res-img');
+
+//            viewer.show(imgSrc, highResolutionImage);
+  ImageViewer().show(imgSrc, highResolutionImage);
+}
 function logOut() {
   modal.show();
   $('#signout-alert-dialog').hide();
@@ -230,3 +238,48 @@ function deleteTagOs(txt) {
   }
 }
 
+function CurrencyFormatted(amount) {
+  var i = parseFloat(amount);
+  if (isNaN(i)) {
+    i = 0.00;
+  }
+  var minus = '';
+  if (i < 0) {
+    minus = '-';
+  }
+  i = Math.abs(i);
+  i = parseInt((i + .005) * 100);
+  i = i / 100;
+  s = new String(i);
+  if (s.indexOf('.') < 0) {
+    s += '.00';
+  }
+  if (s.indexOf('.') == (s.length - 2)) {
+    s += '0';
+  }
+  s = minus + s;
+  return s;
+}
+
+function apiRecordActivityAndNotification(param_aan, param_aan2) {
+
+  var param_all = {
+    activity: param_aan,
+    notification: param_aan2
+  };
+  console.log(param_all);
+  $.ajax({
+    url: "https://www.welovetaxi.com/app/T-share/main/recordActivityAndNoti", // point to server-side PHP script 
+    dataType: 'json', // what to expect back from the PHP script, if anything
+    type: 'post',
+    data: param_all,
+    success: function (res) {
+      console.log(res);
+      setTimeout(function () {
+        setCountNotification();
+      }, 1500);
+      //							return res;
+    }
+  });
+
+}
