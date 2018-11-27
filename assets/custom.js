@@ -7,7 +7,7 @@ function logOut() {
   deleteTagIOS(class_user, username);
 
   setTimeout(function () {
-    window.location = "../TShare_new/material/login/index.php";
+    window.location = "../T-share";
   }, 2000);
 }
 
