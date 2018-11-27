@@ -146,6 +146,7 @@ class Main extends CI_Controller {
 
   public function recordActivityAndNoti(){
     $param = $_POST;
+    
     if(isset($param[activity])){
      $data['activity'] = $this->Activity_model->add_activity($param[activity]);
    }

@@ -143,6 +143,21 @@ function rejectDeposit(id) {
 }
 
 function submitRejectDs() {
+//  var ac = {};
+//  var txt_long_nc = "การแจ้งโอนของท่านถูกปฏิเสธ";
+//  var nc = {
+//    i_type: 5,
+//    i_event: $('#id_reject_dp').val(),
+//    i_user: $('#driver').val(),
+//    s_class_user: "taxi",
+//    s_topic: "กระเป๋าเงิน",
+//    s_sub_topic: "ปฏิเสธการแจ้งโอน",
+//    s_message: txt_long_nc,
+//    s_posted: detect_user
+//  };
+//
+//  apiRecordActivityAndNotification(ac, nc);
+//  return false;
   modal.show();
   var ps = {
     id: $('#id_reject_dp').val(),
@@ -185,6 +200,7 @@ function submitRejectDs() {
       };
 
       apiRecordActivityAndNotification(ac, nc);
+
       if (res.dp.result == true) {
         ons.notification.alert({
           message: 'ปฏิเสธสำเร็จ',
