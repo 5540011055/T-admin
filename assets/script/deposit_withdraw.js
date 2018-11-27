@@ -171,6 +171,20 @@ function submitRejectDs() {
         driver: $('#driver').val()
       };
       onesignalDepositWithdraw(data);
+      var ac = {};
+      var txt_long_nc = "รายการแจ้งโอนของท่านถูกปฏเสธ";
+      var nc = {
+        i_type: 5,
+        i_event: id,
+        i_user: $('#driver').val(),
+        s_class_user: "taxi",
+        s_topic: "กระเป๋าเงิน",
+        s_sub_topic: "ปฏิเสธการแจ้งโอน",
+        s_message: txt_long_nc,
+        s_posted: detect_user
+      };
+
+      apiRecordActivityAndNotification(ac, nc);
       if (res.dp.result == true) {
         ons.notification.alert({
           message: 'ปฏิเสธสำเร็จ',
@@ -283,7 +297,7 @@ function approvedWithdraw() {
 }
 
 function submitApproveWd() {
-  
+
   modal.show();
 
   var url = "deposit_withdraw/approve_withdraw";
