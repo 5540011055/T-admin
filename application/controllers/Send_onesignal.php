@@ -28,11 +28,9 @@ class Send_onesignal extends CI_Controller {
 //  echo 777;
   }
 
-  public function deposit_approved() {
-    $data['res'] = $this->Send_onesignal_model->transfer_shop_completed();
-//  		header('Content-Type: application/json');
+  public function deposit_withdraw() {
+    $data['res'] = $this->Send_onesignal_model->deposit_withdraw();
     echo json_encode($data['res']);
-//  echo 777;
   }
 
 }
