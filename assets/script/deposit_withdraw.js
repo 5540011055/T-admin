@@ -134,10 +134,12 @@ function rejectDeposit(id) {
   $('#id_reject_dp').val(id);
   if (dialog) {
     dialog.show();
+    $('#cause_reject_dp').val('');
   } else {
     ons.createElement('confirm_reject_ds.html', {append: true})
             .then(function (dialog) {
               dialog.show();
+      $('#cause_reject_dp').val('');
             });
   }
 }
@@ -369,10 +371,12 @@ function rejectWithdraw(id) {
   var dialog = document.getElementById('confirm_reject_wd-dialog');
   if (dialog) {
     dialog.show();
+    $('#cause_reject_wd').val('');
   } else {
     ons.createElement('confirm_reject_wd.html', {append: true})
             .then(function (dialog) {
               dialog.show();
+      $('#cause_reject_wd').val('');
             });
   }
 }
