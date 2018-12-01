@@ -124,7 +124,7 @@ class Deposit_withdraw_model extends CI_Model {
     $main_dp = $query->row();
     
     $where = array();
-    $mian[withdraw] = intval($main_dp->withdraw) - intval($cost); // reject
+    $mian[withdraw] = intval($main_dp->withdraw) + intval($cost); // reject
     $mian[balance] = intval($main_dp->balance) + intval($cost); // reject
     $where[driver] = $this->input->post('driver');
     $mian[result] = $this->db->update(TBL_DEPOSIT,$mian,$where);
