@@ -139,27 +139,13 @@ function rejectDeposit(id) {
     ons.createElement('confirm_reject_ds.html', {append: true})
             .then(function (dialog) {
               dialog.show();
-      $('#cause_reject_dp').val('');
+              $('#cause_reject_dp').val('');
             });
   }
 }
 
 function submitRejectDs() {
-//  var ac = {};
-//  var txt_long_nc = "การแจ้งโอนของท่านถูกปฏิเสธ";
-//  var nc = {
-//    i_type: 5,
-//    i_event: $('#id_reject_dp').val(),
-//    i_user: $('#driver').val(),
-//    s_class_user: "taxi",
-//    s_topic: "กระเป๋าเงิน",
-//    s_sub_topic: "ปฏิเสธการแจ้งโอน",
-//    s_message: txt_long_nc,
-//    s_posted: detect_user
-//  };
-//
-//  apiRecordActivityAndNotification(ac, nc);
-//  return false;
+
   modal.show();
   var ps = {
     id: $('#id_reject_dp').val(),
@@ -192,7 +178,7 @@ function submitRejectDs() {
       var txt_long_nc = "รายการแจ้งโอนของท่านถูกปฏเสธ";
       var nc = {
         i_type: 5,
-        i_event: id,
+        i_event: $('#id_reject_dp').val(),
         i_user: $('#driver').val(),
         s_class_user: "taxi",
         s_topic: "กระเป๋าเงิน",
@@ -284,6 +270,21 @@ function submitApproveDs() {
                 });
       }
 
+      var ac = {};
+      var txt_long_nc = "รายการแจ้งโอนของท่านได้รับอนุมัติ";
+      var nc = {
+        i_type: 5,
+        i_event: $('#id_approve_dp').val(),
+        i_user: $('#driver').val(),
+        s_class_user: "taxi",
+        s_topic: "กระเป๋าเงิน",
+        s_sub_topic: "อนุมัติการเติมเงิน",
+        s_message: txt_long_nc,
+        s_posted: detect_user
+      };
+
+      apiRecordActivityAndNotification(ac, nc);
+
     },
     error: function (err) {
       console.log(err);
@@ -349,7 +350,20 @@ function submitApproveWd() {
                   callpop();
                 });
       }
+      var ac = {};
+      var txt_long_nc = "รายการแจ้งถอนของท่านได้รับอนุมัติ";
+      var nc = {
+        i_type: 5,
+        i_event: $('#id_approve_wd').val(),
+        i_user: $('#driver').val(),
+        s_class_user: "taxi",
+        s_topic: "กระเป๋าเงิน",
+        s_sub_topic: "อนุมัติการถอนเงิน",
+        s_message: txt_long_nc,
+        s_posted: detect_user
+      };
 
+      apiRecordActivityAndNotification(ac, nc);
     },
     error: function (err) {
       console.log(err);
@@ -376,7 +390,7 @@ function rejectWithdraw(id) {
     ons.createElement('confirm_reject_wd.html', {append: true})
             .then(function (dialog) {
               dialog.show();
-      $('#cause_reject_wd').val('');
+              $('#cause_reject_wd').val('');
             });
   }
 }
@@ -421,6 +435,21 @@ function submitRejectWd() {
                   callpop();
                 });
       }
+
+      var ac = {};
+      var txt_long_nc = "รายการแจ้งถอนของท่านถูกปฏิเสธ";
+      var nc = {
+        i_type: 5,
+        i_event: $('#deposit_id').val(),
+        i_user: $('#driver').val(),
+        s_class_user: "taxi",
+        s_topic: "กระเป๋าเงิน",
+        s_sub_topic: "ปฏิเสธการถอนเงิน",
+        s_message: txt_long_nc,
+        s_posted: detect_user
+      };
+
+      apiRecordActivityAndNotification(ac, nc);
 
     },
     error: function (err) {
