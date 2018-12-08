@@ -246,6 +246,7 @@ function submitApproveDs() {
     type: 'post',
     success: function (res) {
       console.log(res);
+      return;
       modal.hide();
       deposit_list();
       var url = "deposit_withdraw/find_deposit_id?driver=" + $('#driver').val();
