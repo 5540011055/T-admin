@@ -25,7 +25,7 @@ class Deposit_withdraw_model extends CI_Model {
 
       $where = array();
       $where[id] = $q_dp->id;
-//      $up_deposit[result] = $this->db->update(TBL_DEPOSIT,$up_deposit,$where);
+      $up_deposit[result] = $this->db->update(TBL_DEPOSIT,$up_deposit,$where);
 
       $up_deposit[data][balance] = $total_balance;
       $up_deposit[data][deposit] = $deposit;
@@ -34,17 +34,17 @@ class Deposit_withdraw_model extends CI_Model {
     else {
       $total_balance = $deposit;
       $up_deposit[balance] = $total_balance;
-      $up_deposit[deposit] = intval($deposit);
+      $up_deposit[deposit] = $deposit;
       $up_deposit[last_update] = time();
       $up_deposit[driver] = $dv_id;
       $up_deposit[ip] = $_SERVER["SERVER_ADDR"];
 
-//      $up_deposit[result] = $this->db->insert(TBL_DEPOSIT,$up_deposit);
+      $up_deposit[result] = $this->db->insert(TBL_DEPOSIT,$up_deposit);
     }
     $where = array();
     $where[id] = $id;
     $up_dp_his[status] = 1;
-//    $up_dp_his[result] = $this->db->update(TBL_DEPOSIT_HISTORY,$up_dp_his,$where);
+    $up_dp_his[result] = $this->db->update(TBL_DEPOSIT_HISTORY,$up_dp_his,$where);
 
     $history[deposit_id] = $id;
     $history[deposit] = $deposit;
@@ -54,7 +54,7 @@ class Deposit_withdraw_model extends CI_Model {
     $history[ip] = $_SERVER["SERVER_ADDR"];
     $history[last_update] = time();
     $history[post_date] = time();
-//    $history[result] = $this->db->insert(TBL_DEPOSIT_HISTORY_LOG,$history);
+    $history[result] = $this->db->insert(TBL_DEPOSIT_HISTORY_LOG,$history);
 
     $result[update][dp_his] = $up_dp_his;
     $result[update][dp] = $up_deposit;
@@ -124,8 +124,8 @@ class Deposit_withdraw_model extends CI_Model {
     $main_dp = $query->row();
     
     $where = array();
-    $mian[withdraw] = intval($main_dp->withdraw) + intval($cost); // reject
-    $mian[balance] = intval($main_dp->balance) + intval($cost); // reject
+    $mian[withdraw] = $main_dp->withdraw + $cost; // reject
+    $mian[balance] = $main_dp->balance + $cost; // reject
     $where[driver] = $this->input->post('driver');
     $mian[result] = $this->db->update(TBL_DEPOSIT,$mian,$where);
 
