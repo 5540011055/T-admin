@@ -162,7 +162,7 @@ else {
     <?php
   }
   else {
-    $query = $this->db->query('SELECT price_pay_driver_com, price_shopping FROM pay_history_driver_shopping where order_id = '.$data->id);
+    $query = $this->db->query('SELECT price_pay_driver_com, price_shopping, price_income_company_com FROM pay_history_driver_shopping where order_id = '.$data->id);
     $data_trans_pay = $query->row();
   }
   ?>
@@ -201,13 +201,13 @@ else {
       <ons-col width="30px">1</ons-col>
       <ons-col width="150px"><span class="font-16">รายรับ (บริษัท)</span></ons-col>
       <ons-col><span id="persen_com"><?=$res_com->i_price;?></span> %</ons-col>
-      <ons-col align="right"><span id="price_company">0</span></ons-col>
+      <ons-col align="right"><span id="price_company"><?=$data_trans_pay->price_income_company_com;?></span></ons-col>
     </ons-row>
     <ons-row>
       <ons-col width="30px">2</ons-col>
       <ons-col width="150px"><span class="font-16">รายรับ (แท็กซี่)</span></ons-col>
       <ons-col><span id="persen_taxi"><?=$data->commission_persent;?></span> %</ons-col>
-      <ons-col align="right"><span id="price_taxi">0</span></ons-col>
+      <ons-col align="right"><span id="price_taxi"><?=$data_trans_pay->price_pay_driver_com;?></span></ons-col>
     </ons-row>
   </div>
 </ons-card>
@@ -219,12 +219,7 @@ else {
       <span>ยอดซื้อ</span>
     </div>
     <label class="center">
-      <ons-input id="name-input" float="" maxlength="20"  style="width: 100%;" onkeyup="calcost(this.value);" placeholder="กรอกจำนวนยอด" name="shop_cost" id="shop_cost">
-        <input type="text" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
-                   font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
-               height: 35px;">
-        <span class="text-input__label">Name</span>
-      </ons-input>
+      <span class="font-17"><?=number_format($data_trans_pay->price_shopping,2);?></span>
     </label>
   </ons-list-item>
 </ons-card>
@@ -232,12 +227,8 @@ else {
   <ons-card style="margin-top: 10px; margin-bottom: 10px;">
     <ons-list-header>สลิปโอนเงิน</ons-list-header>
     <div align="center">
-        <div>
-          <input type="file" id="img_upload" accept="image/*" style="opacity: 0;position: absolute;"onchange="readURLslipShop(this);">
-        </div>
-        <div class="box-preview-img" id="box_img_profile" style="width: 170px;height: 170px;" onclick="performClick('img_upload');">
-          <img src="assets/images/noimage_2.gif" style="max-width: 100%; height: 170px;display: nones;" id="pv_slip"><br>
-          <span class="txt-upload-slip" ><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; เลือกรูปภาพ</span>
+        <div class="box-preview-img" id="box_img_profile" style="width: 170px;height: 170px;" >
+          <img src="assets/images/noimage_2.gif" style="max-width: 100%; height: 170px;display: nones;" id="pv_slip" onclick="chat_gallery_items(this)"><br>
         </div> 
       </div>
   </ons-card>
@@ -248,6 +239,10 @@ else {
 <input type="hidden" name="company_cost" value="0" id="company_cost" />
 <input type="hidden" name="taxi_cost" value="0" id="taxi_cost" />
 </form>
-<div style="margin-bottom: 15px;padding: 10px;">
+<div style="margin-bottom: 15px;padding: 10px;display: none;">
   <ons-button modifier="large" onclick="confirmTransferMoneyShop();"><span class="font-16">ยืนยันแจ้งโอน</span></ons-button>
 </div>
+
+<script>
+  checkPicShop("../data/fileupload/doc_pay_driver/slip/slip_<?=$data->id;?>.jpg", 'pv_slip');
+</script>

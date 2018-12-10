@@ -61,6 +61,19 @@ function openManageShopTrans(id) {
 
 }
 
+function openHistoryShopTrans(id) {
+  fn.pushPage({
+    'id': 'popup1.html',
+    'title': 'งานส่งแขก'
+  }, 'lift-ios');
+//      $('#body_popup1').html(progress_circle);
+  $.post("shop/detail_trans_his?order_id=" + id, function (ele) {
+    $('#body_popup1').html(ele);
+    
+  });
+
+}
+
 function calcost(cost) {
   if (cost == "") {
     cost = 0;
@@ -140,7 +153,7 @@ function submitTransShop() {
   });
 }
 
-function readURLslip(input) {
+function readURLslipShop(input) {
 
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -279,4 +292,19 @@ function apiRecordActivityAndNotification(param_aan, param_aan2) {
     }
   });
 
+}
+
+function checkPicShop(path, id) {
+  console.log(path);
+  $.ajax({
+    url: path,
+    type: 'HEAD',
+    error: function () {
+      console.log('Error file');
+//            $('#'+id).attr('src', path);
+    },
+    success: function () {
+      $('#' + id).attr('src', path + "?v=" + $.now());
+    }
+  });
 }

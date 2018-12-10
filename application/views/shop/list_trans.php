@@ -17,10 +17,17 @@
   foreach ($query->result() as $row) {
     $query_dv = $this->db->query("select username,name,nickname,phone from web_driver where id = ".$row->drivername);
     $row_dv = $query_dv->row();
-    if($row->transfer_money >0){
+    if ($row->transfer_money > 0) {
       $status_show = '<div class="plate-approve bg-approve" style="width: 80px;">แจ้งโอนแล้ว</div>';
-    }else{
+    }
+    else {
       $status_show = '<div class="plate-approve bg-wait" style="width: 80px;">รอแจ้งโอน</div>';
+    }
+    if ($_GET[filter_type] == 1) {
+      $onclick = "openManageShopTrans('".$row->id."');";
+    }
+    else if ($_GET[filter_type] == 2) {
+      $onclick = "openHistoryShopTrans('".$row->id."');";
     }
     $date_row = date('Y-m-d',$row->post_date);
     if ($row->s_post_date != "") {
@@ -35,7 +42,7 @@
       <ons-list-header style="font-weight: 500;"  class="font-13"><?="วันที่ ".$date_row;?></ons-list-header>
     <?php }?>
 
-    <ons-list-item onclick="openManageShopTrans('<?=$row->id;?>');">
+    <ons-list-item onclick="<?=$onclick;?>">
       <div class="left">
         <img style="height: 40px;" class="list-item__thumbnail" src="../data/pic/driver/small/<?=$row_dv->username;?>.jpg?v=<?=time();?>">
       </div>

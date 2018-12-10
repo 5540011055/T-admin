@@ -243,7 +243,7 @@
         <img src="https://monaca.io/img/logos/download_image_onsenui_01.png">
       </div>
 
-<!--      <ons-list-title>Access</ons-list-title>-->
+      <!--      <ons-list-title>Access</ons-list-title>-->
       <ons-list>
         <ons-list-item onclick="fn.loadView(0)">
           <div class="left">
@@ -256,28 +256,28 @@
             <ons-icon icon="fa-link"></ons-icon>
           </div>
         </ons-list-item>
-<!--        <ons-list-item onclick="fn.loadView(1)">
-          <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-edit, material:md-edit"></ons-icon>
-          </div>
-          <div class="center">
-            Forms
-          </div>
-          <div class="right">
-            <ons-icon icon="fa-link"></ons-icon>
-          </div>
-        </ons-list-item>
-        <ons-list-item onclick="fn.loadView(2)">
-          <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-film-marker, material: md-movie-alt"></ons-icon>
-          </div>
-          <div class="center">
-            Animations
-          </div>
-          <div class="right">
-            <ons-icon icon="fa-link"></ons-icon>
-          </div>
-        </ons-list-item>-->
+        <!--        <ons-list-item onclick="fn.loadView(1)">
+                  <div class="left">
+                    <ons-icon fixed-width class="list-item__icon" icon="ion-edit, material:md-edit"></ons-icon>
+                  </div>
+                  <div class="center">
+                    Forms
+                  </div>
+                  <div class="right">
+                    <ons-icon icon="fa-link"></ons-icon>
+                  </div>
+                </ons-list-item>
+                <ons-list-item onclick="fn.loadView(2)">
+                  <div class="left">
+                    <ons-icon fixed-width class="list-item__icon" icon="ion-film-marker, material: md-movie-alt"></ons-icon>
+                  </div>
+                  <div class="center">
+                    Animations
+                  </div>
+                  <div class="right">
+                    <ons-icon icon="fa-link"></ons-icon>
+                  </div>
+                </ons-list-item>-->
 
         <ons-list-item onclick="createSignOut();">
           <div class="left" style="<?=$border_menu_color;?>">
@@ -404,6 +404,20 @@
               </center>
             </ons-col>
           </ons-row>
+          <ons-row>
+            <ons-col style="margin: 10px;">
+              <center>
+                <div onclick="" class="circle-menu-home" style="    background-color: #e2c43b;">
+                  <span id="number_tbooking" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
+                  <div class="content">
+                    <i class="icon-new-uniF121-10" style="font-size: 28px;position: relative; top: 7px; left: 0px;"></i>
+                  </div>
+                </div>
+                <span class="txt-orange">ประวัติ เติม - ถอน</span>
+              </center>
+            </ons-col>
+          </ons-row>
+
         <?php }?>
       </div>
     </ons-page>

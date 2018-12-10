@@ -19,6 +19,10 @@ class Shop extends CI_Controller {
 //    echo 1;
     $this->load->view('shop/detail');
   }
+  public function detail_trans_his() {
+//    echo 1;
+    $this->load->view('shop/detail_his');
+  }
   public function shop_manage_mo(){
    
       $this->load->view('shop/shop_manage_mo');

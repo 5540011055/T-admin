@@ -13,7 +13,7 @@ class Shop_model extends CI_Model {
     $data[price_pay_driver_com] = $_POST[taxi_cost];
     $data[price_income_company_com] = $_POST[company_cost];
     $data[last_update] = time();
-    $data[posted] = "admin";
+    $data[posted] = $_COOKIE[detect_username];
     $data[pay_transfer] = 1;
     $data[pay_transfer_date] = time();
     $data[trans_hh] = 0;
