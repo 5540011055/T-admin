@@ -407,7 +407,7 @@
           <ons-row>
             <ons-col style="margin: 10px;">
               <center>
-                <div onclick="" class="circle-menu-home" style="    background-color: #e2c43b;">
+                <div onclick="" class="circle-menu-home" style="    background-color: #ff5722;">
                   <span id="number_tbooking" class="badge badge-custom font-18 pulse" style="display: none;">0</span>
                   <div class="content">
                     <i class="icon-new-uniF121-10" style="font-size: 28px;position: relative; top: 7px; left: 0px;"></i>
