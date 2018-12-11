@@ -220,7 +220,7 @@ else {
     </div>
     <label class="center">
       <ons-input id="name-input" float="" maxlength="20"  style="width: 100%;" onkeyup="calcost(this.value);" placeholder="กรอกจำนวนยอด" name="shop_cost" id="shop_cost">
-        <input type="text" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
+        <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
                    font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
                height: 35px;">
         <span class="text-input__label">Name</span>
@@ -245,6 +245,7 @@ else {
 <input type="hidden" name="order_id" id="order_id" value="<?=$data->id;?>" />
 <input type="hidden" name="invoice" id="invoice" value="<?=$data->invoice;?>" />
 <input type="hidden" name="plan_id" id="plan_id" value="<?=$data->plan_id;?>" />
+<input type="hidden" name="driver_id" id="driver_id" value="<?=$data->drivername;?>" />
 <input type="hidden" name="company_cost" value="0" id="company_cost" />
 <input type="hidden" name="taxi_cost" value="0" id="taxi_cost" />
 </form>

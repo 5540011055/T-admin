@@ -184,7 +184,7 @@ function submitRejectDs() {
         s_topic: "กระเป๋าเงิน",
         s_sub_topic: "ปฏิเสธการแจ้งโอน",
         s_message: txt_long_nc,
-        s_posted: detect_user
+        s_posted: detect_usernamename
       };
 
       apiRecordActivityAndNotification(ac, nc);
@@ -281,7 +281,7 @@ function submitApproveDs() {
         s_topic: "กระเป๋าเงิน",
         s_sub_topic: "อนุมัติการเติมเงิน",
         s_message: txt_long_nc,
-        s_posted: detect_user
+        s_posted: detect_username
       };
 
       apiRecordActivityAndNotification(ac, nc);
@@ -361,7 +361,7 @@ function submitApproveWd() {
         s_topic: "กระเป๋าเงิน",
         s_sub_topic: "อนุมัติการถอนเงิน",
         s_message: txt_long_nc,
-        s_posted: detect_user
+        s_posted: detect_username
       };
 
       apiRecordActivityAndNotification(ac, nc);
@@ -447,7 +447,7 @@ function submitRejectWd() {
         s_topic: "กระเป๋าเงิน",
         s_sub_topic: "ปฏิเสธการถอนเงิน",
         s_message: txt_long_nc,
-        s_posted: detect_user
+        s_posted: detect_username
       };
 
       apiRecordActivityAndNotification(ac, nc);

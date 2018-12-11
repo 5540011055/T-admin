@@ -45,6 +45,7 @@
   <script src="<?=base_url();?>assets/socket.js?v=<?=time()?>"></script>
   <script src="<?=base_url();?>assets/monitor.js?v=<?=time()?>"></script>
   <script src="<?=base_url();?>assets/script/deposit_withdraw.js?v=<?=time()?>"></script>
+  <script src="<?=base_url();?>assets/script/shop.js?v=<?=time()?>"></script>
 
   <style>
     .ap-date{
@@ -77,7 +78,7 @@
       /*width: 300px;*/
       height: 300px;
       /*border-radius: 5px;*/
-      box-shadow: 0 2px 30px rgba(black, .2);
+      /*box-shadow: 0 2px 30px rgba(black, .2);*/
       background: lighten(#f0f4c3, 10%);
       position: relative;
       overflow: hidden;
