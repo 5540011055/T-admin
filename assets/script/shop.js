@@ -92,7 +92,7 @@ function submitTransShop() {
     success: function (res) {
       console.log(res);
       modal.hide();
-
+      return false;
       if (res.data.result == true) {
 //       
 //        filterShopList();

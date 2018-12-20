@@ -273,7 +273,7 @@ else {
           $_where = array();
           $_where[product] = $data->program;
           $_where[i_list_price] = $list_price_taxi->id;
-          $_where[i_status] = 1;
+//          $_where[i_status] = 1;
           $_select = array('*');
           $_order = array();
           $_order['id'] = 'asc';
@@ -304,7 +304,7 @@ else {
       <ons-col>
         <ons-list-header>ข้อมูลการซื้อ บริษัท</ons-list-header>
         <?php
-        foreach ($PERCENT_COMPANY as $dataTL) {
+        foreach ($PERCENT_COMPANY as $key=>$dataTL) {
           $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
           ?>
           <ons-list-item class="input-items">
@@ -312,13 +312,14 @@ else {
               <span class="font-14"><?=$s_sub_typelist->topic_th;?></span>
             </div>
             <label class="center">
-              <ons-input id="" float="" maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="shop_cost" id="shop_cost" value="0">
+              <ons-input id="" float="" maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="s_company[<?=$key;?>][shop_cost]" id="shop_cost" value="">
                 <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
                        font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
                        height: 35px;">
                 <span class="text-input__label"><?=$s_sub_typelist->topic_th;?></span>
               </ons-input>
 
+              <input type="hidden" value="<?=$s_sub_typelist->topic_th;?>" name="s_company[<?=$key;?>][typelist]"/>
 
               <!--        <ons-input id="name-input" float="" maxlength="20"  style="width: 100%;" onkeyup="calcost(this.value);" placeholder="กรอกจำนวนยอด" name="shop_cost" id="shop_cost">
                         <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
@@ -336,7 +337,7 @@ else {
       <ons-col>
         <ons-list-header>ข้อมูลการซื้อ แท็กซี่</ons-list-header>
         <?php
-        foreach ($PERCENT_TAXI as $dataTL) {
+        foreach ($PERCENT_TAXI as $key=>$dataTL) {
           $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
           ?>
           <ons-list-item class="input-items">
@@ -344,12 +345,13 @@ else {
               <span class="font-14"><?=$s_sub_typelist->topic_th;?></span>
             </div>
             <label class="center">
-              <ons-input id="" float="" maxlength="20"  style="width: 100%;"  placeholder="กรอกจำนวนยอด" name="shop_cost" id="shop_cost" value="0">
+              <ons-input id="" float="" maxlength="20"  style="width: 100%;"  placeholder="กรอกจำนวนยอด" name="s_taxi[<?=$key;?>][shop_cost]" id="shop_cost" value="">
                 <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
                        font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
                        height: 35px;">
                 <span class="text-input__label"><?=$s_sub_typelist->topic_th;?></span>
               </ons-input>
+              <input type="hidden" value="<?=$s_sub_typelist->topic_th;?>" name="s_taxi[<?=$key;?>][typelist]"/>
               <!--        <ons-input id="name-input" float="" maxlength="20"  style="width: 100%;" onkeyup="calcost(this.value);" placeholder="กรอกจำนวนยอด" name="shop_cost" id="shop_cost">
                         <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
                                font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;

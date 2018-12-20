@@ -20,7 +20,7 @@ class Shop_model extends CI_Model {
     $data[trans_mm] = 0;
     $data[status] = 1;
 
-    $data[result] = $this->db->insert('pay_history_driver_shopping',$data);
+    $data[result] = $this->db->insert(TBL_PAY_HIS_DRIVER_SHOPPING,$data);
     $last_id = mysql_insert_id();
     $return[last_id] = $last_id;
     $return[data] = $data;
@@ -30,7 +30,7 @@ class Shop_model extends CI_Model {
     $update_ob[transfer_money_date] = time();
     $update_ob[total_commission] = $_POST[taxi_cost];
     $this->db->where('id',$_POST[order_id]);
-    $update_ob[result] = $this->db->update('order_booking',$update_ob);
+    $update_ob[result] = $this->db->update(TBL_ORDER_BOOKING,$update_ob);
     $update_ob[order_id] = $_POST[order_id];
     $return[update] = $update_ob;
     return $return;
