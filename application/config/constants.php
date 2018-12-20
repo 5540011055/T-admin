@@ -82,6 +82,7 @@ define('TBL_PRODUCT_PRICE_LIST_ALL', 'product_price_list_all');
 define('TBL_ORDER_BOOKING', 'order_booking');
 define('TBL_WEB_CARALL', 'web_carall');
 define('TBL_WEB_DRIVER', 'web_driver');
+define('TBL_WEB_DRIVER_LOGS', 'web_driver_logs');
 define('TBL_SHOPPING_OPEN_TIME', 'shopping_open_time');
 define('TBL_SHOPPING_CONTACT', 'shopping_contact');
 define('TBL_SHOPPING_CONTACT_TYPE', 'shopping_contact_type');
@@ -90,17 +91,21 @@ define('TBL_WEB_AREA', 'web_area');
 define('TBL_WEB_REGION', 'web_region');
 define('TBL_WEB_PROVINCE', 'web_province');
 define('TBL_WEB_AMPHUR', 'web_amphur');
+define('TBL_WEB_TRANSFERPLACE_NEW', 'web_transferplace_new');
 define('TBL_WEB_COUNTRY', 'web_country');
 define('TBL_SHOP_COUNTRY_TAXI', 'shop_country_taxi');
 define('TBL_SHOP_COUNTRY_COM', 'shop_country_com_taxi');
 define('TBL_SHOP_COUNTRY_COM_LIST_TAXI', 'shop_country_com_list_taxi');
 define('TBL_SHOP_COUNTRY_COM_LIST_PRICE_TAXI', 'shop_country_com_list_price_taxi');
+define('TBL_SHOP_COUNTRY_COM_LIST_PRICE_COMPANY', 'shop_country_com_list_price_company');
 define('TBL_SHOP_COUNTRY_ICON_TAXI', 'shop_country_icon_taxi');
 define('TBL_SHOP_PLAN_COM', 'shop_plan_com');
 define('TBL_SHOP_PAYMENT_CHANNEL','shop_payment_channel');
 define('TBL_PLACE_CAR_STATION','place_car_station');
 define('TBL_PLACE_CAR_STATION_OTHRET','place_car_station_other');
 define('TBL_PLACE_CAR_STATION_TYPE','place_car_station_type');
+define('TBL_PLACE_CAR_STATION_SERVICE','place_car_station_service');
+define('TBL_PLACE_CAR_STATION_OWNER','place_car_station_owner');
 define('TBL_SHOP_STATION','shop_station');
 define('TBL_SHOP_STATION_FIELD','shop_station_field');
 define('TBL_SHOP_DOCCUMENT_FILE_IMG','shop_document_file_img');
@@ -110,8 +115,14 @@ define('TBL_CHAT_MESSAGE','chat_message');
 define('TBL_DEPOSIT','deposit');
 define('TBL_DEPOSIT_HISTORY','deposit_history');
 define('TBL_DEPOSIT_HISTORY_LOG','deposit_history_logs');
-
-
+define('TBL_HISTORY_PAY_DRIVER_DEPOSIT','history_pay_driver_deposit');
+/*================================ ap order ========================*/
+define('TBL_AP_ORDER','ap_order');
+define('TBL_APP_SETTING','app_user_setting');
+define('TBL_SHOP_CAR_PRICE_TAXI', 'shop_car_price_taxi');
+define('TBL_SHOPPING_PRODUCT_MAIN_TYPELIST', 'shopping_product_main_typelist');
+define('TBL_SHOPPING_PRODUCT_TYPELIST_PERCENT_TAXI', 'shopping_product_typelist_percent_taxi');
+define('TBL_SHOPPING_PRODUCT_TYPELIST_PERCENT_COMPANY', 'shopping_product_typelist_percent_company');
 
 
 
