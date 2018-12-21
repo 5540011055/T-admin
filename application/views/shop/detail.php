@@ -218,12 +218,14 @@ else {
         <ons-col>
           <?php
           $_where = array();
-          $_where['i_shop_country_com_list'] = $data->plan_id;
+          $_where['id'] = $data->plan_id;
           $_where['i_plan_product_price_name'] = 7;
 //          $_where['i_shop_country_com_list'] = 4;
           $query_lp = $this->db->get_where(TBL_SHOP_COUNTRY_COM_LIST_PRICE_COMPANY,$_where);
           $list_price_company = $query_lp->row();
-
+          echo "<pre>";
+          print_r($list_price_company);
+          echo "</pre>";
           $_where = array();
           $_where[product] = $data->program;
           $_where[i_list_price] = 4;
