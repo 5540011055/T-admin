@@ -185,6 +185,7 @@ else {
       </div>
     </ons-list-item>
   </div>
+
   <div style="margin: 15px 0px;  ">	
     <ons-list-item>
       <div class="center list-pd-r">
@@ -217,42 +218,9 @@ else {
         <!--<ons-col width="30px"></ons-col>-->
         <ons-col>
           <?php
-          $_where = array();
-          $_where['id'] = $data->plan_id;
-          $_where['i_plan_product_price_name'] = 7;
-//          $_where['i_shop_country_com_list'] = 4;
-          $query_lp = $this->db->get_where(TBL_SHOP_COUNTRY_COM_LIST_PRICE_COMPANY,$_where);
-          $list_price_company = $query_lp->row();
-          echo "<pre>";
-          print_r($list_price_company);
-          echo "</pre>";
-          $_where = array();
-          $_where[product] = $data->program;
-          $_where[i_list_price] = 4;
-          $_where[i_status] = 1;
-          $_select = array('*');
-          $_order = array();
-          $_order['id'] = 'asc';
-          $PERCENT_COMPANY = $this->Main_model->fetch_data('','',TBL_SHOPPING_PRODUCT_TYPELIST_PERCENT_COMPANY,$_where,$_select,$_order);
+          $param[id] = $data->program;
+          $this->load->view('shop/test',$param);
           ?>
-          <table>
-            <?php
-            foreach ($PERCENT_COMPANY as $dataTL) {
-              $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
-              ?>
-              <tr>
-
-                <td width="150">
-
-                  <label class="btn checkbox-inline btn-checkbox-success-inverse <?=$chk_box_active;?> ">
-                    <?=$s_sub_typelist->topic_th;?>
-                  </label>
-
-                </td>
-                <td  class="td_percent"><?=$dataTL->f_percent;?> %</td>
-              </tr>
-            <?php }?>
-          </table>
         </ons-col>
       </ons-row>
       <ons-row>
@@ -268,34 +236,45 @@ else {
 //          echo $data->plan_id." ".$query_lp->num_rows();
           $_where = array();
           $_where['i_shop_country_com_list'] = $data->plan_id;
-          $_where['i_plan_product_price_name'] = 7;
+//          $_where['i_plan_product_price_name'] = 7;
           $query_lp = $this->db->get_where(TBL_SHOP_COUNTRY_COM_LIST_PRICE_TAXI,$_where);
-          $list_price_taxi = $query_lp->row();
-
-          $_where = array();
-          $_where[product] = $data->program;
-          $_where[i_list_price] = $list_price_taxi->id;
+//          $list_price_taxi = ;
+//          
+//          echo "<pre>";
+//          print_r($list_price_taxi);
+//          echo "<pre>";
+          
+          foreach ($query_lp->result() as $key => $val) {
+            
+            if ($val->s_payment == "โอน") {
+              $_where = array();
+              $_where[product] = $data->program;
+              $_where[i_list_price] = $val->id;
 //          $_where[i_status] = 1;
-          $_select = array('*');
-          $_order = array();
-          $_order['id'] = 'asc';
-          $PERCENT_TAXI = $this->Main_model->fetch_data('','',TBL_SHOPPING_PRODUCT_TYPELIST_PERCENT_TAXI,$_where,$_select,$_order);
-          ?>
-          <table>
-            <?php
-            foreach ($PERCENT_TAXI as $dataTL) {
-              $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
+              $_select = array('*');
+              $_order = array();
+              $_order['id'] = 'asc';
+              $PERCENT_TAXI = $this->Main_model->fetch_data('','',TBL_SHOPPING_PRODUCT_TYPELIST_PERCENT_TAXI,$_where,$_select,$_order);
               ?>
-              <tr>
-                <td width="150">
-                  <label class="btn checkbox-inline btn-checkbox-success-inverse <?=$chk_box_active;?> ">
-                    <?=$s_sub_typelist->topic_th;?>
-                  </label>
-                </td>
-                <td  class="td_percent"><?=$dataTL->f_percent;?> %</td>
-              </tr>
-            <?php }?>
-          </table>
+              <table>
+                <?php
+                foreach ($PERCENT_TAXI as $dataTL) {
+                  $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
+                  ?>
+                  <tr>
+                    <td width="150">
+                      <label class="btn checkbox-inline btn-checkbox-success-inverse <?=$chk_box_active;?> ">
+      <?=$s_sub_typelist->topic_th;?>
+                      </label>
+                    </td>
+                    <td  class="td_percent"><?=$dataTL->f_percent;?> %</td>
+                  </tr>
+              <?php }?>
+              </table>
+              <?php
+            }
+          }
+          ?>
         </ons-col>
       </ons-row>
     </div>
@@ -306,7 +285,7 @@ else {
       <ons-col>
         <ons-list-header>ข้อมูลการซื้อ บริษัท</ons-list-header>
         <?php
-        foreach ($PERCENT_COMPANY as $key=>$dataTL) {
+        foreach ($PERCENT_COMPANY as $key => $dataTL) {
           $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
           ?>
           <ons-list-item class="input-items">
@@ -331,7 +310,7 @@ else {
                       </ons-input>-->
             </label>
           </ons-list-item>
-        <?php }?>
+<?php }?>
       </ons-col>
     </ons-row>
 
@@ -339,7 +318,7 @@ else {
       <ons-col>
         <ons-list-header>ข้อมูลการซื้อ แท็กซี่</ons-list-header>
         <?php
-        foreach ($PERCENT_TAXI as $key=>$dataTL) {
+        foreach ($PERCENT_TAXI as $key => $dataTL) {
           $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
           ?>
           <ons-list-item class="input-items">
@@ -362,7 +341,7 @@ else {
                       </ons-input>-->
             </label>
           </ons-list-item>
-        <?php }?>
+<?php }?>
       </ons-col>
     </ons-row>
   </ons-card>
