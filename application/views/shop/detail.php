@@ -4,7 +4,7 @@ $data = $this->Main_model->rowdata(TBL_ORDER_BOOKING,array('id' => $_GET[order_i
 $query_price = $this->db->query("select * from ".TBL_SHOP_COUNTRY_COM_LIST_PRICE_TAXI." where i_shop_country_com_list = '".$data->plan_id."' ");
 $num = 0;
 
-$sql_ps = "SELECT topic_th,id,province,lat,lng,address FROM shopping_product  WHERE id='".$data->program."' ";
+$sql_ps = "SELECT topic_th,id,province,lat,lng,address,main,sub FROM shopping_product  WHERE id='".$data->program."' ";
 $query_ps = $this->db->query($sql_ps);
 $res_ps = $query_ps->row();
 
@@ -217,10 +217,8 @@ else {
       <ons-row>
         <!--<ons-col width="30px"></ons-col>-->
         <ons-col>
-          <?php
-          $param[id] = $data->program;
-          $this->load->view('shop/test',$param);
-          ?>
+
+
         </ons-col>
       </ons-row>
       <ons-row>
@@ -238,14 +236,8 @@ else {
           $_where['i_shop_country_com_list'] = $data->plan_id;
 //          $_where['i_plan_product_price_name'] = 7;
           $query_lp = $this->db->get_where(TBL_SHOP_COUNTRY_COM_LIST_PRICE_TAXI,$_where);
-//          $list_price_taxi = ;
-//          
-//          echo "<pre>";
-//          print_r($list_price_taxi);
-//          echo "<pre>";
-          
           foreach ($query_lp->result() as $key => $val) {
-            
+
             if ($val->s_payment == "โอน") {
               $_where = array();
               $_where[product] = $data->program;
@@ -264,12 +256,12 @@ else {
                   <tr>
                     <td width="150">
                       <label class="btn checkbox-inline btn-checkbox-success-inverse <?=$chk_box_active;?> ">
-      <?=$s_sub_typelist->topic_th;?>
+                        <?=$s_sub_typelist->topic_th;?>
                       </label>
                     </td>
                     <td  class="td_percent"><?=$dataTL->f_percent;?> %</td>
                   </tr>
-              <?php }?>
+                <?php }?>
               </table>
               <?php
             }
@@ -285,8 +277,14 @@ else {
       <ons-col>
         <ons-list-header>ข้อมูลการซื้อ บริษัท</ons-list-header>
         <?php
-        foreach ($PERCENT_COMPANY as $key => $dataTL) {
-          $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
+        $_where = array();
+        $_where['main'] = $res_ps->main;
+        $_where['sub'] = $res_ps->sub;
+        $this->db->select('*');
+//          $_where['i_plan_product_price_name'] = 7;
+        $query_lp = $this->db->get_where(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,$_where);
+        foreach ($query_lp->result() as $key => $s_sub_typelist) {
+//          $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
           ?>
           <ons-list-item class="input-items">
             <div class="left" style="width: 40%;">
@@ -310,7 +308,7 @@ else {
                       </ons-input>-->
             </label>
           </ons-list-item>
-<?php }?>
+        <?php }?>
       </ons-col>
     </ons-row>
 
@@ -341,7 +339,7 @@ else {
                       </ons-input>-->
             </label>
           </ons-list-item>
-<?php }?>
+        <?php }?>
       </ons-col>
     </ons-row>
   </ons-card>

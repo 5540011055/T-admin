@@ -122,6 +122,7 @@ define('TBL_PAY_HIS_DRIVER_SHOPPING','pay_history_driver_shopping');
 define('TBL_AP_ORDER','ap_order');
 define('TBL_APP_SETTING','app_user_setting');
 define('TBL_SHOP_CAR_PRICE_TAXI', 'shop_car_price_taxi');
+define('TBL_SHOPPING_PRODUC', 'shopping_product');
 define('TBL_SHOPPING_PRODUCT_MAIN_TYPELIST', 'shopping_product_main_typelist');
 define('TBL_SHOPPING_PRODUCT_TYPELIST_PERCENT_TAXI', 'shopping_product_typelist_percent_taxi');
 define('TBL_SHOPPING_PRODUCT_TYPELIST_PERCENT_COMPANY', 'shopping_product_typelist_percent_company');
@@ -131,6 +132,11 @@ define('TBL_SHOP_COUNTRY_COM_COMPANY', 'shop_country_com_company');
 define('TBL_SHOP_COUNTRY_COM_LIST_COMPANY', 'shop_country_com_list_company');
 define('TBL_SHOP_COUNTRY_COM_LIST_PRICE_COMPANY', 'shop_country_com_list_price_company');
 define('TBL_SHOP_COUNTRY_ICON_COMPANY', 'shop_country_icon_company');
+define('TBL_SHOP_TYPE_PAY_LIST_PERCENT_COMPANY', 'shop_type_pay_list_percent_company');
+
+define('TBL_SHOP_TYPE_PAY_LIST', 'shop_type_pay_list');
+define('TBL_WEB_CAR_USE_TYPE', 'web_car_use_type');
+define('TBL_SHOP_CAR_PRICE_COMPANY', 'shop_car_price_company');
 
 
 
