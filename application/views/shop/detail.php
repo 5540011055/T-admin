@@ -109,6 +109,7 @@ else {
       </div>
     </ons-list-item>
     <?php
+    $total_price = 0;
     foreach ($res_booking->result() as $key => $val) {
 
       $_where = array();
@@ -118,23 +119,30 @@ else {
       $res_planmain = $query_planmain->row();
       $unit = $res_planmain->s_unit;
 
+
 //      echo "<pre>";
 //      print_r($val);
 //      echo "</pre>";
       if ($val->i_main_list == 5) {
-        $_where = array();
-        $_where[id] = $val->i_plan_main;
-        $this->db->select('*');
-        $query_ss = $this->db->get_where(TBL_ORDER_BOOKING_COM,$_where);
+//        $_where = array();
+//        $_where[id] = $val->i_plan_main;
+//        $this->db->select('s_topic,s_unit');
+//        $query_planmain = $this->db->get_where(TBL_ORDER_BOOKING_COM,$_where);
+        
+        $echo_price = '<span class="font-16" style="color:#FF0000;"><i class="fa  fa-circle-o-notch fa-spin 6x" style="color:#FF0000"></i> รอดำเนินการ</span>';
+      }
+      else {
+        $echo_price = number_format($val->i_price,0)." ".$unit;
+        $total_price = floatval($total_price) + floatval($val->i_price);
       }
       ?>
-
+      
       <ons-list-item>
         <div class="center list-pd-r">
           <span class="font-16 txt-center"><?=$res_planmain->s_topic;?></span>
         </div>
         <div class="right">
-          <span class="font-16"><?=number_format($val->i_price,0);?> <?=$unit;?></span>
+          <span class="font-16"><?=$echo_price;?></span>
         </div>
       </ons-list-item>
 
@@ -145,7 +153,7 @@ else {
         <span class="font-16 txt-center">รวม</span>
       </div>
       <div class="right">
-        <span class="font-16"><?=number_format($val->i_price,0);?> <?=$unitl?></span>
+        <span class="font-16"><?=number_format($total_price,0);?> บ.</span>
       </div>
     </ons-list-item>
   </div>
@@ -173,6 +181,17 @@ else {
     <ons-row>
       <ons-col>
         <ons-list-header>ข้อมูลค่าตอบแทน</ons-list-header>
+        <div class="center list-pd-r">
+          <table width="100%">
+            <?php 
+              
+            ?>
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
       </ons-col>
     </ons-row>
   </ons-card>

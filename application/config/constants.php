@@ -704,3 +704,6 @@ define('TBL_ORDER_BOOKING_COM', 'tbl_order_booking_com');
 define('TBL_ORDER_BOOKING_COM_CHANGE_PLAN', 'tbl_order_booking_com_change_plan');
 define('TBL_ORDER_BOOKING_COM_COMPANY', 'tbl_order_booking_com_company');
 define('TBL_ORDER_BOOKING_COM_COMPANY_CHANGE_PLAN', 'tbl_order_booking_com_company_change_plan');
+
+define('TBL_SHOPPING_PRODUCT_MAIN_TYPELIST', 'shopping_product_main_typelist');
+define('TBL_SHOPPING_PRODUCT_SUB_TYPELIST', 'shopping_product_sub_typelist');
