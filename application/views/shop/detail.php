@@ -117,6 +117,16 @@ else {
       $query_planmain = $this->db->get_where(TBL_PLAN_MAIN,$_where);
       $res_planmain = $query_planmain->row();
       $unit = $res_planmain->s_unit;
+
+//      echo "<pre>";
+//      print_r($val);
+//      echo "</pre>";
+      if ($val->i_main_list == 5) {
+        $_where = array();
+        $_where[id] = $val->i_plan_main;
+        $this->db->select('*');
+        $query_ss = $this->db->get_where(TBL_ORDER_BOOKING_COM,$_where);
+      }
       ?>
 
       <ons-list-item>
@@ -159,7 +169,13 @@ else {
     </ons-list-item>
   </div>
 
-
+  <ons-card style="margin-top: 10px; margin-bottom: 0px;">
+    <ons-row>
+      <ons-col>
+        <ons-list-header>ข้อมูลค่าตอบแทน</ons-list-header>
+      </ons-col>
+    </ons-row>
+  </ons-card>
 
   <ons-card style="margin-top: 10px; margin-bottom: 0px;">
     <ons-row>
@@ -181,13 +197,13 @@ else {
           $query_lp = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM,$_where);
         }
         foreach ($query_lp->result() as $key => $val) {
-          
+
           $_where = array();
           $_where[id] = $val->i_con_com_product_type;
           $this->db->select('*');
           $query = $this->db->get_where(TBL_CON_COM_PRODUCT_TYPE,$_where);
           $data_pd_con_pd_type = $query->row();
-          
+
           $_where = array();
           $_where[id] = $data_pd_con_pd_type->i_product_sub_typelist;
           $this->db->select('*');
