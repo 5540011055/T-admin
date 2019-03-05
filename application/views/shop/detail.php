@@ -109,7 +109,6 @@ else {
       </div>
     </ons-list-item>
     <?php
-    
     foreach ($res_booking->result() as $key => $val) {
 
       $_where = array();
@@ -118,8 +117,6 @@ else {
       $query_planmain = $this->db->get_where(TBL_PLAN_MAIN,$_where);
       $res_planmain = $query_planmain->row();
       $unit = $res_planmain->s_unit;
-      
-      
       ?>
 
       <ons-list-item>
@@ -167,22 +164,48 @@ else {
   <ons-card style="margin-top: 10px; margin-bottom: 0px;">
     <ons-row>
       <ons-col>
-        <ons-list-header>ข้อมูลการซื้อ บริษัท</ons-list-header>
+        <ons-list-header>ข้อมูลการซื้อ</ons-list-header>
         <?php
+//        echo $data->id;
         $_where = array();
-        $_where['main'] = $res_ps->main;
-        $_where['sub'] = $res_ps->sub;
+        $_where['i_order_booking'] = $data->id;
         $this->db->select('*');
-//          $_where['i_plan_product_price_name'] = 7;
-        $query_lp = $this->db->get_where(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,$_where);
-        foreach ($query_lp->result() as $key => $s_sub_typelist) {
-//          $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
+        $query_newplan = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM_CHANGE_PLAN,$_where);
+        if ($query_newplan->num_rows() > 0) {
+          $query_lp = $query_newplan;
+        }
+        else {
+          $_where = array();
+          $_where['i_order_booking'] = $data->id;
+          $this->db->select('*');
+          $query_lp = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM,$_where);
+        }
+        foreach ($query_lp->result() as $key => $val) {
+          
+          $_where = array();
+          $_where[id] = $val->i_con_com_product_type;
+          $this->db->select('*');
+          $query = $this->db->get_where(TBL_CON_COM_PRODUCT_TYPE,$_where);
+          $data_pd_con_pd_type = $query->row();
+          
+          $_where = array();
+          $_where[id] = $data_pd_con_pd_type->i_product_sub_typelist;
+          $this->db->select('*');
+          $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_SUB_TYPELIST,$_where);
+          $data_pd_sub_typelist = $query->row();
+
+          $_where = array();
+//          $_where[status] = 1;
+          $_where[id] = $data_pd_sub_typelist->i_main_typelist;
+          $this->db->select('*');
+          $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,$_where);
+          $s_sub_typelist = $query->row();
           ?>
           <ons-list-item class="input-items">
             <div class="left" style="width: 40%;">
               <span class="font-14"><?=$s_sub_typelist->topic_th;?></span>
             </div>
-            <label class="center">
+            <label class="center"> 
               <ons-input id="" float="" maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="s_company[<?=$key;?>][shop_cost]" id="shop_cost" value="">
                 <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
                        font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
@@ -191,31 +214,6 @@ else {
               </ons-input>
 
               <input type="hidden" value="<?=$s_sub_typelist->topic_th;?>" name="s_company[<?=$key;?>][typelist]"/>
-            </label>
-          </ons-list-item>
-        <?php } ?>
-      </ons-col>
-    </ons-row>
-
-    <ons-row>
-      <ons-col>
-        <ons-list-header>ข้อมูลการซื้อ แท็กซี่</ons-list-header>
-        <?php
-        foreach ($PERCENT_TAXI as $key => $dataTL) {
-          $s_sub_typelist = $this->Main_model->rowdata(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,array('id' => $dataTL->i_main_typelist));
-          ?>
-          <ons-list-item class="input-items">
-            <div class="left" style="width: 40%;">
-              <span class="font-14"><?=$s_sub_typelist->topic_th;?></span>
-            </div>
-            <label class="center">
-              <ons-input id="" float="" maxlength="20"  style="width: 100%;"  placeholder="กรอกจำนวนยอด" name="s_taxi[<?=$key;?>][shop_cost]" id="shop_cost" value="">
-                <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
-                       font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
-                       height: 35px;">
-                <span class="text-input__label"><?=$s_sub_typelist->topic_th;?></span>
-              </ons-input>
-              <input type="hidden" value="<?=$s_sub_typelist->topic_th;?>" name="s_taxi[<?=$key;?>][typelist]"/>
             </label>
           </ons-list-item>
         <?php }?>
