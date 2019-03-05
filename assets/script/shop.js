@@ -110,7 +110,7 @@ function submitTransShop() {
           }
         });
         var ac = {};
-        var txt_long_nc = $('#invoice').val()+" : แจ้งโอนเงินค่าคอมมิชชั่น กรุณาตรวจสอบ";
+        var txt_long_nc = $('#invoice').val() + " : แจ้งโอนเงินค่าคอมมิชชั่น กรุณาตรวจสอบ";
         var nc = {
           i_type: 1,
           i_event: $('#order_id').val(),
@@ -164,4 +164,29 @@ function checkPicShop(path, id) {
       $('#' + id).attr('src', path + "?v=" + $.now());
     }
   });
+}
+
+var timer1;
+function calculateShopProduct(val, id) {
+  clearTimeout(timer1);
+  timer1 = setTimeout(function validate() {
+    var present = $('#present_' + id).val();
+    console.log(val + " | " + id + " | " + present);
+    var total = 0;
+    total = (val * parseFloat(present)) / 100;
+    console.log(total);
+    $('#txt_price_' + id).text(total);
+    calculateShopAllProduct();
+  }, 1000);
+}
+
+function calculateShopAllProduct() {
+  var total = 0;
+  $('.txt-price_trans').each(function () {
+      var val = $(this).text();
+//      console.log(val+" "+ this.id);
+      total = total + parseFloat(val);
+  });
+  console.log(total);
+  $('#txt_price_total').text(total);
 }

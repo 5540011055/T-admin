@@ -19,14 +19,40 @@ $this->db->select('*');
 $query_chk = $this->db->get_where(TBL_COM_ORDER_BOOKING_LOGS,$_where);
 if ($query_chk->num_rows() > 0) {
   $res_booking = $query_chk;
+  $table_to_get_taxi = TBL_ORDER_BOOKING_COM_CHANGE_PLAN;
 }
 else {
   $_where = array();
   $_where[i_order_booking] = $_GET[order_id];
   $this->db->select('*');
   $res_booking = $this->db->get_where(TBL_COM_ORDER_BOOKING,$_where);
+  $table_to_get_taxi = TBL_ORDER_BOOKING_COM;
 }
 
+$_where = array();
+$_where[i_order_booking] = $_GET[order_id];
+$_where[i_main_list] = 5;
+$this->db->select('*');
+$query_chk_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY,$_where);
+if ($query_chk_company->num_rows() > 0) {
+  $res_booking_company = $query_chk_company;
+  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY;
+  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY;
+  
+}
+else {
+  $_where = array();
+  $_where[i_order_booking] = $_GET[order_id];
+  $_where[i_main_list] = 5;
+  $this->db->select('*');
+  $res_booking_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY_LOGS,$_where);
+  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY_CHANGE_PLAN;
+  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY_LOGS;
+  
+}
+//echo "<pre>";
+//print_r($res_booking_company->result());
+//echo "</pre>";
 
 $plan_pack = $res_booking->row()->i_plan_pack;
 
@@ -119,16 +145,14 @@ else {
       $res_planmain = $query_planmain->row();
       $unit = $res_planmain->s_unit;
 
-
-//      echo "<pre>";
-//      print_r($val);
-//      echo "</pre>";
       if ($val->i_main_list == 5) {
+        $pack_list_com = $val->plan_pack_list;
+        $pack_com = $val->i_plan_pack;
 //        $_where = array();
 //        $_where[id] = $val->i_plan_main;
 //        $this->db->select('s_topic,s_unit');
 //        $query_planmain = $this->db->get_where(TBL_ORDER_BOOKING_COM,$_where);
-        
+
         $echo_price = '<span class="font-16" style="color:#FF0000;"><i class="fa  fa-circle-o-notch fa-spin 6x" style="color:#FF0000"></i> รอดำเนินการ</span>';
       }
       else {
@@ -136,7 +160,7 @@ else {
         $total_price = floatval($total_price) + floatval($val->i_price);
       }
       ?>
-      
+
       <ons-list-item>
         <div class="center list-pd-r">
           <span class="font-16 txt-center"><?=$res_planmain->s_topic;?></span>
@@ -180,20 +204,109 @@ else {
   <ons-card style="margin-top: 10px; margin-bottom: 0px;">
     <ons-row>
       <ons-col>
-        <ons-list-header>ข้อมูลค่าตอบแทน</ons-list-header>
-        <div class="center list-pd-r">
+        <ons-list-header>ข้อมูลค่าตอบแทน  <b style="font-size:14px;"> (ร้านค้า >> ทีแชร์)</b></ons-list-header>
+        <div class="center list-pd-r"><?php // print_r($res_booking_company->row()->i_plan_pack); ?>
           <table width="100%">
-            <?php 
+            <?php
+            $_where = array();
+            $_where[i_plan_pack] = $res_booking_company->row()->i_plan_pack;
+            $_where[i_order_booking] = $_GET[order_id];
+            $this->db->select('*');
+            $con_pd_type = $this->db->get_where($table_to_get_company_sub,$_where);
+//            echo "<pre>";
+//            print_r($con_pd_type->result());
+//            echo "</pre>";
+//            print_r($_where);
+//            echo $table_to_get;
+//            exit();
+            foreach ($con_pd_type->result() as $key => $value) {
+              $_where = array();
+              $_where[id] = $value->i_con_com_product_type;
+              $this->db->select('plan_pack_list');
+              $query = $this->db->get_where($table_to_get_main_company,$_where);
+              $data_com_order_bk_company = $query->row();
+//              echo "<pre>";
+//              print_r($value);
+////              echo $table_to_get_main_company;
+//              echo "</pre>";
               
+              $_where = array();
+              $_where[id] = $data_com_order_bk_company->plan_pack_list;
+//              $_where[i_main_list] = $data_com_order_bk_company->i_main_list;
+              $this->db->select('i_product_sub_typelist');
+              $cxx = $this->db->get_where(TBL_CON_COM_PRODUCT_TYPE,$_where);
+              $cxx = $cxx->row();
+//              echo "<pre>";
+//              print_r($cxx);
+//              echo "</pre>";
+              
+              $_where = array();
+              $_where[id] = $cxx->i_product_sub_typelist;
+              $this->db->select('i_main_typelist');
+              $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_SUB_TYPELIST,$_where);
+              $data_pd_sub_typelist = $query->row();
+//
+              $_where = array();
+//          $_where[status] = 1;
+              $_where[id] = $data_pd_sub_typelist->i_main_typelist;
+              $this->db->select('topic_th');
+              $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,$_where);
+              $s_sub_typelist = $query->row();
+              ?>
+              <tr>
+                <td><span class="font-14"><?=$s_sub_typelist->topic_th;?></span></td>
+                <td><span class="font-14"><?=$value->i_price;?> %</span></td>
+              </tr>
+            <?php }
             ?>
-            <tr>
-              <td></td>
-              <td></td>
-            </tr>
+
           </table>
         </div>
       </ons-col>
     </ons-row>
+
+    <ons-row>
+      <ons-col>
+        <ons-list-header>ข้อมูลค่าตอบแทน  <b style="font-size:14px;"> (ทีแชร์ >> แท็กซี่) </b></ons-list-header>
+        <div class="center list-pd-r">
+
+          <table width="100%">
+            <?php
+            $_where = array();
+            $_where[i_plan_pack] = $pack_com;
+            $_where[i_order_booking] = $_GET[order_id];
+            $this->db->select('*');
+            $con_pd_type = $this->db->get_where($table_to_get_taxi, $_where);
+            echo $table_to_get_taxi;
+            foreach ($con_pd_type->result() as $key => $value) {
+//              echo "<pre>";
+//              print_r($value);
+//              echo "</pre>";
+              $_where = array();
+              $_where[id] = $value->i_product_sub_typelist;
+              $this->db->select('i_main_typelist');
+              $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_SUB_TYPELIST,$_where);
+              $data_pd_sub_typelist = $query->row();
+              
+              $_where = array();
+//          $_where[status] = 1;
+              $_where[id] = $data_pd_sub_typelist->i_main_typelist;
+              $this->db->select('topic_th');
+              $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,$_where);
+              $s_sub_typelist = $query->row();
+              ?>
+              <tr>
+                <td><span class="font-14"><?=$s_sub_typelist->topic_th;?></span></td>
+                <td><span class="font-14"><?=$value->f_price;?> %</span></td>
+              </tr>
+            <?php }
+            ?>
+
+          </table>
+        </div>
+      </ons-col>
+    </ons-row>
+
   </ons-card>
 
   <ons-card style="margin-top: 10px; margin-bottom: 0px;">
@@ -241,15 +354,19 @@ else {
               <span class="font-14"><?=$s_sub_typelist->topic_th;?></span>
             </div>
             <label class="center"> 
-              <ons-input id="" float="" maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="s_company[<?=$key;?>][shop_cost]" id="shop_cost" value="">
-                <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 20px;
-                       font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 20px;
-                       height: 35px;">
+              <ons-input maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="s_company[<?=$key;?>][shop_cost]" id="shop_cost" value="" onkeyup="calculateShopProduct(this.value, <?=$val->id;?>);">
+                <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 12px;
+                       font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 16px;
+                       height: 32px;">
                 <span class="text-input__label"><?=$s_sub_typelist->topic_th;?></span>
               </ons-input>
 
               <input type="hidden" value="<?=$s_sub_typelist->topic_th;?>" name="s_company[<?=$key;?>][typelist]"/>
+              <input type="hidden" value="<?=$val->i_price;?>" id="present_<?=$val->id;?>"/>
             </label>
+            <div class="right" style="width: 30%;">
+              <span class="font-14"><span id="txt_price_<?=$val->id;?>" class="txt-price_trans"> 0 </span>&nbsp; บ.</span>
+            </div>
           </ons-list-item>
         <?php }?>
       </ons-col>
@@ -260,10 +377,10 @@ else {
     <ons-list-header>ข้อมูลการโอน</ons-list-header>
     <ons-list-item class="input-items">
       <div class="left" style="width: 40%;">
-        <span class="font-16">จำนวนที่โอน</span>
+        <span class="font-14" >จำนวนที่โอน</span>
       </div>
       <div class="center">
-        <span class="font-16">0.00</span>
+        <span class="font-14"><span id="txt_price_total" > 0 </span>&nbsp; บ.</span>
       </div>
     </ons-list-item>
     <ons-list-header>สลิปโอนเงิน</ons-list-header>
