@@ -29,27 +29,46 @@ else {
   $table_to_get_taxi = TBL_ORDER_BOOKING_COM;
 }
 
+//$_where = array();
+//$_where[i_order_booking] = $_GET[order_id];
+//$_where[i_main_list] = 5;
+//$this->db->select('*');
+//$query_chk_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY,$_where);
+//if ($query_chk_company->num_rows() > 0) {
+//  $res_booking_company = $query_chk_company;
+//  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY;
+//  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY;
+//}
+//else {
+//  $_where = array();
+//  $_where[i_order_booking] = $_GET[order_id];
+//  $_where[i_main_list] = 5;
+//  $this->db->select('*');
+//  $res_booking_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY_LOGS,$_where);
+//  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY_CHANGE_PLAN;
+//  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY_LOGS;
+//}
+
 $_where = array();
 $_where[i_order_booking] = $_GET[order_id];
 $_where[i_main_list] = 5;
 $this->db->select('*');
-$query_chk_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY,$_where);
+$query_chk_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY_LOGS,$_where);
 if ($query_chk_company->num_rows() > 0) {
   $res_booking_company = $query_chk_company;
-  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY;
-  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY;
-  
+  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY_CHANGE_PLAN;
+  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY_LOGS;
 }
 else {
   $_where = array();
   $_where[i_order_booking] = $_GET[order_id];
   $_where[i_main_list] = 5;
   $this->db->select('*');
-  $res_booking_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY_LOGS,$_where);
-  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY_CHANGE_PLAN;
-  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY_LOGS;
-  
+  $res_booking_company = $this->db->get_where(TBL_COM_ORDER_BOOKING_COMPANY,$_where);
+  $table_to_get_company_sub = TBL_ORDER_BOOKING_COM_COMPANY;
+  $table_to_get_main_company = TBL_COM_ORDER_BOOKING_COMPANY;
 }
+
 //echo "<pre>";
 //print_r($res_booking_company->result());
 //echo "</pre>";
@@ -213,9 +232,7 @@ else {
             $_where[i_order_booking] = $_GET[order_id];
             $this->db->select('*');
             $con_pd_type = $this->db->get_where($table_to_get_company_sub,$_where);
-//            echo "<pre>";
-//            print_r($con_pd_type->result());
-//            echo "</pre>";
+
 //            print_r($_where);
 //            echo $table_to_get;
 //            exit();
@@ -229,7 +246,7 @@ else {
 //              print_r($value);
 ////              echo $table_to_get_main_company;
 //              echo "</pre>";
-              
+
               $_where = array();
               $_where[id] = $data_com_order_bk_company->plan_pack_list;
 //              $_where[i_main_list] = $data_com_order_bk_company->i_main_list;
@@ -239,7 +256,7 @@ else {
 //              echo "<pre>";
 //              print_r($cxx);
 //              echo "</pre>";
-              
+
               $_where = array();
               $_where[id] = $cxx->i_product_sub_typelist;
               $this->db->select('i_main_typelist');
@@ -254,7 +271,7 @@ else {
               $s_sub_typelist = $query->row();
               ?>
               <tr>
-                <td><span class="font-14"><?=$s_sub_typelist->topic_th;?></span></td>
+                <td  width="80%"><span class="font-14"><?=$s_sub_typelist->topic_th;?></span></td>
                 <td><span class="font-14"><?=$value->i_price;?> %</span></td>
               </tr>
             <?php }
@@ -276,18 +293,34 @@ else {
             $_where[i_plan_pack] = $pack_com;
             $_where[i_order_booking] = $_GET[order_id];
             $this->db->select('*');
-            $con_pd_type = $this->db->get_where($table_to_get_taxi, $_where);
-            echo $table_to_get_taxi;
-            foreach ($con_pd_type->result() as $key => $value) {
+            $con_pd_type_taxi = $this->db->get_where($table_to_get_taxi,$_where);
+//            echo $table_to_get_taxi;
+//            echo "<pre>";
+//            print_r($con_pd_type->result());
+//            echo "</pre>";
+            foreach ($con_pd_type_taxi->result() as $key => $value) {
+              $_where = array();
+              $_where[id] = $value->i_con_com_product_type;
+              $this->db->select('plan_pack_list');
+              $query = $this->db->get_where($table_to_get_main_company,$_where);
+              $data_com_order_bk_taxi = $query->row();
+
+              $_where = array();
+              $_where[id] = $data_com_order_bk_company->plan_pack_list;
+//              $_where[i_main_list] = $data_com_order_bk_company->i_main_list;
+              $this->db->select('i_product_sub_typelist');
+              $cxx = $this->db->get_where(TBL_CON_COM_PRODUCT_TYPE,$_where);
+              $cxx = $cxx->row();
+
 //              echo "<pre>";
-//              print_r($value);
+//              print_r($cxx);
 //              echo "</pre>";
               $_where = array();
-              $_where[id] = $value->i_product_sub_typelist;
+              $_where[id] = $cxx->i_product_sub_typelist;
               $this->db->select('i_main_typelist');
               $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_SUB_TYPELIST,$_where);
               $data_pd_sub_typelist = $query->row();
-              
+
               $_where = array();
 //          $_where[status] = 1;
               $_where[id] = $data_pd_sub_typelist->i_main_typelist;
@@ -296,8 +329,8 @@ else {
               $s_sub_typelist = $query->row();
               ?>
               <tr>
-                <td><span class="font-14"><?=$s_sub_typelist->topic_th;?></span></td>
-                <td><span class="font-14"><?=$value->f_price;?> %</span></td>
+                <td width="80%"><span class="font-14"><?=$s_sub_typelist->topic_th;?></span></td>
+                <td><span class="font-14"><?=$value->i_price;?> %</span></td>
               </tr>
             <?php }
             ?>
@@ -316,19 +349,29 @@ else {
         <?php
 //        echo $data->id;
         $_where = array();
-        $_where['i_order_booking'] = $data->id;
+        $_where[i_plan_pack] = $res_booking_company->row()->i_plan_pack;
+        $_where[i_order_booking] = $_GET[order_id];
         $this->db->select('*');
-        $query_newplan = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM_CHANGE_PLAN,$_where);
-        if ($query_newplan->num_rows() > 0) {
-          $query_lp = $query_newplan;
-        }
-        else {
-          $_where = array();
-          $_where['i_order_booking'] = $data->id;
-          $this->db->select('*');
-          $query_lp = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM,$_where);
-        }
-        foreach ($query_lp->result() as $key => $val) {
+        $con_pd_type_company = $this->db->get_where($table_to_get_company_sub,$_where);
+        echo "<pre>";
+        print_r($con_pd_type_company->result());
+        echo $table_to_get_company_sub;
+        print_r($con_pd_type_taxi->result());
+        echo "</pre>";
+//        $_where = array();
+//        $_where['i_order_booking'] = $data->id;
+//        $this->db->select('*');
+//        $query_newplan = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM_CHANGE_PLAN,$_where);
+//        if ($query_newplan->num_rows() > 0) {
+//          $query_lp = $query_newplan;
+//        }
+//        else {
+//          $_where = array();
+//          $_where['i_order_booking'] = $data->id;
+//          $this->db->select('*');
+//          $query_lp = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM,$_where);
+//        }
+        foreach ($con_pd_type_company->result() as $key => $val) {
 
           $_where = array();
           $_where[id] = $val->i_con_com_product_type;
@@ -354,8 +397,10 @@ else {
               <span class="font-14"><?=$s_sub_typelist->topic_th;?></span>
             </div>
             <label class="center"> 
-              <ons-input maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="s_company[<?=$key;?>][shop_cost]" id="shop_cost" value="" onkeyup="calculateShopProduct(this.value, <?=$val->id;?>);">
-                <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; color: #fff !important;border-radius: 10px;    padding-left: 12px;
+              <ons-input maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="s_company[<?=$key;?>][shop_cost]" 
+                         id="shop_cost" value="" onkeyup="calculateShopProduct(this.value, <?=$val->id;?>);">
+                <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; 
+                       color: #fff !important;border-radius: 10px;    padding-left: 12px;
                        font-family: 'Playfair Display', serif;font-weight: 800;    font-size: 16px;
                        height: 32px;">
                 <span class="text-input__label"><?=$s_sub_typelist->topic_th;?></span>
@@ -374,7 +419,7 @@ else {
   </ons-card>
 
   <ons-card style="margin-top: 10px; margin-bottom: 10px;">
-    <ons-list-header>ข้อมูลการโอน</ons-list-header>
+    <ons-list-header>ข้อมูลการโอน (แท็กซี่)</ons-list-header>
     <ons-list-item class="input-items">
       <div class="left" style="width: 40%;">
         <span class="font-14" >จำนวนที่โอน</span>
