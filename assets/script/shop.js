@@ -92,7 +92,7 @@ function submitTransShop() {
     success: function (res) {
       console.log(res);
       modal.hide();
-      return false;
+//      return false;
       if (res.data.result == true) {
 //       
 //        filterShopList();
@@ -121,9 +121,9 @@ function submitTransShop() {
           s_message: txt_long_nc,
           s_posted: detect_username
         };
-
+        
         apiRecordActivityAndNotification(ac, nc);
-//
+        
       } else {
 //        
       }
@@ -170,23 +170,45 @@ var timer1;
 function calculateShopProduct(val, id) {
   clearTimeout(timer1);
   timer1 = setTimeout(function validate() {
-    var present = $('#present_' + id).val();
-    console.log(val + " | " + id + " | " + present);
-    var total = 0;
-    total = (val * parseFloat(present)) / 100;
-    console.log(total);
-    $('#txt_price_' + id).text(total);
+    var taxi_persent = 0, com_persent = 0;
+    taxi_persent = $('#taxi_persent_' + id).val();
+    com_persent = $('#company_persent_' + id).val();
+    console.log(val + " | " + taxi_persent + " | " + com_persent);
+
+    var total_taxi = 0, total_company = 0;
+    if (taxi_persent > 0 || taxi_persent != '') {
+      total_taxi = (val * parseFloat(taxi_persent)) / 100;
+    }
+    if(com_persent > 0 || com_persent != ''){
+      total_company = (val * parseFloat(com_persent)) / 100;
+    }
+    console.log("Company : " + total_company+" ||"+com_persent);
+    console.log("Taxi : " + total_taxi+" ||"+taxi_persent);
+//    var total = 0;
+//    total = (val * parseFloat(present)) / 100;
+    console.log(total_taxi+" ** "+total_company);
+    $('#last_price_taxi_' + id).val(total_taxi);
+    $('#last_price_company_' + id).val(total_company);
     calculateShopAllProduct();
   }, 1000);
 }
 
 function calculateShopAllProduct() {
-  var total = 0;
-  $('.txt-price_trans').each(function () {
-      var val = $(this).text();
+  var total_taxi = 0,
+      total_company = 0;
+  $('.price-taxi').each(function () {
+    var val = $(this).val();
 //      console.log(val+" "+ this.id);
-      total = total + parseFloat(val);
+    total_taxi = total_taxi + parseFloat(val);
   });
-  console.log(total);
-  $('#txt_price_total').text(total);
+  
+  $('.price-company').each(function () {
+    var val = $(this).val();
+//      console.log(val+" "+ this.id);
+    total_company = total_company + parseFloat(val);
+  });
+  console.log(total_taxi+" "+total_company);
+  $('#txt_price_total').text(total_taxi);
+  $('#taxi_cost').val(total_taxi);
+  $('#company_cost').val(total_company);
 }

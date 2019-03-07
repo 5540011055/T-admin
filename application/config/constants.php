@@ -711,3 +711,5 @@ define('TBL_ORDER_BOOKING_COM_COMPANY_CHANGE_PLAN', 'tbl_order_booking_com_compa
 
 define('TBL_SHOPPING_PRODUCT_MAIN_TYPELIST', 'shopping_product_main_typelist');
 define('TBL_SHOPPING_PRODUCT_SUB_TYPELIST', 'shopping_product_sub_typelist');
+
+define('TBL_PAY_HIS_DRIVER_SHOPPING', 'pay_history_driver_shopping');

@@ -20,6 +20,7 @@ $query_chk = $this->db->get_where(TBL_COM_ORDER_BOOKING_LOGS,$_where);
 if ($query_chk->num_rows() > 0) {
   $res_booking = $query_chk;
   $table_to_get_taxi = TBL_ORDER_BOOKING_COM_CHANGE_PLAN;
+  $table_to_get_taxi_main = TBL_COM_ORDER_BOOKING_LOGS;
 }
 else {
   $_where = array();
@@ -27,6 +28,7 @@ else {
   $this->db->select('*');
   $res_booking = $this->db->get_where(TBL_COM_ORDER_BOOKING,$_where);
   $table_to_get_taxi = TBL_ORDER_BOOKING_COM;
+  $table_to_get_taxi_main = TBL_COM_ORDER_BOOKING;
 }
 
 //$_where = array();
@@ -233,29 +235,20 @@ else {
             $this->db->select('*');
             $con_pd_type = $this->db->get_where($table_to_get_company_sub,$_where);
 
-//            print_r($_where);
-//            echo $table_to_get;
-//            exit();
             foreach ($con_pd_type->result() as $key => $value) {
               $_where = array();
               $_where[id] = $value->i_con_com_product_type;
               $this->db->select('plan_pack_list');
               $query = $this->db->get_where($table_to_get_main_company,$_where);
               $data_com_order_bk_company = $query->row();
-//              echo "<pre>";
-//              print_r($value);
-////              echo $table_to_get_main_company;
-//              echo "</pre>";
-
+//              echo $table_to_get_main_company;
               $_where = array();
               $_where[id] = $data_com_order_bk_company->plan_pack_list;
 //              $_where[i_main_list] = $data_com_order_bk_company->i_main_list;
               $this->db->select('i_product_sub_typelist');
               $cxx = $this->db->get_where(TBL_CON_COM_PRODUCT_TYPE,$_where);
               $cxx = $cxx->row();
-//              echo "<pre>";
-//              print_r($cxx);
-//              echo "</pre>";
+
 
               $_where = array();
               $_where[id] = $cxx->i_product_sub_typelist;
@@ -264,7 +257,6 @@ else {
               $data_pd_sub_typelist = $query->row();
 //
               $_where = array();
-//          $_where[status] = 1;
               $_where[id] = $data_pd_sub_typelist->i_main_typelist;
               $this->db->select('topic_th');
               $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,$_where);
@@ -289,32 +281,23 @@ else {
 
           <table width="100%">
             <?php
+//            echo $pack_com;
             $_where = array();
             $_where[i_plan_pack] = $pack_com;
             $_where[i_order_booking] = $_GET[order_id];
             $this->db->select('*');
             $con_pd_type_taxi = $this->db->get_where($table_to_get_taxi,$_where);
-//            echo $table_to_get_taxi;
-//            echo "<pre>";
-//            print_r($con_pd_type->result());
-//            echo "</pre>";
+
             foreach ($con_pd_type_taxi->result() as $key => $value) {
-              $_where = array();
-              $_where[id] = $value->i_con_com_product_type;
-              $this->db->select('plan_pack_list');
-              $query = $this->db->get_where($table_to_get_main_company,$_where);
-              $data_com_order_bk_taxi = $query->row();
 
               $_where = array();
-              $_where[id] = $data_com_order_bk_company->plan_pack_list;
+              $_where[id] = $value->i_con_com_product_type;
 //              $_where[i_main_list] = $data_com_order_bk_company->i_main_list;
               $this->db->select('i_product_sub_typelist');
               $cxx = $this->db->get_where(TBL_CON_COM_PRODUCT_TYPE,$_where);
               $cxx = $cxx->row();
 
-//              echo "<pre>";
-//              print_r($cxx);
-//              echo "</pre>";
+
               $_where = array();
               $_where[id] = $cxx->i_product_sub_typelist;
               $this->db->select('i_main_typelist');
@@ -353,11 +336,12 @@ else {
         $_where[i_order_booking] = $_GET[order_id];
         $this->db->select('*');
         $con_pd_type_company = $this->db->get_where($table_to_get_company_sub,$_where);
-        echo "<pre>";
-        print_r($con_pd_type_company->result());
-        echo $table_to_get_company_sub;
-        print_r($con_pd_type_taxi->result());
-        echo "</pre>";
+//        echo "<pre>";
+//        print_r($con_pd_type_company->result());
+//        echo $table_to_get_company_sub;
+//        print_r($con_pd_type_taxi->result());
+//        echo $table_to_get_taxi;
+//        echo "</pre>";
 //        $_where = array();
 //        $_where['i_order_booking'] = $data->id;
 //        $this->db->select('*');
@@ -372,12 +356,14 @@ else {
 //          $query_lp = $this->db->get_where(TBL_COM_ORDER_BOOKING_COM,$_where);
 //        }
         foreach ($con_pd_type_company->result() as $key => $val) {
-
           $_where = array();
           $_where[id] = $val->i_con_com_product_type;
           $this->db->select('*');
           $query = $this->db->get_where(TBL_CON_COM_PRODUCT_TYPE,$_where);
           $data_pd_con_pd_type = $query->row();
+//          echo $table_to_get_taxi;
+
+
 
           $_where = array();
           $_where[id] = $data_pd_con_pd_type->i_product_sub_typelist;
@@ -386,18 +372,32 @@ else {
           $data_pd_sub_typelist = $query->row();
 
           $_where = array();
-//          $_where[status] = 1;
           $_where[id] = $data_pd_sub_typelist->i_main_typelist;
           $this->db->select('*');
           $query = $this->db->get_where(TBL_SHOPPING_PRODUCT_MAIN_TYPELIST,$_where);
           $s_sub_typelist = $query->row();
+
+
+          $this->db->select('t1.*');
+          $this->db->from($table_to_get_taxi.' as t1');
+          $this->db->join(TBL_CON_COM_PRODUCT_TYPE.' as t2','t1.i_con_com_product_type = t2.id');
+          $_where = array();
+          $_where['t2.i_product_sub_typelist'] = $data_pd_con_pd_type->i_product_sub_typelist;
+          $_where['t1.i_order_booking'] = $_GET[order_id];
+          $this->db->where($_where);
+          $query_join = $this->db->get();
+          $res_taxi_price = $query_join->row();
+//          echo "<pre>";
+//          print_r();
+//          echo "</pre>";
           ?>
           <ons-list-item class="input-items">
             <div class="left" style="width: 40%;">
               <span class="font-14"><?=$s_sub_typelist->topic_th;?></span>
+
             </div>
             <label class="center"> 
-              <ons-input maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="s_company[<?=$key;?>][shop_cost]" 
+              <ons-input maxlength="20"  style="width: 100%;" placeholder="กรอกจำนวนยอด" name="cost[<?=$key;?>][shop_cost]" 
                          id="shop_cost" value="" onkeyup="calculateShopProduct(this.value, <?=$val->id;?>);">
                 <input type="number" class="text-input" maxlength="20"  style=" background-color: #ffa101; 
                        color: #fff !important;border-radius: 10px;    padding-left: 12px;
@@ -406,12 +406,21 @@ else {
                 <span class="text-input__label"><?=$s_sub_typelist->topic_th;?></span>
               </ons-input>
 
-              <input type="hidden" value="<?=$s_sub_typelist->topic_th;?>" name="s_company[<?=$key;?>][typelist]"/>
-              <input type="hidden" value="<?=$val->i_price;?>" id="present_<?=$val->id;?>"/>
+              <input type="hidden" value="<?=$s_sub_typelist->topic_th;?>" name="cost[<?=$key;?>][typelist]"/>
+              <input type="hidden" value="<?=$s_sub_typelist->id;?>" name="cost[<?=$key;?>][type_id]"/>
+              <input type="hidden" value="<?=$val->i_price;?>" id="company_persent_<?=$val->id;?>" name="cost[<?=$key;?>][company][persent]" />
+              <input type="hidden" value="<?=$res_taxi_price->i_price;?>" id="taxi_persent_<?=$val->id;?>" name="cost[<?=$key;?>][taxi][persent]" />
             </label>
-            <div class="right" style="width: 30%;">
+            <input type="hidden" value="0" id="last_price_taxi_<?=$val->id;?>" class="price-taxi" name="cost[<?=$key;?>][company][price]" />
+            <input type="hidden" value="0" id="last_price_company_<?=$val->id;?>"  class="price-company" name="cost[<?=$key;?>][taxi][price]" />
+            
+            <input type="hidden" value="<?=$res_taxi_price->id;?>" name="cost[<?=$key;?>][taxi][id]" />
+            <input type="hidden" value="<?=$val->id;?>" name="cost[<?=$key;?>][company][id]" />
+            <input type="hidden" value="<?=$table_to_get_company_sub;?>" name="cost[<?=$key;?>][company][table]" />
+            <input type="hidden" value="<?=$table_to_get_taxi;?>" name="cost[<?=$key;?>][taxi][table]" />
+<!--            <div class="right" style="width: 30%;">
               <span class="font-14"><span id="txt_price_<?=$val->id;?>" class="txt-price_trans"> 0 </span>&nbsp; บ.</span>
-            </div>
+            </div>-->
           </ons-list-item>
         <?php }?>
       </ons-col>
