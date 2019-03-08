@@ -93,6 +93,7 @@ function submitTransShop() {
       console.log(res);
       modal.hide();
 //      return false;
+      var res = res.res;
       if (res.data.result == true) {
 //       
 //        filterShopList();
@@ -119,7 +120,7 @@ function submitTransShop() {
           s_topic: "ส่งแขก",
           s_sub_topic: "แจ้งค่าคอมมิชชั่น",
           s_message: txt_long_nc,
-          s_posted: detect_username
+          s_posted: username
         };
         
         apiRecordActivityAndNotification(ac, nc);
