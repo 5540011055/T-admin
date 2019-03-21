@@ -164,79 +164,78 @@ $row_car = $query_car->row();
           </div>
         </td>
       </tr>
-      <?php
-      // $data = $this->Main_model->rowdata(TBL_ORDER_BOOKING,array('id' => $val->id),array('*'));
-
-      $query_price = $this->db->query("select * from shop_country_com_list_price_taxi where i_shop_country_com_list = '".$val->plan_id."' ");
-      $num = 0;
-
-      $display_person = "display:none";
-      $display_com = "display:none";
-      $display_park = "display:none";
-      $park_total = 0;
-      $person_total = 0;
-      $com_total = 0;
-      $plan = "";
-      foreach ($query_price->result() as $row_price) {
-        if ($num >= 1) {
-          $push = " + ";
-        }
-        else {
-          $push = "";
-        }
-        $plan .= $push.$row_price->s_topic_th;
-        $num++;
-
-        if ($row_price->s_topic_en == "park") {
-          $check_type_park = 1;
-          $display_park = "";
-          $park_total = $val->price_park_unit;
-        }
-
-        if ($row_price->s_topic_en == "person") {
-          $check_type_person = 1;
-          $display_person = "";
-          $person_total = intval($val->price_person_unit) * intval($val->adult);
-          $cal_person = $val->price_person_unit."x".$val->adult;
-        }
-
-        if ($row_price->s_topic_en == "comision") {
-          $check_type_com = 1;
-          $display_com = "";
-          $com_persent = $val->commission_persent;
-          $com_progress = '<span style="padding-left: 0px;"><font color="#FF0000">รอโอน</font></span>';
-        }
-      }
-//            $all_total = $park_total + $person_total + $com_total;
-      $sql_country = "SELECT t2.s_country_code, t2.s_topic_th FROM shop_country_com_list_price_taxi as t1 left join shop_country_icon_taxi as t2 on t1.i_shop_country_icon = t2.id WHERE t1.i_shop_country_com_list='".$val->plan_id."'    ";
-      $query_country = $this->db->query($sql_country);
-      $res_country = $query_country->row();
-
-      $titel = t_work_remuneration;
-      $display_none_change_plan = "display:none;";
-      $color_titel = "";
-
-      if ($val->check_driver_pay == 0) {
-        $txt_get_cash = "<span class='font-17' style='color: #f00;'>ยังไม่รับ</span>";
-      }
-      else {
-        $txt_get_cash = "<span class='font-17' style='color: #6fab1e;'>รับแล้ว</span>";
-      }
-      ?>
       <tr>
+        <?php 
+        
+
+        $_where = array();
+        // echo  $val->id.'-*******************';
+      // $_where['i_order_booking'] = $val->id;
+        $_select = array('*');
+        $_order = array();
+        $_order['id'] = 'asc';
+        $BOOKING_LOGS = $this->Main_model->fetch_data('','',TBL_COM_ORDER_BOOKING_LOGS,array('i_order_booking' => $val->id),$_select,$_order);
+      // echo 'fsfsafsfsf';
+ // echo $BOOKING_LOGS.'-------------------------'.count($BOOKING_LOGS);
+
+
+
+
+        $_where = array();
+        if ($BOOKING_LOGS=='') {
+          $_where['id'] = $val->plan_setting;
+
+        }
+        else{
+          $_where['id'] = $BOOKING_LOGS[0]->i_plan_pack;
+        }
+        // print_r(json_encode($_where)) ;
+        
+
+        $_select = array('*');
+        $PLAN_PACK = $this->Main_model->rowdata(NEW_TBL_PLAN_PACK,$_where);
+        // echo '<pre>';
+        // print_r($PLAN_PACK);
+        // echo '</pre>';
+        $_where = array();
+
+
+        if ($BOOKING_LOGS=='') {
+          $_where['i_plan_pack'] = $val->plan_setting;
+
+        }
+        else{
+          $_where['i_plan_pack'] = $BOOKING_LOGS[0]->i_plan_pack;
+        }
+        // $_where['i_plan_pack'] = $_GET[i_plan_pack];
+        $_select = array('*');
+        $_order = array();
+        $_order['id'] = 'asc';
+        $PLAN_PACK_LIST = $this->Main_model->fetch_data('','',NEW_TBL_PLAN_PACK_LIST,$_where,$_select,$_order);
+        // echo '<pre>';
+        // print_r($PLAN_PACK_LIST);
+        // echo '</pre>';
+        $_where = array();
+        $_where['id'] = $PLAN_PACK->i_country; 
+        $_select = array('country_code','id','name_th');
+        $COUNTRY = $this->Main_model->rowdata(TBL_WEB_COUNTRY,$_where,$_select);
+        $plan = $PLAN_PACK->s_topic; 
+        // echo $plan;
+        ?>
         <td colspan="3">
           <table style="margin-left: -2px;">
             <tr>
               <td style="padding: 0;"><span class="font-17">สัญชาติ</span> : </td>
               <td style="padding: 0;">
-                <img src="<?=base_url();?>assets/images/flag/icon/<?=$res_country->s_country_code;?>.png" width="20" height="20" alt="">
+                <img src="<?=base_url();?>assets/images/flag/icon/<?=$COUNTRY->country_code;?>.png" width="20" height="20" alt="">
               </td>
               <td style="padding: 0;">&nbsp;</td>
-              <td style="padding: 0;"><span class="font-17" id="txt_county_pp"><?=$res_country->s_topic_th;?></span></td>
+              <td style="padding: 0;"><span class="font-17" id="txt_county_pp"><?=$COUNTRY->name_th;?></span></td>
             </tr>
           </table>
         </td>
       </tr>
+     
       <!----------------------------------------------------------------------------------------------------------------------------->
       <tr>
         <td colspan="2">
@@ -248,16 +247,7 @@ $row_car = $query_car->row();
 
               </tr>
 
-              <tr style="<?=$display_park;?>">
-                <td width="35%"><span class="font-17">ค่าจอด</span></td>
-                <td align="right"><span class="font-17" id="txt_park_total"><?=number_format($park_total,0);?> บ.</span></td>
-                <td width="20%" align="right"><?=$txt_get_cash;?></td>
-              </tr>
-              <tr style="<?=$display_person;?>">
-                <td width="35%"><span class="font-17">ค่าหัว</span></td>
-                <td align="right"><span class="font-17" id="txt_person_total"><?=$cal_person;?> = <?=number_format($person_total,0);?> บ.</span></td>
-                <td width="20%" align="right"><?=$txt_get_cash;?></td>
-              </tr>
+              
               <?php if ($val->transfer_money == 0) {?>
                 <tr style="<?=$display_com;?>">
                   <td width="35%"><span class="font-17">ค่าคอม</span></td>
