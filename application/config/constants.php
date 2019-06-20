@@ -113,6 +113,54 @@ define('TBL_DEPOSIT_HISTORY_LOG','deposit_history_logs');
 define('TBL_WEB_BANK_DRIVER','web_bank_driver');
 
 
+/**********************************/
+define('NEW_TBL_PARTNER', 'tbl_partner');
+define('NEW_TBL_PARTNER_CONTROL', 'tbl_partner_control');
+define('NEW_TBL_PARTNER_GROUP', 'tbl_partner_group');
+define('NEW_TBL_PAY_TYPE', 'tbl_pay_type');
+define('NEW_TBL_PLAN_MAIN', 'tbl_plan_main');
+define('NEW_TBL_PLAN_MAIN_LIST', 'tbl_plan_main_list');
+define('NEW_TBL_PLAN_PACK', 'tbl_plan_pack');
+define('NEW_TBL_PLAN_PACK_LIST', 'tbl_plan_pack_list');
+define('NEW_TBL_PLAN_PRICE_LIST', 'tbl_plan_price_list');
+define('NEW_TBL_UNIT_TYPE', 'tbl_unit_type');
+
+define('NEW_TBL_CON_EACH_PERSON', 'tbl_con_each_person');
+
+
+define('TBL_PARTNER', 'tbl_partner');
+define('TBL_PARTNER_CONTROL', 'tbl_partner_control');
+define('TBL_PARTNER_GROUP', 'tbl_partner_group');
+define('TBL_PAY_TYPE', 'tbl_pay_type');
+define('TBL_PLAN_MAIN', 'tbl_plan_main');
+define('TBL_PLAN_MAIN_LIST', 'tbl_plan_main_list');
+define('TBL_PLAN_PACK', 'tbl_plan_pack');
+define('TBL_PLAN_PACK_LIST', 'tbl_plan_pack_list');
+define('TBL_PLAN_PRICE_LIST_', 'tbl_plan_price_list');
+define('TBL_UNIT_TYPE', 'tbl_unit_type');
+define('TBL_CON_EACH_PERSON', 'tbl_con_each_person');
+define('TBL_CON_EACH_PARK', 'tbl_con_each_park');
+define('TBL_CON_EACH_CAR', 'tbl_con_each_car');
+define('TBL_CON_PS_ONLY_REGIS', 'tbl_con_ps_only_regis');
+define('TBL_CON_EACH_PS_ALL_PAY', 'tbl_con_ps_all_pay');
+define('TBL_CON_COM_PRODUCT_TYPE', 'tbl_con_com_product_type');
+define('TBL_WEB_CAR_USE_TYPE', 'web_car_use_type');
+define('TBL_COM_ORDER_BOOKING', 'tbl_com_order_booking');
+define('TBL_COM_ORDER_BOOKING_COMPANY', 'tbl_com_order_booking_company');
+
+define('TBL_COM_ORDER_BOOKING_LOGS', 'tbl_com_order_booking_logs');
+define('TBL_COM_ORDER_BOOKING_COMPANY_LOGS', 'tbl_com_order_booking_company_logs');
+
+define('TBL_COM_ORDER_BOOKING_COM', 'tbl_order_booking_com');
+define('TBL_COM_ORDER_BOOKING_COM_COMPANY', 'tbl_order_booking_com_company');
+
+define('TBL_COM_ORDER_BOOKING_CHANGE_PLAN', 'tbl_order_booking_com_change_plan');
+define('TBL_COM_ORDER_BOOKING_COMPANY_CHANGE_PLAN', 'tbl_order_booking_com_company_change_plan');
+
+define('TBL_PAY_HIS_DRIVER_SHOPPING', '	pay_history_driver_shopping');
+define('TBL_WEB_BANK_DRIVER', '	web_bank_driver');
+
+
 
 
 
