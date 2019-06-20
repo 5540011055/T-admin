@@ -36,7 +36,7 @@ class Shop extends CI_Controller {
 
   public function detail_trans() {
 //    echo 1;
-    $this->load->view('shop/detail');
+    $this->load->view('shop/detail_new');
   }
 
   public function detail_trans_his() {

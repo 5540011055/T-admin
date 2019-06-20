@@ -221,7 +221,12 @@ else {
       </div>
     </ons-list-item>
   </div>
-
+  
+  <?php 
+  
+  
+  
+  ?>
   <ons-card style="margin-top: 10px; margin-bottom: 0px;">
     <ons-row>
       <ons-col>

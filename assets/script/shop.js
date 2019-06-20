@@ -170,6 +170,7 @@ function checkPicShop(path, id) {
 var timer1;
 function calculateShopProduct(val, id) {
   clearTimeout(timer1);
+  console.log(id);
   timer1 = setTimeout(function validate() {
     var taxi_persent = 0, com_persent = 0;
     taxi_persent = $('#taxi_persent_' + id).val();
@@ -191,7 +192,7 @@ function calculateShopProduct(val, id) {
     $('#last_price_taxi_' + id).val(total_taxi);
     $('#last_price_company_' + id).val(total_company);
     calculateShopAllProduct();
-  }, 1000);
+  }, 500);
 }
 
 function calculateShopAllProduct() {

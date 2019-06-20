@@ -110,6 +110,7 @@ define('TBL_CHAT_MESSAGE','chat_message');
 define('TBL_DEPOSIT','deposit');
 define('TBL_DEPOSIT_HISTORY','deposit_history');
 define('TBL_DEPOSIT_HISTORY_LOG','deposit_history_logs');
+define('TBL_WEB_BANK_DRIVER','web_bank_driver');
 
 
 
