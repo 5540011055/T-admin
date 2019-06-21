@@ -62,8 +62,8 @@ class Shop extends CI_Controller {
 
   public function complete_trans_shop() {
     
-    $data['res'] = $this->Shop_model->complete_trans_shop();
-    $data['each'] = $this->Shop_model->update_cost_each_product();
+//    $data['res'] = $this->Shop_model->complete_trans_shop();
+//    $data['each'] = $this->Shop_model->update_cost_each_product();
     $data['post'] = $_POST;
     echo json_encode($data);
 //    echo json_encode($_FILES);

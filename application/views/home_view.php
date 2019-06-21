@@ -180,6 +180,34 @@
       border-top-left-radius: 5px;
     }
   </style>
+  <style>
+    .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .btn-f {
+      border: 2px solid gray;
+      color: gray;
+      background-color: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+
+    .upload-btn-wrapper input[type=file] {
+      font-size: 100px;
+      position: absolute;
+      left: 0px;
+      top: 0;
+      opacity: 0;
+      height: 100px;
+      z-index: 2;
+    }
+  </style>
   <ons-modal direction="up" id="modal_load" class="modal-load">
     <div style="text-align: center;">
       <p >

@@ -156,7 +156,7 @@ else {
 
   <?php
   foreach ($res_booking->result() as $key => $val) {
-
+    
     if ($val->i_type_pay == 2) {
 
       if ($val->i_plan_main == 3) {
@@ -228,11 +228,16 @@ else {
                   <?php
 //            echo $pack_com;
                   $_where = array();
-                  $_where[i_plan_pack] = $pack_com;
+                  
+                  $_where[i_plan_pack] = $plan_pack;
                   $_where[i_order_booking] = $_GET[order_id];
                   $this->db->select('*');
                   $con_pd_type_taxi = $this->db->get_where($table_to_get_taxi,$_where);
-
+//                  echo "<pre>";
+//                  echo $table_to_get_taxi;
+//                  print_r($con_pd_type_taxi->result());
+////                  echo $pack_com." ";
+//                  echo "</pre>";
                   foreach ($con_pd_type_taxi->result() as $key => $value) {
 
                     $_where = array();
@@ -382,31 +387,37 @@ else {
 
   <ons-card style="margin-top: 10px; margin-bottom: 10px;">
     <ons-list-header>ข้อมูลการโอน (แท็กซี่)</ons-list-header>
-<!--    <ons-list-item class="input-items">
-      <div class="left" style="width: 40%;">
-        <span class="font-14" >จำนวนที่โอน</span>
-      </div>
-      <div class="center">
-        <span class="font-14"><span id="txt_price_total" > 0 </span>&nbsp; บ.</span>
-      </div>
-    </ons-list-item>-->
+    <!--    <ons-list-item class="input-items">
+          <div class="left" style="width: 40%;">
+            <span class="font-14" >จำนวนที่โอน</span>
+          </div>
+          <div class="center">
+            <span class="font-14"><span id="txt_price_total" > 0 </span>&nbsp; บ.</span>
+          </div>
+        </ons-list-item>-->
     <ons-list-item class="list-item">
       <div class="center list-pd-r list-item__center">
         <span class="font-16" >จำนวนที่โอน</span>
       </div>
       <div class="right list-item__right">
-       <span class="font-16"><span id="txt_price_total" > <?=number_format($val->i_price * $val->i_pax,0);?> </span>&nbsp; บ.</span>
+        <span class="font-16"><span id="txt_price_total" > <?=number_format($val->i_price * $val->i_pax,0);?> </span>&nbsp; บ.</span>
       </div>
     </ons-list-item>
     <ons-list-header>สลิปโอนเงิน</ons-list-header>
     <div align="center">
-      <div>
-        <input type="file" id="img_upload" accept="image/*" style="opacity: 0;position: absolute;"onchange="readURLslipShop(this);">
-      </div>
-      <div class="box-preview-img" id="box_img_profile" style="width: 170px;height: 170px;" onclick="performClick('img_upload');">
+      <!--      <div>
+              <input type="file" id="img_upload" accept="image/*" style="opacity: 0;position: absolute;"onchange="readURLslipShop(this);">
+            </div>
+      -->            
+      <div class="box-preview-img" id="box_img_profile" style="width: 170px;height: 170px;">
         <img src="assets/images/noimage_2.gif" style="max-width: 100%; height: 170px;display: nones;" id="pv_slip"><br>
-        <span class="txt-upload-slip" ><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; เลือกรูปภาพ</span>
+        <!--<span class="txt-upload-slip" ><i class="fa fa-camera" aria-hidden="true"></i>&nbsp; เลือกรูปภาพ</span>-->
       </div> 
+      <div class="upload-btn-wrapper" >
+        <button class="btn-f" type="button"><i class="fa fa-camera" aria-hidden="true"></i> อัพโหลดรูปถ่าย</button>
+        <input type="file" name="img_profile_home" id="img_upload" accept="image/*" 
+               onchange="readURLslipShop(this);"/>
+      </div>
     </div>
   </ons-card>
 
